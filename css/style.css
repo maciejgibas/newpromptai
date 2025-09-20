@@ -852,15 +852,12 @@ body.dark .statement-inner {
 .section-header + .grid-2x2 { margin-top: 1rem; }
 
 /* === HERO: logo z bounce + glow === */
-.hero { position: relative; overflow: hidden; }
 .hero-logo {
-  max-width: 180px;
-  margin: 0 auto 1.2rem;
   display: block;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
+  margin: 3.5rem auto 0;   /* zamiast 0 auto */
+  max-width: 180px;
 }
-.bounce { animation: bounce 5s ease-in-out infinite; }
-.glow   { animation: glow 3.2s ease-in-out infinite; }
+
 
 @keyframes bounce {
   0%,100% { transform: translateY(0); }
@@ -919,12 +916,4 @@ body.dark-theme .statement-inner, body.dark .statement-inner { background:#14141
 .points li { display:grid; grid-template-columns:1.6rem 1fr; align-items:center; gap:.6rem; background:var(--tile-bg);
   border-radius:12px; padding:.7rem .9rem; box-shadow:0 4px 12px rgba(0,0,0,.06); }
 @media (max-width: 900px) { .points { grid-template-columns:1fr; } }
-
-.page-home .hero-logo {
-  margin-top: 3rem;  /* na głównej obniżone */
-}
-
-.page-pe .hero-logo {
-  margin-top: 1rem;  /* na PE wyżej, z bounce/glow */
-}
 
