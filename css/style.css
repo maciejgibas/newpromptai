@@ -825,3 +825,97 @@ body.dark .statement-inner {
             drop-shadow(0 0 40px rgba(0,157,255,0.6));
   }
 }
+/* === Gradientowe nagłówki sekcji === */
+.section-header {
+  max-width: 1100px;
+  margin: 3rem auto 1rem;
+  padding: 0 1rem;
+}
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: .75rem;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.section-sub { opacity: .85; font-size: 1rem; }
+.section-underline {
+  height: 4px; width: 72px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  margin-top: .5rem;
+}
+.section-header + .tiles,
+.section-header + .offer-grid,
+.section-header + .grid-2x2 { margin-top: 1rem; }
+
+/* === HERO: logo z bounce + glow === */
+.hero { position: relative; overflow: hidden; }
+.hero-logo {
+  max-width: 180px;
+  margin: 0 auto 1.2rem;
+  display: block;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
+}
+.bounce { animation: bounce 5s ease-in-out infinite; }
+.glow   { animation: glow 3.2s ease-in-out infinite; }
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-14px); }
+}
+@keyframes glow {
+  0%,100% { filter: drop-shadow(0 0 8px rgba(123,97,255,.55)) drop-shadow(0 0 22px rgba(0,157,255,.38)); }
+  50%     { filter: drop-shadow(0 0 16px rgba(123,97,255,.9))  drop-shadow(0 0 40px rgba(0,157,255,.6));  }
+}
+
+/* === Lead magnet – pro karta === */
+.lead-card { padding: 1px; border-radius: 18px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  max-width: 1000px; margin: 1.5rem auto 3rem; box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+.lead-inner { background: var(--surface); border-radius: 17px; padding: 1.75rem;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: center; }
+body.dark-theme .lead-inner, body.dark .lead-inner { background: #141414; }
+
+.lead-copy .kicker {
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  font-size: .78rem; opacity: .72; margin-bottom: .4rem;
+}
+.lead-copy h3 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); line-height: 1.25; margin: 0 0 .6rem; text-wrap: balance; }
+.lead-points { display:flex; flex-wrap:wrap; gap:.5rem 1rem; list-style:none; padding:0; margin:0;
+  color: var(--stat-fg-sub); font-size: .95rem; }
+
+.lead-form { width:100%; }
+.input-group { display:grid; grid-template-columns: 1fr auto; gap:.6rem; align-items:center; }
+.input-group input {
+  width:100%; padding:.9rem 1rem; border:1px solid rgba(0,0,0,.08); border-radius:999px;
+  background: var(--tile-bg); color: inherit; transition: box-shadow .2s, border-color .2s, background .2s;
+}
+.input-group input:focus {
+  outline: none; border-color: transparent;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent-1) 40%, transparent),
+              0 0 0 6px color-mix(in oklab, var(--accent-2) 28%, transparent);
+  background: var(--tile-hover);
+}
+.input-group .cta { padding:.9rem 1.2rem; border-radius:999px; white-space:nowrap; }
+.microcopy { margin-top:.5rem; font-size:.85rem; opacity:.7; }
+.sr-only { position:absolute!important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+
+@media (max-width: 900px) {
+  .lead-inner { grid-template-columns: 1fr; gap: 1.25rem; }
+  .input-group { grid-template-columns: 1fr; }
+  .input-group .cta { width: 100%; text-align: center; }
+}
+
+/* === Delikatniejsze karty „statement/points” (jeśli używasz) === */
+.statement { padding:1px; border-radius:16px; background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  max-width:1100px; margin:2rem auto 3rem; box-shadow:0 10px 30px rgba(0,0,0,.06); }
+.statement-inner { background: var(--surface); border-radius:15px; padding:2rem 1.75rem;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04) inset; }
+body.dark-theme .statement-inner, body.dark .statement-inner { background:#141414; box-shadow:0 1px 0 rgba(255,255,255,.03) inset; }
+.points { display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap:.8rem; list-style:none; margin:0; padding:0; }
+.points li { display:grid; grid-template-columns:1.6rem 1fr; align-items:center; gap:.6rem; background:var(--tile-bg);
+  border-radius:12px; padding:.7rem .9rem; box-shadow:0 4px 12px rgba(0,0,0,.06); }
+@media (max-width: 900px) { .points { grid-template-columns:1fr; } }
