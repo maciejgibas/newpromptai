@@ -2282,3 +2282,68 @@ form button {
     right: 0;
   }
 }
+/* === FULLSCREEN OVERLAY MENU === */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4); /* lekkie przyciemnienie */
+  backdrop-filter: blur(10px); /* efekt szkła */
+  z-index: 2000;
+  transition: opacity 0.3s ease;
+}
+
+.menu-overlay.open {
+  display: flex;
+  opacity: 1;
+}
+
+/* Kontener nawigacji */
+.menu-box {
+  background: linear-gradient(135deg, #7b2ff7, #00c6ff);
+  padding: 2rem 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+  text-align: center;
+  animation: scaleIn 0.3s ease;
+}
+
+.menu-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.menu-box ul li a {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.menu-box ul li a:hover {
+  color: #ffe600;
+}
+
+/* Przycisk zamknięcia */
+.menu-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
