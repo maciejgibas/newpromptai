@@ -2154,3 +2154,92 @@ form button {
 .theme-toggle {
   margin-left: 1.5rem; /* odsunięcie przełącznika od ostatniego linku */
 }
+/* Kontener */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ukrycie checkboxa */
+.theme-toggle input {
+  display: none;
+}
+
+/* Styl przełącznika */
+.toggle-label {
+  width: 60px;
+  height: 30px;
+  background: #ccc;
+  border-radius: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 16px;
+}
+
+/* "Kulka" przesuwająca się */
+.toggle-label::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Ikony w środku */
+.toggle-label .icon {
+  z-index: 1;
+  font-size: 14px;
+  transition: opacity 0.3s ease;
+}
+
+.toggle-label .moon {
+  opacity: 0;
+}
+
+/* Po włączeniu (dark mode) */
+.theme-toggle input:checked + .toggle-label {
+  background: #6c63ff; /* Twój fiolet */
+}
+
+.theme-toggle input:checked + .toggle-label::after {
+  transform: translateX(30px);
+}
+
+.theme-toggle input:checked + .toggle-label .sun {
+  opacity: 0;
+}
+
+.theme-toggle input:checked + .toggle-label .moon {
+  opacity: 1;
+}
+/* Domyślnie ukryj burgera */
+.hamburger {
+  display: none;
+}
+
+/* Pokaż burgera tylko na mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  #nav-menu ul {
+    display: none; /* chowamy normalne linki */
+    flex-direction: column;
+  }
+
+  #nav-menu.open ul {
+    display: flex; /* pokażemy linki jak klikniesz burgera */
+  }
+}
