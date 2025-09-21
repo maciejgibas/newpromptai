@@ -1,28 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
     const hamburger = document.getElementById("hamburger");
-    const overlay = document.getElementById("menu-overlay");
-    const closeBtn = document.getElementById("menu-close");
+    const navLinks = document.querySelector(".nav-links");
   
-    if (hamburger && overlay && closeBtn) {
+    if (hamburger && navLinks) {
+      // kliknięcie w burgera – przełączanie widoczności
       hamburger.addEventListener("click", () => {
-        overlay.classList.add("open");
+        navLinks.classList.toggle("open");
       });
   
-      closeBtn.addEventListener("click", () => {
-        overlay.classList.remove("open");
-      });
-  
-      overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) {
-          overlay.classList.remove("open");
-        }
-      });
-  
-      // 🔥 zamykanie po kliknięciu w link
-      const menuLinks = overlay.querySelectorAll("a");
-      menuLinks.forEach(link => {
+      // kliknięcie w link – zamykanie menu
+      const links = navLinks.querySelectorAll("a");
+      links.forEach(link => {
         link.addEventListener("click", () => {
-          overlay.classList.remove("open");
+          navLinks.classList.remove("open");
         });
       });
     }
