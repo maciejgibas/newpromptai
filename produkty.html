@@ -1,20 +1,96 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produkty – NewPrompt</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produkty | NewPrompt</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    .product-block {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 2rem;
+      padding: 3rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .product-cover {
+      flex: 1 1 240px;
+      max-width: 260px;
+      border-radius: 1rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,.1);
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+      background: #f7f7f7;
+    }
+
+    .product-content {
+      flex: 2 1 500px;
+    }
+
+    .product-content h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-content p.lead {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .product-points {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.25rem;
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .product-points li::before {
+      content: "✅ ";
+      margin-right: 0.2rem;
+    }
+
+    .product-content .cta {
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .product-block {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .product-content {
+        text-align: left;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <header class="navbar">
-    <div class="logo">NewPrompt</div>
+  <!-- NAV -->
+  <header class="navbar" role="navigation">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logos/logo.png" alt="Logo NewPrompt" class="logo-img" />
+        <span class="logo-text">NewPrompt</span>
+      </a>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Strona główna</a></li>
         <li><a href="prompt-engineering.html">Prompt Engineering</a></li>
         <li><a href="druk-3d.html">Druk 3D</a></li>
-        <li><a href="produkty.html">Produkty</a></li>
+        <li><a aria-current="page" href="produkty.html">Produkty</a></li>
         <li><a href="szkolenia.html">Szkolenia</a></li>
         <li><a href="o-nas.html">O nas</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
@@ -23,21 +99,190 @@
     </nav>
   </header>
 
-  <main class="hero">
-    <h1>Produkty NewPrompt</h1>
-    <p>Oferujemy gotowe zestawy edukacyjne, e-booki, pendrive'y z kursami, modele 3D i gadżety promujące nowoczesną edukację i sztuczną inteligencję.</p>
-    <a href="kontakt.html" class="cta">Zamów produkt</a>
-  </main>
-
-  <section class="tiles">
-    <a href="kontakt.html" class="tile">Zamówienie indywidualne</a>
-    <a href="szkolenia.html" class="tile">Zestawy do szkoleń</a>
-    <a href="druk-3d.html" class="tile">Modele do druku</a>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Nasze produkty cyfrowe</h1>
+    <p>E-booki i zasoby dostępne dla uczestników szkoleń NewPrompt. Wpisz swój token, by pobrać.</p>
+    <img src="assets/logos/logo.png" alt="NewPrompt" class="hero-logo bounce glow" />
   </section>
 
+  <!-- PRODUKTY -->
+<div class="product-block">
+  <img src="assets/products/ebook-10tips.jpg" alt="Okładka ebooka: 10 wskazówek" class="product-cover" />
+  <div class="product-content">
+    <h3>📘 10 wskazówek do skutecznych promptów</h3>
+    <p class="lead">Szybki przewodnik po tym, jak pisać prompty, które rzeczywiście działają – zarówno w edukacji, jak i biznesie.</p>
+    <ul class="product-points">
+      <li>10 żelaznych reguł + przykłady</li>
+      <li>Dla ChatGPT, Claude, Mistral</li>
+      <li>PDF gotowy do druku</li>
+    </ul>
+    <button class="cta" data-file="ebook-10tips.pdf">🔓 Odblokuj dostęp</button>
+  </div>
+</div>
+
+<div class="product-block">
+  <img src="assets/products/prisma-np.jpg" alt="Okładka ebooka: PRISMA-NP – Metodyka Prompt Engineering" class="product-cover" />
+  <div class="product-content">
+    <h3>📗 P.R.I.S.M.A.-NP™ – Metodyka Prompt Engineering</h3>
+    <p class="lead">Kompletny framework projektowania i wdrażania promptów w środowiskach AI, oparty o doświadczenia zespołu NewPrompt. Narzędzie dla trenerów, edukatorów, HR, działów badań i strategii.</p>
+    <ul class="product-points">
+      <li><strong>P</strong>lan, <strong>R</strong>ole, <strong>I</strong>nfrastruktura, <strong>S</strong>trategia, <strong>M</strong>odele, <strong>A</strong>naliza</li>
+      <li>Przykłady wdrożeń w edukacji, rekrutacji i automatyzacji pracy</li>
+      <li>Dla ChatGPT, Claude, Mistral i innych LLM</li>
+    </ul>
+    <!-- UWAGA: tylko nazwa pliku, BEZ ścieżki -->
+    <button class="cta" data-file="prisma-np.pdf">🔓 Odblokuj dostęp</button>
+  </div>
+</div>
+
+
+<div class="product-block">
+  <img src="assets/products/broszura-prompty.jpg" alt="Okładka ebooka: Broszura promptów" class="product-cover" />
+  <div class="product-content">
+    <h3>📚 Broszura: 100+ promptów</h3>
+    <p class="lead">Gotowe do użycia prompty tematyczne – dla nauczycieli, HR, marketerów i twórców treści.</p>
+    <ul class="product-points">
+      <li>100+ promptów tematycznych</li>
+      <li>Dla edukacji, HR i biznesu</li>
+      <li>Gotowe do wklejenia i użycia</li>
+    </ul>
+    <button class="cta" data-file="broszura-prompty.pdf">🔓 Odblokuj dostęp</button>
+  </div>
+</div>
+
+<div class="product-block">
+  <img src="assets/products/konfiguracja-llm.jpg" alt="Okładka ebooka: Konfiguracja środowisk LLM" class="product-cover" />
+  <div class="product-content">
+    <h3>⚙️ Konfiguracja środowisk LLM</h3>
+    <p class="lead">Z tym PDF-em uruchomisz lokalne środowisko do pracy z AI: LM Studio, OpenRouter i więcej.</p>
+    <ul class="product-points">
+      <li>LM Studio, API, lokalne modele</li>
+      <li>Krok po kroku z obrazkami</li>
+      <li>Porady dla początkujących</li>
+    </ul>
+    <button class="cta" data-file="konfiguracja-llm.pdf">🔓 Odblokuj dostęp</button>
+  </div>
+</div>
+
+
+  <!-- Jak zdobyć token -->
+  <div style="text-align: center; margin: 3rem 0;">
+    <button class="cta big" id="get-token">🪄 Jak zdobyć token?</button>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 NewPrompt sp. z o.o. | E-booki | Gadżety | Materiały szkoleniowe</p>
+    <p>&copy; 2025 NewPrompt sp. z o.o.</p>
   </footer>
+
+  <!-- Modale -->
+  <div id="token-modal" class="lightbox" aria-hidden="true">
+    <div class="lead-card" style="max-width: 400px;">
+      <div class="lead-inner">
+        <form id="token-form" class="lead-form" onsubmit="return false;">
+          <h3>🔐 Wpisz token dostępu</h3>
+          <label class="stack span-2">
+            <span class="lbl">Token</span>
+            <input type="text" id="token-input" placeholder="np. NEWPROMPTAI2025" />
+          </label>
+          <button type="submit" class="cta btn-grad span-2">Odblokuj</button>
+          <p class="microcopy span-2" id="token-error" style="color: red; display: none;">Niepoprawny token.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="get-token-modal" class="lightbox" aria-hidden="true">
+    <div class="lead-card" style="max-width: 460px;">
+      <div class="lead-inner">
+        <h3>🪄 Skąd wziąć token dostępu?</h3>
+        <p style="font-size: 1.05rem; margin-bottom: 1rem;">
+          Token otrzymują <strong>uczestnicy naszych szkoleń i warsztatów</strong> – zupełnie za darmo, jako część pakietu materiałów.
+        </p>
+        <p class="microcopy">Weź udział w szkoleniu, a uzyskasz dostęp do zasobów premium, e-booków i narzędzi AI.</p>
+        <a href="kontakt.html" class="cta btn-grad">Zobacz szkolenia</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    const VALID_TOKEN = "NEWPROMPTAI2025";
+    const STORAGE_KEY = "newprompt_token_valid";
+    let downloadAfterUnlock = null;
+
+    const tokenModal = document.getElementById('token-modal');
+    const getTokenModal = document.getElementById('get-token-modal');
+    const tokenForm = document.getElementById('token-form');
+    const tokenInput = document.getElementById('token-input');
+    const tokenError = document.getElementById('token-error');
+
+    const hasAccess = localStorage.getItem(STORAGE_KEY) === "true";
+
+    document.querySelectorAll('[data-file]').forEach(btn => {
+      const filename = btn.getAttribute('data-file');
+      if (hasAccess) {
+        btn.outerHTML = `<a href="downloads/${filename}" class="cta btn-grad" download>📥 Pobierz PDF</a>`;
+      } else {
+        btn.addEventListener('click', () => {
+          downloadAfterUnlock = filename;
+          tokenModal.classList.add('open');
+          tokenModal.setAttribute('aria-hidden', 'false');
+          tokenInput.value = '';
+          tokenError.style.display = 'none';
+          tokenInput.focus();
+        });
+      }
+    });
+
+    tokenForm.addEventListener('submit', () => {
+      const entered = tokenInput.value.trim();
+      if (entered === VALID_TOKEN) {
+        localStorage.setItem(STORAGE_KEY, "true");
+        tokenModal.classList.remove('open');
+        tokenModal.setAttribute('aria-hidden', 'true');
+        unlockDownloads();
+      } else {
+        tokenError.style.display = 'block';
+      }
+    });
+
+    function unlockDownloads() {
+      document.querySelectorAll('[data-file]').forEach(btn => {
+        const filename = btn.getAttribute('data-file');
+        btn.outerHTML = `<a href="downloads/${filename}" class="cta btn-grad" download>📥 Pobierz PDF</a>`;
+      });
+      if (downloadAfterUnlock) {
+        setTimeout(() => {
+          window.location.href = `downloads/${downloadAfterUnlock}`;
+        }, 500);
+      }
+    }
+
+    document.getElementById('get-token').addEventListener('click', () => {
+      getTokenModal.classList.add('open');
+      getTokenModal.setAttribute('aria-hidden', 'false');
+    });
+
+    [tokenModal, getTokenModal].forEach(modal => {
+      modal.addEventListener('click', e => {
+        if (e.target === modal) {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        [tokenModal, getTokenModal].forEach(modal => {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+    });
+  </script>
 
   <script src="js/theme-toggle.js"></script>
 </body>

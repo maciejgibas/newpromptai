@@ -1,14 +1,66 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kontakt – NewPrompt</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kontakt | NewPrompt</title>
+  <meta name="description" content="Skontaktuj się z NewPrompt – spin-offem Politechniki Krakowskiej. Zapytaj o szkolenia AI, druk 3D, wdrożenia i współpracę B+R.">
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- DROBNE STYLE LOKALNE (TYLKO DLA TEJ STRONY) -->
+  <style>
+    .contact-page .hero { padding: 5rem 2rem 3rem; text-align: center; color:#fff;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); }
+    .contact-page .hero p { max-width: 720px; margin: 0 auto; opacity:.95; }
+
+    .contact-wrap { max-width: 1100px; margin: 2rem auto 3rem; padding: 0 1rem; }
+    .contact-grid { display:grid; grid-template-columns: 1.3fr .9fr; gap: 1.5rem; }
+    @media (max-width: 900px){ .contact-grid{ grid-template-columns: 1fr; } }
+
+    .card { background: var(--card-bg); color: var(--card-fg); border-radius: 16px; 
+      box-shadow: var(--shadow-soft); padding: 1.5rem; }
+
+    .contact-form .row { display:grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+    .contact-form .row + .row { margin-top: .8rem; }
+    .contact-form .row-1 { grid-template-columns: 1fr; }
+    @media (max-width:700px){ .contact-form .row{ grid-template-columns:1fr; } }
+
+    .contact-form label { font-weight: 600; font-size:.95rem; margin-bottom:.25rem; display:block; }
+    .contact-form input, .contact-form textarea, .contact-form select {
+      width:100%; padding:.9rem 1rem; border-radius:12px; border:1px solid rgba(0,0,0,.08);
+      background: var(--tile-bg); color:inherit; transition: box-shadow .2s, background .2s; }
+    body.dark-theme .contact-form input, body.dark-theme .contact-form textarea, body.dark-theme .contact-form select {
+      border-color: rgba(255,255,255,.12); }
+    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+      outline:none; background: var(--tile-hover); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent-1) 35%, transparent); }
+    .contact-form textarea{ min-height: 160px; resize: vertical; }
+    .contact-form .submitbar { display:flex; gap:.75rem; align-items:center; justify-content:flex-start; margin-top:1rem; }
+    .contact-form .cta { border:none; cursor:pointer; }
+    .micro { font-size:.85rem; opacity:.7; }
+
+    .contact-info h3 { margin: 0 0 .5rem; font-weight:800; }
+    .contact-list { list-style:none; padding:0; margin:0; display:grid; gap:.5rem; }
+    .contact-list li a { text-decoration:none; color:inherit; font-weight:600; }
+    .legal { font-size:.95rem; opacity:.9; }
+    .legal b { font-weight:800; }
+
+    .mini-faq { margin-top: 1rem; }
+    .mini-faq details { border:1px solid rgba(0,0,0,.08); border-radius:12px; padding:.8rem 1rem; background: var(--surface-weak); }
+    body.dark-theme .mini-faq details { border-color: rgba(255,255,255,.12); background: #1c1c1c; }
+    .mini-faq details + details { margin-top:.6rem; }
+    .mini-faq summary { cursor:pointer; font-weight:700; }
+  </style>
 </head>
-<body>
-  <header class="navbar">
-    <div class="logo">NewPrompt</div>
+<body class="light-theme contact-page">
+  <!-- NAV -->
+  <header class="navbar" role="navigation" aria-label="Główne">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logos/logo.png" alt="NewPrompt logo" class="logo-img" />
+        <span class="logo-text">NewPrompt</span>
+      </a>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Strona główna</a></li>
@@ -17,50 +69,146 @@
         <li><a href="produkty.html">Produkty</a></li>
         <li><a href="szkolenia.html">Szkolenia</a></li>
         <li><a href="o-nas.html">O nas</a></li>
-        <li><a href="kontakt.html">Kontakt</a></li>
-        <li><button id="theme-toggle">🌙</button></li>
+        <li><a aria-current="page" href="kontakt.html">Kontakt</a></li>
+        <li><button id="theme-toggle" aria-label="Przełącz motyw">🌙</button></li>
       </ul>
     </nav>
   </header>
 
-  <main class="hero">
-    <h1>Skontaktuj się z nami</h1>
-    <p>Chcesz zamówić szkolenie, produkt, lub zadać pytanie? Wypełnij formularz lub napisz bezpośrednio!</p>
-  </main>
-
-  <section class="tiles" style="max-width: 800px; margin: 0 auto;">
-    <form action="mailto:kontakt@newprompt.pl" method="POST" enctype="text/plain" class="tile" style="display: flex; flex-direction: column; gap: 1rem;">
-      <label for="name">Imię i nazwisko:</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Adres e-mail:</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="message">Wiadomość:</label>
-      <textarea id="message" name="message" rows="6" required></textarea>
-
-      <button type="submit" class="cta">Wyślij wiadomość</button>
-    </form>
-
-    <div class="tile">
-      <h2>Dane kontaktowe</h2>
-      <p><strong>NewPrompt sp. z o.o.</strong><br>
-      kontakt@newprompt.pl<br>
-      NIP: 1234567890<br>
-      Współpraca z Politechniką Krakowską</p>
-
-      <h3>Social Media</h3>
-      <p>
-        <a href="https://facebook.com/newprompt" target="_blank">Facebook</a><br>
-        <a href="https://linkedin.com/company/newprompt" target="_blank">LinkedIn</a><br>
-        <a href="https://instagram.com/newprompt" target="_blank">Instagram</a>
-      </p>
-    </div>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Kontakt</h1>
+    <p>Masz pytania o szkolenia, wdrożenia AI lub druk 3D? Napisz – zwykle odpowiadamy tego samego dnia.</p>
   </section>
 
+  <!-- FORM + DANE -->
+  <main class="contact-wrap">
+    <div class="contact-grid">
+      <!-- FORM -->
+      <section class="card contact-form" aria-labelledby="form-tytul">
+        <h2 id="form-tytul" class="section-title" style="background:none;color:inherit;">Napisz do nas</h2>
+        <p class="section-sub" style="margin-bottom:.75rem;">Wypełnij krótki formularz – odezwiemy się z propozycją terminu i zakresem.</p>
+
+        <!-- FormSubmit: wysyła na kontakt@newpromptai.pl -->
+        <form action="https://formsubmit.co/kontakt@newpromptai.pl" method="POST">
+          <!-- zabezpieczenia i ustawienia FormSubmit -->
+          <input type="hidden" name="_subject" value="Wiadomość z formularza NewPrompt">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://newpromptai.pl/dziekujemy.html">
+
+          <div class="row">
+            <div>
+              <label for="imie">Imię</label>
+              <input id="imie" name="Imię" type="text" required />
+            </div>
+            <div>
+              <label for="nazwisko">Nazwisko</label>
+              <input id="nazwisko" name="Nazwisko" type="text" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="email">E-mail</label>
+              <input id="email" name="Email" type="email" required />
+            </div>
+            <div>
+              <label for="temat">Temat</label>
+              <select id="temat" name="Temat">
+                <option>Szkolenia – AI/PRISMA-NP</option>
+                <option>Szkolenia – Druk 3D / CAD</option>
+                <option>Wdrożenia AI w organizacji</option>
+                <option>Współpraca B+R / Uczelnia</option>
+                <option>Inne</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row row-1">
+            <div>
+              <label for="wiadomosc">Wiadomość</label>
+              <textarea id="wiadomosc" name="Wiadomość" placeholder="Napisz kilka zdań o potrzebie…"></textarea>
+            </div>
+          </div>
+
+          <div class="submitbar">
+            <button type="submit" class="cta btn-grad">📩 Wyślij wiadomość</button>
+            <span class="micro">Formularz obsługuje FormSubmit. Nie przechowujemy kopii na serwerze.</span>
+          </div>
+        </form>
+      </section>
+
+      <!-- DANE FIRMY -->
+      <aside class="card contact-info" itemscope itemtype="https://schema.org/Organization">
+        <h3>NewPrompt sp. z o.o.</h3>
+        <ul class="contact-list">
+          <li><b>Adres:</b> <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="streetAddress">ul. Juliusza Lea 114, lok. 416A, 416B</span>,
+            <span itemprop="postalCode">30-133</span> <span itemprop="addressLocality">Kraków</span>
+          </span></li>
+          <li><b>E-mail:</b> <a itemprop="email" href="mailto:kontakt@newpromptai.pl">kontakt@newpromptai.pl</a></li>
+        </ul>
+
+        <div class="legal" style="margin-top:1rem;">
+          <p><b>KRS:</b> <span itemprop="taxID">0001171407</span><br>
+             <b>NIP:</b> 6772525131<br>
+             <b>REGON:</b> 541704038</p>
+          <p style="margin-top:.5rem;">Działamy jako spin-off Politechniki Krakowskiej.</p>
+        </div>
+
+        <div class="mini-faq">
+          <details>
+            <summary>Faktury i dane do umowy</summary>
+            <div class="micro">W odpowiedzi na wiadomość prześlemy komplet danych formalnych oraz wzór umowy / zamówienia.</div>
+          </details>
+          <details>
+            <summary>Spotkania i terminy</summary>
+            <div class="micro">Szkolenia ogólne: <b>drugi wtorek miesiąca, 20:00</b>. Dla organizacji – terminy indywidualne.</div>
+          </details>
+        </div>
+      </aside>
+    </div>
+
+    <!-- MAPA (opcjonalnie, bez JS) -->
+    <section class="card" style="margin-top:1rem;">
+      <h3 style="margin:0 0 .5rem;font-weight:800;">Jak nas znaleźć</h3>
+      <iframe
+        title="Mapa dojazdu – NewPrompt"
+        src="https://www.google.com/maps?q=Juliusza%20Lea%20114%2C%20Krak%C3%B3w&output=embed"
+        width="100%" height="300" style="border:0;border-radius:12px;" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+  </main>
+
+  <!-- CTA KOŃCOWE -->
+  <section class="cta-section">
+    <h2>Porozmawiajmy o Twoim projekcie</h2>
+    <p>Opisz krótko cel i ograniczenia – wrócimy do Ciebie z planem działań i wyceną.</p>
+    <a href="#form-tytul" class="cta-btn">📩 Wyślij zapytanie</a>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 NewPrompt sp. z o.o. | kontakt@newprompt.pl</p>
+    <p>&copy; 2025 NewPrompt sp. z o.o.</p>
   </footer>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"NewPrompt sp. z o.o.",
+    "email":"kontakt@newpromptai.pl",
+    "address":{
+      "@type":"PostalAddress",
+      "streetAddress":"ul. Juliusza Lea 114, lok. 416A, 416B",
+      "addressLocality":"Kraków",
+      "postalCode":"30-133",
+      "addressCountry":"PL"
+    }
+  }
+  </script>
 
   <script src="js/theme-toggle.js"></script>
 </body>

@@ -1,14 +1,62 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O nas – NewPrompt</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>O nas | NewPrompt</title>
+
+  <meta name="description" content="NewPrompt – spin-off Politechniki Krakowskiej. Łączymy AI, druk 3D i edukację. Zespół inżynierów i dydaktyków, którzy przekuwają wiedzę akademicką w praktyczne rozwiązania." />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logos/logo.png" />
+
+  <style>
+    /* Drobne dopasowania tylko dla tej strony */
+    .about-lead { max-width: 860px; margin: 0 auto; opacity: .95; }
+    .about-photo {
+      width: 100%; max-width: 980px; margin: 1.5rem auto 0;
+      border-radius: 16px; display:block; box-shadow: var(--shadow-soft);
+    }
+    .team-card {
+      background: var(--card-bg);
+      color: var(--card-fg);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+    }
+    .team-card img {
+      width: 120px; height: 120px; border-radius: 50%;
+      object-fit: cover; margin-bottom: .9rem;
+      box-shadow: 0 6px 16px rgba(0,0,0,.12);
+    }
+    .team-name { font-weight: 800; margin-bottom: .25rem; }
+    .team-role { opacity: .85; font-weight: 600; margin-bottom: .5rem; }
+    .values-grid {
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 1rem; max-width: 1100px; margin: 0 auto; padding: 0 1rem;
+    }
+    .value {
+      padding: 1.25rem; border-radius: 14px; background: var(--tile-bg);
+      box-shadow: var(--shadow-soft);
+    }
+    .partner-band {
+      max-width: 1000px; margin: 0 auto; padding: 0 1rem 2rem;
+    }
+    .about-cta .cta.big { background:#fff; color:#000; }
+    .section-sub.center { text-align:center; }
+  </style>
 </head>
-<body>
-  <header class="navbar">
-    <div class="logo">NewPrompt</div>
+<body class="light-theme">
+  <!-- NAV -->
+  <header class="navbar" role="navigation" aria-label="Główne">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logos/logo.png" alt="NewPrompt logo" class="logo-img" />
+        <span class="logo-text">NewPrompt</span>
+      </a>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Strona główna</a></li>
@@ -16,54 +64,228 @@
         <li><a href="druk-3d.html">Druk 3D</a></li>
         <li><a href="produkty.html">Produkty</a></li>
         <li><a href="szkolenia.html">Szkolenia</a></li>
-        <li><a href="o-nas.html">O nas</a></li>
+        <li><a aria-current="page" href="o-nas.html">O nas</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
-        <li><button id="theme-toggle">🌙</button></li>
+        <li><button id="theme-toggle" aria-label="Przełącz motyw">🌙</button></li>
       </ul>
     </nav>
   </header>
 
-  <main class="hero">
-    <h1>Zespół NewPrompt</h1>
-    <p>Tworzymy interdyscyplinarny zespół inżynierów, dydaktyków i pasjonatów AI. Łączy nas wizja edukacji przyszłości.</p>
-  </main>
+  <!-- HERO -->
+  <section class="hero" style="padding-bottom: 3.5rem;">
+    <h1>Zespół, który łączy naukę z praktyką</h1>
+    <p class="about-lead">
+      Jesteśmy spin-offem Politechniki Krakowskiej. Wykorzystujemy AI i druk 3D,
+      żeby tworzyć realne rozwiązania dla szkół, uczelni i biznesu. Uczymy, budujemy,
+      wdrażamy – po partnersku i bez żargonu.
+    </p>
+    <img src="assets/logos/logo.png" alt="NewPrompt" class="hero-logo bounce glow" loading="eager" />
+  </section>
 
-  <section class="tiles team-grid">
-    <div class="tile">
-      <img src="assets/images/maciej-gibas.jpg" alt="Maciej Gibas" class="team-photo">
-      <h2>mgr inż. Maciej Gibas</h2>
-      <p>CEO NewPrompt, specjalista od AI, prompt engineeringu i optymalizacji elektromagnetycznej. Prowadzi zajęcia na PK i UPJP2.</p>
+<!-- KIM JESTEŚMY -->
+<div class="section-header">
+  <h2 class="section-title">Kim jesteśmy</h2>
+  <p class="section-sub">Przekuwamy wiedzę akademicką w realne rozwiązania</p>
+  <div class="section-underline"></div>
+</div>
+
+<section class="about-gradient">
+  <div class="about-box fade-in">
+    <h3>🎓 Spin-off Politechniki Krakowskiej</h3>
+    <p>Działamy jako spółka celowa PK. Przekuwamy akademicką wiedzę w szkolenia, konsulting i projekty wdrożeniowe z AI, prompt engineeringu i druku 3D.</p>
+  </div>
+
+  <div class="about-box fade-in">
+    <h3>⚙️ Od laboratoriów do wdrożeń</h3>
+    <p>Nasze korzenie to Wydział Inżynierii Elektrycznej i Komputerowej PK. Tworzymy scenariusze zajęć, prototypy i środowiska pracy oparte o LLM.</p>
+  </div>
+
+  <div class="about-box fade-in">
+    <h3>📚 Edukacja, która zostaje w rękach</h3>
+    <p>Ćwiczenia, checklisty i gotowe narzędzia. Po szkoleniu uczestnicy mają dostęp do Learn Cloud i certyfikat sygnowany Politechniką Krakowską.</p>
+  </div>
+</section>
+
+
+
+  <!-- ZESPÓŁ -->
+  <div class="section-header">
+  <h2 class="section-title">Nasz zespół</h2>
+  <p class="section-sub">Interdyscyplinarna ekipa inżynierów, dydaktyków i pasjonatów technologii.</p>
+  <div class="section-underline"></div>
+</div>
+
+<section class="team-alt">
+  <div class="team-member fade-left">
+    <img src="assets/team/maciej.jpg" alt="Maciej Gibas">
+    <div class="team-text">
+      <h3>mgr inż. Maciej Gibas</h3>
+      <p><strong>CEO • AI, prompt engineering</strong></p>
+      <p>Praktyk wdrożeń AI i optymalizacji. Prowadzi zajęcia m.in. na Politechnice Krakowskiej.</p>
     </div>
+  </div>
 
-    <div class="tile">
-      <img src="assets/images/zbigniew-pilch.jpg" alt="Zbigniew Pilch" class="team-photo">
-      <h2>dr inż. Zbigniew Pilch</h2>
-      <p>Ekspert od druku 3D, bezpieczeństwa cyfrowego i sztucznej inteligencji. Współtwórca kursów i opiekun zespołów badawczych.</p>
+  <div class="team-member fade-right">
+    <img src="assets/team/zbigniew.png" alt="Zbigniew Pilch">
+    <div class="team-text">
+      <h3>dr inż. Zbigniew Pilch</h3>
+      <p><strong>Współzałożyciel • 3D, cyberbezpieczeństwo</strong></p>
+      <p>Badacz i dydaktyk. Projekty z zakresu druku 3D, bezpieczeństwa cyfrowego i AI.</p>
     </div>
+  </div>
 
-    <div class="tile">
-      <img src="assets/images/kamila-stanczyk.jpg" alt="Kamila Stańczyk" class="team-photo">
-      <h2>inż. Kamila Stańczyk</h2>
-      <p>Specjalistka od wizualizacji przestrzennej i BIM. Odpowiada za tworzenie kursów VR oraz współpracę z klientami edukacyjnymi.</p>
+  <div class="team-member fade-left">
+    <img src="assets/team/kamila.png" alt="Kamila Stańczyk">
+    <div class="team-text">
+      <h3>inż. Kamila Stańczyk</h3>
+      <p><strong>Wizualizacja i VR/BIM</strong></p>
+      <p>Materiały 3D, kursy VR oraz współpraca z klientami edukacyjnymi.</p>
     </div>
+  </div>
 
-    <div class="tile">
-      <img src="assets/images/mateusz-pyznar.jpg" alt="Mateusz Pyznar" class="team-photo">
-      <h2>inż. Mateusz Pyznar</h2>
-      <p>Inżynier automatyk, konstruktor drukarek i nawijarek. Tworzy rozwiązania techniczne i wspiera rozwój materiałów szkoleniowych.</p>
+  <div class="team-member fade-right">
+    <img src="assets/team/mateusz.png" alt="Mateusz Pyznar">
+    <div class="team-text">
+      <h3>inż. Mateusz Pyznar</h3>
+      <p><strong>Automatyka, R&amp;D hardware</strong></p>
+      <p>Konstruktor drukarek i nawijarek, rozwój rozwiązań technicznych i materiałów szkoleniowych.</p>
     </div>
+  </div>
 
-    <div class="tile">
-      <img src="assets/images/lukasz-bolanowski.jpg" alt="Łukasz Bolanowski" class="team-photo">
-      <h2>inż. Łukasz Bolanowski</h2>
-      <p>Ekspert od grafiki i AI w mediach. Tworzy materiały wizualne, edytuje filmy i nadzoruje wdrożenia sztucznej inteligencji w edukacji.</p>
+  <div class="team-member fade-left">
+    <img src="assets/team/lukasz.png" alt="Łukasz Bolanowski">
+    <div class="team-text">
+      <h3>inż. Łukasz Bolanowski</h3>
+      <p><strong>Grafika, media i AI</strong></p>
+      <p>Tworzy materiały wizualne, wideo i wspiera wdrożenia AI w edukacji.</p>
+    </div>
+  </div>
+</section>
+
+  <!-- WARTOŚCI -->
+ <div class="section-header">
+  <h2 class="section-title">Wartości, którymi się kierujemy</h2>
+  <p class="section-sub">To one nadają kształt naszym szkoleniom i projektom.</p>
+  <div class="section-underline"></div>
+</div>
+
+<section class="values-alt">
+  <div class="value-item fade-left">
+    <div class="value-icon">🎓</div>
+    <div class="value-text">
+      <h3>Edukacja, nie żargon</h3>
+      <p>Uczymy prosto i praktycznie. Każdy materiał ma cel i zastosowanie.</p>
+    </div>
+  </div>
+
+  <div class="value-item fade-right">
+    <div class="value-icon">🚀</div>
+    <div class="value-text">
+      <h3>Innowacja</h3>
+      <p>Testujemy nowe modele LLM i narzędzia – przekładamy je na procesy i warsztat.</p>
+    </div>
+  </div>
+
+  <div class="value-item fade-left">
+    <div class="value-icon">🤝</div>
+    <div class="value-text">
+      <h3>Współpraca</h3>
+      <p>Łączymy naukę z rynkiem. Pracujemy zespołowo z nauczycielami, studentami i firmami.</p>
+    </div>
+  </div>
+
+  <div class="value-item fade-right">
+    <div class="value-icon">🔒</div>
+    <div class="value-text">
+      <h3>Odpowiedzialność</h3>
+      <p>Cyberhigiena, bezpieczeństwo danych, świadome korzystanie z AI.</p>
+    </div>
+  </div>
+
+  <div class="value-item fade-left">
+    <div class="value-icon">🧰</div>
+    <div class="value-text">
+      <h3>Narzędzia „do ręki”</h3>
+      <p>Check-listy, prompty, szablony – gotowe do użycia zaraz po szkoleniu.</p>
+    </div>
+  </div>
+
+  <div class="value-item fade-right">
+    <div class="value-icon">🌱</div>
+    <div class="value-text">
+      <h3>Rozwój</h3>
+      <p>Materiały w Learn Cloud i wsparcie po szkoleniu, by efekt został na dłużej.</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- PARTNERZY / WSPARCIE -->
+  <div class="section-header">
+    <h2 class="section-title">W partnerstwie z</h2>
+    <p class="section-sub center">Działamy jako spin-off PK oraz we współpracy z INTECH PK.</p>
+    <div class="section-underline"></div>
+  </div>
+
+  <section class="partner-band">
+    <div class="trusted-logos">
+      <img src="assets/partners/pk.png" alt="Politechnika Krakowska" />
+      <img src="assets/partners/wieik.png" alt="Politechnika Krakowska" />
+      <img src="assets/partners/intech-pk.png" alt="INTECH PK" />
     </div>
   </section>
 
+  <!-- CTA KOŃCOWE -->
+ <section class="cta-section">
+
+  <p>Pokażemy, jak wykorzystać AI i druk 3D w Twojej szkole lub firmie – od planu, przez materiały, aż po wdrożenie.</p>
+  <a href="kontakt.html" class="cta-btn">📩 Skontaktuj się z nami</a>
+</section>
+
+
+  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 NewPrompt sp. z o.o. | Jesteśmy interdyscyplinarnym zespołem przyszłości</p>
+    <p>&copy; 2025 NewPrompt sp. z o.o.</p>
   </footer>
+
+  <!-- JSON-LD (Organization) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"NewPrompt sp. z o.o.",
+    "url":"https://maciejgibas.github.io/newpromptai/o-nas.html",
+    "logo":"https://maciejgibas.github.io/newpromptai/assets/logos/logo.png",
+    "foundingDate":"2025",
+    "description":"Spin-off Politechniki Krakowskiej. Szkolenia i wdrożenia AI oraz druku 3D.",
+    "parentOrganization": { "@type":"CollegeOrUniversity", "name":"Politechnika Krakowska" }
+  }
+  </script>
 
   <script src="js/theme-toggle.js"></script>
 </body>
 </html>
+<script>
+const teamMembers = document.querySelectorAll('.team-member');
+function revealTeam() {
+  const trigger = window.innerHeight * 0.85;
+  teamMembers.forEach(member => {
+    const top = member.getBoundingClientRect().top;
+    if (top < trigger) member.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', revealTeam);
+window.addEventListener('load', revealTeam);
+</script>
+<script>
+const valueItems = document.querySelectorAll('.value-item');
+function revealValues() {
+  const trigger = window.innerHeight * 0.85;
+  valueItems.forEach(item => {
+    const top = item.getBoundingClientRect().top;
+    if (top < trigger) item.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', revealValues);
+window.addEventListener('load', revealValues);
+</script>

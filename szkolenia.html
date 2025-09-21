@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Szkolenia – NewPrompt</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Szkolenia | NewPrompt</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
-<body>
-  <header class="navbar">
-    <div class="logo">NewPrompt</div>
+<body class="light-theme">
+
+  <!-- NAV -->
+  <header class="navbar" role="navigation">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logos/logo.png" alt="Logo NewPrompt" class="logo-img" />
+        <span class="logo-text">NewPrompt</span>
+      </a>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Strona główna</a></li>
         <li><a href="prompt-engineering.html">Prompt Engineering</a></li>
         <li><a href="druk-3d.html">Druk 3D</a></li>
         <li><a href="produkty.html">Produkty</a></li>
-        <li><a href="szkolenia.html">Szkolenia</a></li>
+        <li><a aria-current="page" href="szkolenia.html">Szkolenia</a></li>
         <li><a href="o-nas.html">O nas</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
         <li><button id="theme-toggle">🌙</button></li>
@@ -23,22 +31,249 @@
     </nav>
   </header>
 
-  <main class="hero">
-    <h1>Pełna oferta szkoleń</h1>
-    <p>Nasze szkolenia obejmują tematykę sztucznej inteligencji, prompt engineeringu, druku 3D, cyberbezpieczeństwa i nowoczesnych technologii w edukacji.</p>
-    <a href="kontakt.html" class="cta">Zarezerwuj termin</a>
-  </main>
-
-  <section class="tiles">
-    <a href="prompt-engineering.html" class="tile">Prompt Engineering (PRISMA‑NP)</a>
-    <a href="druk-3d.html" class="tile">Druk 3D dla edukacji i przemysłu</a>
-    <a href="kontakt.html" class="tile">Szkolenia dla szkół i firm</a>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Szkolenia NewPrompt</h1>
+    <p>Praktyczna wiedza o AI, druku 3D i cyberbezpieczeństwie – od podstaw do zaawansowanych wdrożeń.</p>
+    <p><strong>Szkolenia ogólne odbywają się w każdy drugi wtorek miesiąca o godz. 20:00.</strong></p>
+    <a href="kontakt.html" class="cta big">📩 Zapisz się teraz</a>
+            <img src="assets/logos/logo.png" alt="NewPrompt" class="hero-logo bounce glow" />
   </section>
 
+  <!-- USP -->
+  <div class="section-header">
+    <h2 class="section-title">Dlaczego nasze szkolenia</h2>
+    <div class="section-underline"></div>
+  </div>
+  <section class="tiles">
+    <div class="tile"><h3>🎯 Od teorii do praktyki</h3><p>Pokazujemy gotowe przykłady i ćwiczenia.</p></div>
+    <div class="tile"><h3>📜 Certyfikat uczestnictwa</h3><p>Sygnowany przez <strong>Politechnikę Krakowską</strong> – autorytet akademicki.</p></div>
+    <div class="tile"><h3>👨‍🏫 Prowadzone przez praktyków</h3><p>Realne case study, nie tylko teoria.</p></div>
+    <div class="tile"><h3>🌍 Online, stacjonarnie i Learn Cloud</h3><p>Trzy formy nauki – zawsze dopasowane do Ciebie.</p></div>
+    <div class="tile"><h3>🚀 Aktualne trendy AI</h3><p>Na bieżąco z najnowszymi modelami i narzędziami.</p></div>
+    <div class="tile"><h3>💡 Społeczność i networking</h3><p>Poznajesz ludzi wdrażających AI i 3D w praktyce.</p></div>
+  </section>
+
+  <!-- OFERTA -->
+<div class="section-header">
+  <h2 class="section-title">Oferta szkoleń</h2>
+  <div class="section-underline"></div>
+</div>
+<section class="tiles">
+  <div class="tile">
+    <h3>👩‍🏫 AI dla nauczycieli</h3>
+    <p>Gotowe scenariusze lekcji, narzędzia edukacyjne i sposoby oceny.</p>
+  </div>
+
+  <div class="tile">
+    <h3>⚡ Prompt Engineering (PRISMA-NP™)</h3>
+    <p>Autorski framework do skutecznego wdrażania AI w edukacji i biznesie.</p>
+  </div>
+
+  <div class="tile">
+    <h3>🔐 Cyberbezpieczeństwo w erze AI</h3>
+    <p>Darknet, phishing, deepfake – jak się chronić i edukować zespół.</p>
+  </div>
+
+  <div class="tile">
+    <h3>🖌️ Projektowanie 3D</h3>
+    <p>Nauka modelowania w programach CAD i 3D, przygotowanie plików pod druk.</p>
+  </div>
+
+  <div class="tile">
+    <h3>🖨️ Druk 3D – od projektu do prototypu</h3>
+    <p>Materiały, optymalizacja modeli, praktyczne warsztaty w laboratorium.</p>
+  </div>
+
+  <div class="tile">
+    <h3>🛠️ Warsztaty praktyczne</h3>
+    <p>Ćwiczenia „hands-on” – od podstaw AI po prototypowanie 3D i wdrożenia biznesowe.</p>
+  </div>
+</section>
+
+  <!-- SZKOLENIA NA ZAMÓWIENIE -->
+<div class="section-header">
+  <h2 class="section-title">Szkolenia na zamówienie</h2>
+  <p class="section-sub">Twoja droga do praktycznej wiedzy i przewagi w branży</p>
+  <div class="section-underline"></div>
+</div>
+
+<section class="trainings-grid">
+
+  <div class="training-card">
+    <div class="training-icon">🎓</div>
+    <h3>Dedykowane programy</h3>
+    <p>Dla instytucji edukacyjnych, firm i kół naukowych. Treści szyte na miarę, dokładnie pod Twoje potrzeby.</p>
+  </div>
+
+  <div class="training-card">
+    <div class="training-icon">🧭</div>
+    <h3>Elastyczność formy</h3>
+    <p>Szkolenia zdalne, stacjonarne lub samokształcenie przez <em>NewPrompt Learn Cloud</em>. Ty wybierasz.</p>
+  </div>
+
+  <div class="training-card">
+    <div class="training-icon">💸</div>
+    <h3>Program zniżkowy</h3>
+    <p>Im większa grupa, tym korzystniejsza cena. Oferta indywidualna dla Twojej organizacji.</p>
+  </div>
+
+  <div class="training-card">
+    <div class="training-icon">📜</div>
+    <h3>Certyfikat sygnowany PK</h3>
+    <p>Każdy uczestnik otrzymuje prestiżowy certyfikat <strong>Politechniki Krakowskiej</strong>.</p>
+  </div>
+
+  <div class="training-card">
+    <div class="training-icon">🚀</div>
+    <h3>Dopasowanie do branży</h3>
+    <p>Edukacja, HR, biznes, IT czy badania naukowe – pokazujemy praktyczne case’y.</p>
+  </div>
+
+  <div class="training-card">
+    <div class="training-icon">🤝</div>
+    <h3>Wsparcie po szkoleniu</h3>
+    <p>Po szkoleniu masz dostęp do konsultacji i wsparcia we wdrożeniu rozwiązań.</p>
+  </div>
+
+</section>
+
+<div class="cta-center">
+  <a href="kontakt.html" class="cta-outline">📩 Chcę szkolenie dla mojej organizacji</a>
+</div>
+
+
+  <!-- NAJCZĘSTSZE OBAWY -->
+  <div class="section-header">
+  <h2 class="section-title">Najczęstsze obawy</h2>
+  <p class="section-sub">Kliknij, a pokażemy Ci prawdę</p>
+  <div class="section-underline"></div>
+</div>
+
+<section class="faq">
+  <div class="faq-item">
+    <button class="faq-q">❓ Nie znam angielskiego</button>
+    <div class="faq-a">✅ Prompty możesz pisać po polsku – AI rozumie i działa świetnie.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">❓ Nie mam wiedzy technicznej</button>
+    <div class="faq-a">✅ Zaczynamy od podstaw – wszystko pokazujemy krok po kroku.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">❓ Nie mam czasu</button>
+    <div class="faq-a">✅ Spotkania są raz w miesiącu, a materiały dostępne 24/7 na Learn Cloud.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">❓ To pewnie drogie</button>
+    <div class="faq-a">✅ Cena jest niższa niż godzina korepetycji – a zyskujesz certyfikat i praktykę.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">❓ To chyba tylko teoria</button>
+    <div class="faq-a">✅ Pokazujemy praktykę – realne wdrożenia i gotowe narzędzia.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q">❓ Nie wiem, czy to dla mnie</button>
+    <div class="faq-a">✅ Szkolenia są dla nauczycieli, studentów, HR, firm i pasjonatów – każdy znajdzie coś dla siebie.</div>
+  </div>
+</section>
+
+  <!-- PROCES -->
+  <div class="section-header">
+    <h2 class="section-title">Jak to działa</h2>
+    <div class="section-underline"></div>
+  </div>
+<section class="steps-slider">
+  <div class="tile step-slide"><h3>1. Wybierz szkolenie</h3></div>
+  <div class="tile step-slide"><h3>2. Zapisz się przez formularz</h3></div>
+  <div class="tile step-slide"><h3>3. Dołącz online, stacjonarnie lub na Learn Cloud</h3></div>
+  <div class="tile step-slide"><h3>4. Otrzymaj certyfikat sygnowany PK</h3></div>
+</section>
+
+
+  <!-- CTA -->
+<section class="cta-full">
+  <div class="cta-content">
+    <h2>Wykorzystaj AI i 3D pewnie i bez chaosu</h2>
+    <p>
+      Przejdziesz od ciekawości do konkretnych efektów w pracy i edukacji.
+      Bez żargonu, za to z ćwiczeniami, szablonami i wsparciem.
+      Na koniec otrzymasz certyfikat <strong>Politechniki Krakowskiej</strong>.
+    </p>
+
+
+
+    <a href="kontakt.html" class="cta big">Zapytaj o pierwszy wolny termin</a>
+
+    <p class="microcopy" style="margin-top:.75rem; opacity:.85">
+      Spokojny start: najpierw pokazujemy, potem ćwiczysz na własnych przykładach.
+    </p>
+  </div>
+</section>
+
+
+
+  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 NewPrompt sp. z o.o. | Szkolenia certyfikowane | Zniżki dla uczelni</p>
+    <p>&copy; 2025 NewPrompt sp. z o.o.</p>
   </footer>
 
+  <!-- JS -->
   <script src="js/theme-toggle.js"></script>
+
 </body>
 </html>
+<script>
+// FAQ toggle (akordeon)
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const parent = btn.parentElement;
+    const answer = parent.querySelector('.faq-a');
+
+    if (btn.classList.contains('active')) {
+      btn.classList.remove('active');
+      answer.style.display = "none";
+    } else {
+      document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('active'));
+      document.querySelectorAll('.faq-a').forEach(a => a.style.display = "none");
+      btn.classList.add('active');
+      answer.style.display = "block";
+    }
+  });
+});
+
+// Animacja przy scrollu
+const faqItems = document.querySelectorAll('.faq-item');
+
+function checkVisibility() {
+  const triggerBottom = window.innerHeight * 0.9;
+  faqItems.forEach(item => {
+    const boxTop = item.getBoundingClientRect().top;
+    if (boxTop < triggerBottom) {
+      item.classList.add('visible');
+    }
+  });
+}
+
+window.addEventListener('scroll', checkVisibility);
+window.addEventListener('load', checkVisibility);
+</script>
+<script>
+const slides = document.querySelectorAll('.step-slide');
+
+function checkSteps() {
+  const triggerBottom = window.innerHeight * 0.9;
+  slides.forEach(slide => {
+    const boxTop = slide.getBoundingClientRect().top;
+    if (boxTop < triggerBottom) {
+      slide.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', checkSteps);
+window.addEventListener('load', checkSteps);
+</script>
