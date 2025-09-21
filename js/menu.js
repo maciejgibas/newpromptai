@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
           overlay.classList.remove("open");
         }
       });
+  
+      // 🔥 zamykanie po kliknięciu w link
+      const menuLinks = overlay.querySelectorAll("a");
+      menuLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          overlay.classList.remove("open");
+        });
+      });
     }
   });
   
