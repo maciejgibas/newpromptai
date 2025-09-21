@@ -2116,3 +2116,41 @@ form button {
   display: block;
   margin: 15px auto 0; /* auto = wyśrodkuje poziomo */
 }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem; /* więcej przestrzeni góra/dół */
+  background: rgba(255, 255, 255, 0.7); /* półprzezroczyste tło */
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* odstęp logo od tekstu */
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* odstęp między linkami */
+  font-weight: 500;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+
+.navbar-menu a:hover {
+  color: #6c63ff; /* fioletowy hover pasujący do Twojej kolorystyki */
+}
+
+.theme-toggle {
+  margin-left: 1.5rem; /* odsunięcie przełącznika od ostatniego linku */
+}
