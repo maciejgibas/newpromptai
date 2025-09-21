@@ -2112,3 +2112,7 @@ section.timeline.trainings-timeline .timeline-icon {
   .hero p  { font-size: .95rem; }
   .section-title { font-size: 1.3rem; }
 }
+form button {
+  display: block;
+  margin: 15px auto 0; /* auto = wyśrodkuje poziomo */
+}
