@@ -3,416 +3,664 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>Druk 3D – prototypy i małe serie | NewPrompt</title>
-  <meta name="description" content="Druk 3D FDM i DLP/LCD: prototypy, elementy techniczne, gadżety. PLA, PETG, ABS/ASA, TPU i żywice. Szybkie terminy, wsparcie CAD, wycena online." />
-
+  <meta name="description" content="Druk 3D FDM i SLA/DLP: prototypy, elementy techniczne, gadżety. PLA, PETG, ABS/ASA, TPU i żywice. Szybkie terminy, wsparcie CAD, wycena online." />
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Open Graph -->
   <meta property="og:title" content="Druk 3D – prototypy i małe serie" />
-  <meta property="og:description" content="FDM i DLP/LCD, szeroka paleta materiałów, szybkie terminy. Wsparcie CAD. Wyślij plik i otrzymaj wycenę." />
+  <meta property="og:description" content="FDM i SLA/DLP, szeroka paleta materiałów, szybkie terminy. Wsparcie CAD. Wyślij plik i otrzymaj wycenę." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://maciejgibas.github.io/newpromptai/druk-3d.html" />
   <meta property="og:image" content="assets/og/cover-3d.png" />
-
   <link rel="icon" href="assets/logos/logo.png" />
+
+  <style>
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.show { opacity: 1; transform: translateY(0); }
+    @keyframes bounceY { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+    .hero-logo.bounce { animation: bounceY 3s ease-in-out infinite; }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .gallery-item {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform .3s ease, box-shadow .3s ease;
+      cursor: zoom-in;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-strong);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform .3s ease;
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .gallery-item p {
+      padding: 1rem;
+      font-size: .9rem;
+      margin: 0;
+      color: var(--fg);
+    }
+    
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.9);
+      display: none;
+      place-items: center;
+      z-index: 10000;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    
+    .lightbox.open { display: grid; }
+    
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      text-align: center;
+    }
+    
+    .lightbox img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+    
+    .lightbox p {
+      color: white;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      background: rgba(0,0,0,.6);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .3s ease;
+    }
+    
+    .close-btn:hover { background: rgba(255,255,255,.2); }
+    
+    /* Kalkulator wyceny */
+    .calc-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--card-bg);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .calc-input {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    
+    .calc-input label {
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--fg);
+    }
+    
+    .calc-input input,
+    .calc-input select {
+      padding: .8rem;
+      border: 1px solid rgba(0,0,0,.1);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--fg);
+      font-size: 1rem;
+    }
+    
+    body.dark-theme .calc-input input,
+    body.dark-theme .calc-input select {
+      border-color: rgba(255,255,255,.2);
+    }
+    
+    .calc-result {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    
+    .calc-result h3 {
+      margin: 0 0 .5rem;
+      font-size: 1.2rem;
+    }
+    
+    .calc-result .price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: .5rem 0;
+    }
+    
+    .calc-result .note {
+      font-size: .9rem;
+      opacity: .9;
+    }
+    
+    @media (max-width: 768px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+
+    /* >>> DODANE: prawdziwy „przypływ” kafelków z lekkim overshootem */
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translateY(44px) scale(0.96); }
+      60%  { opacity: 1; transform: translateY(-6px) scale(1.02); }
+      100% { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+    /* stan początkowy elementów kafelkowych */
+    .tile, .offer-item, .step, .gallery-item {
+      opacity: 0;
+      transform: translateY(44px) scale(0.96);
+      will-change: transform, opacity;
+    }
+    /* po .show odpalamy animację „przypływu” */
+    .tile.show, .offer-item.show, .step.show, .gallery-item.show {
+      animation: floatUp .9s cubic-bezier(.25,1,.3,1) forwards;
+    }
+
+    /* Delikatny shine na CTA (estetyka) */
+    .cta { position: relative; overflow: hidden; transition: transform .35s ease, box-shadow .35s ease; }
+    .cta::before {
+      content: ""; position: absolute; inset: 0; left: -120%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      transition: left .55s ease;
+    }
+    .cta:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 15px 40px rgba(0,0,0,.18); }
+    .cta:hover::before { left: 120%; }
+
+    /* Subtelne tło hero (spójne z index) */
+    .hero { position: relative; overflow: hidden; }
+    .hero::before{
+      content:""; position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(168,85,247,.18), transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(59,130,246,.18), transparent 50%);
+      pointer-events:none; animation: heroFloat 8s ease-in-out infinite;
+    }
+    @keyframes heroFloat{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+  </style>
 </head>
 <body>
-  <!-- NAV -->
-<header class="navbar" role="navigation" aria-label="Główne">
-  <div class="logo">
-    <a href="index.html">
-      <img src="assets/logos/logo.png" alt="NewPrompt logo" class="logo-img" />
-      <span class="logo-text">NewPrompt</span>
-    </a>
-  </div>
-
-  <!-- Klasyczna nawigacja (desktop) -->
-  <nav class="nav-links">
-    <ul>
-      <li><a href="index.html">Strona główna</a></li>
-      <li><a href="prompt-engineering.html">Prompt Engineering</a></li>
-      <li><a href="druk-3d.html">Druk 3D</a></li>
-      <li><a href="produkty.html">Produkty</a></li>
-      <li><a href="szkolenia.html">Szkolenia</a></li>
-      <li><a href="o-nas.html">O nas</a></li>
-      <li><a href="kontakt.html">Kontakt</a></li>
-    </ul>
-  </nav>
-
-  <!-- Theme toggle (zawsze widoczny) -->
-  <div class="theme-toggle">
-    <input type="checkbox" id="theme-toggle" />
-    <label for="theme-toggle" class="toggle-label">
-      <span class="icon sun">☀️</span>
-      <span class="icon moon">🌙</span>
-    </label>
-  </div>
-
-  <!-- Hamburger (tylko mobile) -->
-  <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
-</header>
-
+  <!-- NAVBAR -->
+  <header class="navbar" role="navigation" aria-label="Główne">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logos/logo.png" alt="NewPrompt logo" class="logo-img" />
+        <span class="logo-text">NewPrompt</span>
+      </a>
+    </div>
+    <nav class="nav-links">
+      <ul>
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="prompt-engineering.html">Prompt Engineering</a></li>
+        <li><a href="druk-3d.html">Druk 3D</a></li>
+        <li><a href="produkty.html">Produkty</a></li>
+        <li><a href="szkolenia.html">Szkolenia</a></li>
+        <li><a href="o-nas.html">O nas</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+    <div class="theme-toggle">
+      <input type="checkbox" id="theme-toggle" />
+      <label for="theme-toggle" class="toggle-label">
+        <span class="icon sun">☀️</span>
+        <span class="icon moon">🌙</span>
+      </label>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+  </header>
 
   <!-- HERO -->
-   
-  <section class="hero">
-  
+  <section class="hero fade-in">
     <h1>Druk 3D na miarę Twoich potrzeb</h1>
-    <p>Prototypy, elementy techniczne i gadżety firmowe. FDM i DLP/LCD, szeroka paleta materiałów, szybkie terminy i wsparcie CAD.</p>
-    <div style="display:flex; gap:12px; justify-content:center;">
-      <a href="#wycena" class="cta">Wyceń wydruk</a>
+    <p>Od szybkich prototypów po wytrzymałe części końcowe. FDM i SLA/DLP, 15+ materiałów, realizacja już od 24h. Bezpłatna konsultacja i wsparcie w przygotowaniu modeli.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="#wycena" class="cta">Wycena online</a>
       <a href="#galeria" class="cta" style="background:#000;color:#fff;">Zobacz realizacje</a>
     </div>
     <img src="assets/logos/logo.png" alt="NewPrompt logo" class="hero-logo bounce glow" loading="eager" />
   </section>
 
-  <!-- USP tiles -->
-  <div class="section-header">
-    <h2 class="section-title">Dlaczego my</h2>
-    <p class="section-sub">Konkrety, które robią różnicę.</p>
+  <!-- KORZYŚCI -->
+  <div class="section-header fade-in">
+    <h2 class="section-title">Dlaczego warto z nami współpracować</h2>
+    <p class="section-sub">Profesjonalny druk 3D z gwarancją jakości i terminowości.</p>
     <div class="section-underline"></div>
   </div>
-  <section class="tiles">
-    <div class="tile"><h3>🎯 Dokładność do 0.1 mm</h3><p>Powtarzalność dla prototypów funkcjonalnych.</p></div>
-    <div class="tile"><h3>⚡ Szybkie terminy</h3><p>Realizacje już od 24 godzin (wariant ekspres).</p></div>
-    <div class="tile"><h3>🧵 Materiały</h3><p>PLA, PETG, ABS/ASA, TPU, kompozyty i żywice (DLP/LCD).</p></div>
-    <div class="tile"><h3>🧩 Wsparcie CAD</h3><p>Poprawki modeli i projekt „od szkicu do prototypu”.</p></div>
-    <div class="tile"><h3>🛠️ Kontrola jakości</h3><p>Każdy wydruk sprawdzamy pod kątem wymiarów i wytrzymałości.</p></div>
-    <div class="tile"><h3>💻 Szybka wycena online</h3><p>Kalkulator i formularz – orientacyjny koszt w minutę.</p></div>
+  <section class="tiles fade-in">
+    <div class="tile fade-in">
+      <h3>🎯 Precyzja do 0.05 mm</h3>
+      <p>Technologia SLA/DLP dla najdrobniejszych detali. Powtarzalność wymiarów ±0.1 mm dla części funkcjonalnych.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>⚡ Express 24h</h3>
+      <p>Pilne prototypy realizujemy w trybie ekspresowym. Standardowe zamówienia: 2-5 dni roboczych.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🧵 15+ materiałów</h3>
+      <p>Od standardowego PLA po żywice inżynierskie. TPU elastyczne, ABS/ASA odporne, kompozyty wzmacniane.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🔧 Wsparcie konstrukcyjne</h3>
+      <p>Pomożemy zoptymalizować model pod druk 3D. Analiza DFM, sugestie materiałów, redukcja kosztów.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>✅ Kontrola jakości</h3>
+      <p>Każdy wydruk przechodzi inspekcję wymiarową. Gwarancja zgodności z tolerancjami lub powtórny druk.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>💻 Łatwe zamówienie</h3>
+      <p>Kalkulator online, upload plików, automatyczna analiza kosztów. Płatność przelewem lub kartą.</p>
+    </div>
   </section>
+
+  <!-- TECHNOLOGIE SZCZEGÓŁOWO -->
+  <div class="section-header fade-in">
+    <h2 class="section-title">Technologie druku</h2>
+    <p class="section-sub">Dobieramy metodę do zastosowania: prototyp, część funkcjonalna czy element dekoracyjny.</p>
+    <div class="section-underline"></div>
+  </div>
+  <section class="tiles fade-in">
+    <div class="tile fade-in">
+      <h3>FDM (Fused Deposition Modeling)</h3>
+      <p><strong>Najlepsze do:</strong> prototypów, części użytkowych, dużych elementów</p>
+      <p><strong>Materiały:</strong> PLA (biodegradowalny), PETG (chemoodporny), ABS/ASA (żarowytrzymały), TPU (elastyczny), PC (przemysłowy), kompozyty CF/GF</p>
+      <p><strong>Specyfikacja:</strong><br>
+      • Warstwa: 0.10–0.30 mm<br>
+      • Dokładność: ±0.2 mm<br>
+      • Rozmiar: do 300×300×300 mm<br>
+      • Wytrzymałość: do 70 MPa (zależnie od materiału)</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>SLA/DLP (Stereolithografia)</h3>
+      <p><strong>Najlepsze do:</strong> detali, powierzchni gładkich, małych precyzyjnych części</p>
+      <p><strong>Żywice:</strong> Standard (uniwersalna), Tough (wytrzymała), High Temp (żarowytrzymała), Flexible (elastyczna), Clear (przezroczysta), Castable (odlewnicza)</p>
+      <p><strong>Specyfikacja:</strong><br>
+      • Warstwa: 0.025–0.10 mm<br>
+      • Dokładność: ±0.05 mm<br>
+      • Rozmiar: do 145×82×175 mm<br>
+      • Powierzchnia: gładka jak wtryskowana</p>
+    </div>
+  </section>
+
+  <!-- CENNIK REALISTYCZNY -->
+<!-- CENNIK REALISTYCZNY -->
+<div class="section-header fade-in" id="pakiety">
+  <h2 class="section-title">Cennik</h2>
+  <p class="section-sub">Transparentne ceny bez ukrytych kosztów. Rabaty dla większych zamówień i stałych klientów.</p>
+  <div class="section-underline"></div>
+</div>
+<section class="offer-grid fade-in">
+  <div class="offer-item fade-in">
+    <h3>FDM Standard</h3>
+    <p>PLA, PETG • Warstwa 0.2 mm • Standard 3-5 dni</p>
+    <p><strong>od 2.50 zł/g</strong></p>
+    <p class="note">Minimum 50g (125 zł)<br>Dla zamówień >500g: -15%</p>
+    <a href="#wycena" class="cta cta-offer">Wyceń teraz</a>
+  </div>
+  <div class="offer-item fade-in">
+    <h3>FDM Premium</h3>
+    <p>ABS/ASA, TPU, kompozyty • 0.15 mm • Obróbka CNC opcjonalnie</p>
+    <p><strong>od 4.00 zł/g</strong></p>
+    <p class="note">Konsultacja konstrukcyjna gratis<br>Express +50%</p>
+    <a href="#wycena" class="cta cta-offer">Wyceń teraz</a>
+  </div>
+  <div class="offer-item fade-in">
+    <h3>SLA/DLP</h3>
+    <p>Żywice standard/tough • 0.05 mm • Post-processing w cenie</p>
+    <p><strong>od 8.00 zł/g</strong></p>
+    <p class="note">Specjalne żywice +30%<br>Malowanie/pokrycia na wycenę</p>
+    <a href="#wycena" class="cta cta-offer">Wyceń teraz</a>
+  </div>
+</section>
+
+
+  <!-- KALKULATOR WYCENY -->
+  <div id="wycena" class="section-header fade-in">
+    <h2 class="section-title">Kalkulator wyceny</h2>
+    <p class="section-sub">Oszacuj koszt swojego wydruku w czasie rzeczywistym. Dokładna wycena po analizie pliku.</p>
+    <div class="section-underline"></div>
+  </div>
   
-
-  <!-- Technologie / parametry -->
-  <div class="section-header">
-    <h2 class="section-title">Technologie i materiały</h2>
-    <p class="section-sub">Dobieramy metodę do funkcji, budżetu i wymagań estetycznych.</p>
-    <div class="section-underline"></div>
-  </div>
-  <section class="tiles">
-    <div class="tile">
-      <h3>FDM</h3>
-      <p>Ekonomiczne i wytrzymałe części użytkowe.</p>
-      <p><strong>Materiały:</strong> PLA, PETG, ABS/ASA, TPU, kompozyty (CF).</p>
-      <p><strong>Warstwa:</strong> 0.10–0.28 mm · <strong>Dokładność:</strong> ±0.2 mm · <strong>Pole robocze:</strong> do 300×300×300 mm.</p>
-    </div>
-    <div class="tile">
-      <h3>DLP/LCD (żywice)</h3>
-      <p>Gładkie powierzchnie i drobne detale.</p>
-      <p><strong>Rodzaje:</strong> standard/tough, high-temp, dental/model, castable.</p>
-      <p><strong>Warstwa:</strong> 0.025–0.05 mm · <strong>Dokładność:</strong> ±0.1 mm · <strong>Pole:</strong> do ~130×80×160 mm.</p>
-    </div>
-  </section>
-
-  <!-- Cennik -->
-  <div class="section-header" id="pakiety">
-    <h2 class="section-title">Cennik orientacyjny</h2>
-    <p class="section-sub">Finalna cena zależy od masy, materiału, czasu druku i wykończenia.</p>
-    <div class="section-underline"></div>
-  </div>
-  <section class="offer-grid">
-    <div class="offer-item">
-      <h3>Basic · FDM</h3>
-      <p>PLA / PETG · Warstwa 0.2–0.28 mm · termin standard</p>
-      <p><strong>od 1.5 zł / g</strong></p>
-      <a href="#wycena" class="cta" data-analytics="cta_price_basic">Wyceń</a>
-    </div>
-    <div class="offer-item">
-      <h3>Pro · FDM</h3>
-      <p>ABS/ASA, TPU, kompozyty · 0.12–0.2 mm · opcje obróbki</p>
-      <p><strong>od 2.5 zł / g</strong></p>
-      <a href="#wycena" class="cta" data-analytics="cta_price_pro">Wyceń</a>
-    </div>
-    <div class="offer-item">
-      <h3>Premium · Żywice</h3>
-      <p>DLP/LCD · 0.025–0.05 mm · detale/gładkość</p>
-      <p><strong>od 4.0 zł / g</strong></p>
-      <a href="#wycena" class="cta" data-analytics="cta_price_premium">Wyceń</a>
-    </div>
-  </section>
-
-  <!-- Lead-card: szybka wycena (ulepszony kalkulator) -->
-  <div id="wycena" class="section-header">
-    <h2 class="section-title">Szybka wycena</h2>
-    <p class="section-sub">Podaj wymiary lub objętość modelu i wybierz materiał. Szacunek pojawi się od razu.</p>
-    <div class="section-underline"></div>
-  </div>
-
-  <section class="lead-card" aria-label="Szybka wycena druku 3D">
-    <div class="lead-inner">
-      <div class="lead-copy">
-        <p class="kicker">Kalkulator</p>
-        <h3>Orientacyjny koszt i masa</h3>
-        <ul class="lead-points">
-          <li>✅ minimalna opłata: 30 zł</li>
-          <li>✅ wypełnienie skaluje objętość</li>
-          <li>✅ dokładną wycenę potwierdzimy po pliku</li>
-        </ul>
-
-        <div class="est est--box" id="est">
-          <div class="est-row">
-            <span class="est-label">Szacowany koszt</span>
-            <span class="est-value">—</span>
-          </div>
-          <div class="est-sub">Masa: — g</div>
-        </div>
+  <div class="calc-container fade-in">
+    <div class="calc-grid">
+      <div class="calc-input">
+        <label for="volume">Objętość modelu (cm³)</label>
+        <input type="number" id="volume" min="1" max="1000" value="50" oninput="calculatePrice()">
       </div>
-
-      <form class="lead-form" onsubmit="return false;">
-        <div class="calc-grid">
-          <label class="stack">
-            <span class="lbl">Materiał</span>
-            <select id="mat" class="pill-select">
-              <option value="1.5">PLA / PETG (1.5 zł/g)</option>
-              <option value="2.5">ABS / ASA / TPU (2.5 zł/g)</option>
-              <option value="4.0">Żywica (4.0 zł/g)</option>
-            </select>
-          </label>
-
-          <label class="stack">
-            <span class="lbl">Wypełnienie</span>
-            <select id="inf" class="pill-select">
-              <option>20%</option><option>40%</option><option>60%</option><option>100%</option>
-            </select>
-          </label>
-
-          <label class="stack">
-            <span class="lbl">X</span>
-            <div class="with-unit">
-              <input id="x" type="number" inputmode="decimal" placeholder="np. 120">
-              <span class="unit">mm</span>
-            </div>
-          </label>
-
-          <label class="stack">
-            <span class="lbl">Y</span>
-            <div class="with-unit">
-              <input id="y" type="number" inputmode="decimal" placeholder="np. 65">
-              <span class="unit">mm</span>
-            </div>
-          </label>
-
-          <label class="stack span-2">
-            <span class="lbl">Z</span>
-            <div class="with-unit">
-              <input id="z" type="number" inputmode="decimal" placeholder="np. 40">
-              <span class="unit">mm</span>
-            </div>
-          </label>
-
-          <div class="or">albo</div>
-
-          <label class="stack span-2">
-            <span class="lbl">Objętość modelu (jeśli znasz)</span>
-            <div class="with-unit">
-              <input id="vol" type="number" inputmode="decimal" placeholder="np. 35">
-              <span class="unit">cm³</span>
-            </div>
-          </label>
-
-          <button class="cta btn-grad span-2" id="calc" type="button">Przelicz</button>
-          <p class="microcopy span-2">Możesz też wysłać plik i opis — odezwiemy się z ofertą w 24h.</p>
-        </div>
-      </form>
+      <div class="calc-input">
+        <label for="technology">Technologia</label>
+        <select id="technology" onchange="calculatePrice()">
+          <option value="fdm-standard">FDM Standard (PLA/PETG)</option>
+          <option value="fdm-premium">FDM Premium (ABS/ASA/TPU)</option>
+          <option value="sla">SLA/DLP (Żywice)</option>
+        </select>
+      </div>
+      <div class="calc-input">
+        <label for="layer">Wysokość warstwy</label>
+        <select id="layer" onchange="calculatePrice()">
+          <option value="0.2">0.2 mm (Standard)</option>
+          <option value="0.15">0.15 mm (Wysoka jakość)</option>
+          <option value="0.05">0.05 mm (SLA tylko)</option>
+        </select>
+      </div>
+      <div class="calc-input">
+        <label for="urgency">Termin realizacji</label>
+        <select id="urgency" onchange="calculatePrice()">
+          <option value="standard">Standard (3-5 dni)</option>
+          <option value="express">Express (24-48h) +50%</option>
+        </select>
+      </div>
     </div>
-  </section>
+    
+    <div class="calc-result">
+      <h3>Szacowany koszt</h3>
+      <div class="price" id="estimated-price">125 zł</div>
+      <p class="note">*Orientacyjna wycena. Dokładna cena po analizie pliku 3D.</p>
+      <a href="kontakt.html" class="cta" style="background:white;color:#333;margin-top:1rem;">Wyślij plik do wyceny</a>
+    </div>
+  </div>
 
-  <!-- Proces -->
-  <div class="section-header">
-    <h2 class="section-title">Jak pracujemy</h2>
-    <p class="section-sub">Prosty proces od briefu do gotowej części.</p>
+  <!-- OBSZARY ZASTOSOWAŃ -->
+  <div class="section-header fade-in">
+    <h2 class="section-title">Obszary zastosowań</h2>
+    <p class="section-sub">Od edukacji po przemysł – drukujemy dla różnych branż.</p>
     <div class="section-underline"></div>
   </div>
-  <section class="tiles">
-    <div class="tile">
-      <h3>1. Brief / model</h3>
-      <p>STL/STEP lub szkic z wymiarami.</p>
+  <section class="tiles fade-in">
+    <div class="tile fade-in">
+      <h3>🎓 Edukacja i badania</h3>
+      <p>Modele dydaktyczne, pomoce naukowe, prototypy projektów studenckich. Rabaty dla uczelni i szkół.</p>
     </div>
-    <div class="tile">
-      <h3>2. Dobór technologii</h3>
-      <p>Materiał, warstwa, wypełnienie, wykończenie.</p>
+    <div class="tile fade-in">
+      <h3>🏭 Przemysł i automotive</h3>
+      <p>Prototypy części, przyrządy produkcyjne, elementy zamienne. Materiały certyfikowane.</p>
     </div>
-    <div class="tile">
-      <h3>3. Realizacja</h3>
-      <p>Druk, kontrola jakości, dokumentacja zdjęciowa.</p>
+    <div class="tile fade-in">
+      <h3>🏥 Medycyna i dental</h3>
+      <p>Modele anatomiczne, szablony chirurgiczne, protezy. Materiały biokompatybilne.</p>
     </div>
-    <div class="tile">
-      <h3>4. Dostawa</h3>
-      <p>Odbiór osobisty lub wysyłka 24/48h.</p>
+    <div class="tile fade-in">
+      <h3>🎨 Architektura i design</h3>
+      <p>Makiety budynków, modele koncepcyjne, elementy dekoracyjne. Powierzchnie premium.</p>
     </div>
-    <div class="tile">
-      <h3>5. Postprocessing</h3>
-      <p>Gratisowe usuwanie podpór i podstawowe czyszczenie modeli.</p>
+    <div class="tile fade-in">
+      <h3>🎮 Gaming i hobby</h3>
+      <p>Figurki, elementy gier planszowych, cosplay. Druk wielokolorowy i malowanie.</p>
     </div>
-    <div class="tile">
-      <h3>6. Obsługa posprzedażowa</h3>
-      <p>Pomoc techniczna, korekty modeli i możliwość domówienia kolejnych serii.</p>
+    <div class="tile fade-in">
+      <h3>⚙️ Elektronika i IoT</h3>
+      <p>Obudowy urządzeń, elementy montażowe, radiatory. Materiały przewodzące opcjonalnie.</p>
     </div>
   </section>
-  
-  
 
-  <!-- Galeria realizacji (lightbox) -->
-  <div class="section-header" id="galeria">
-    <h2 class="section-title">Przykładowe wydruki</h2>
-    <p class="section-sub">Kilka realizacji z ostatnich miesięcy.</p>
+  <!-- PROCES ZAMÓWIENIA -->
+  <div class="section-header fade-in">
+    <h2 class="section-title">Jak składać zamówienie</h2>
+    <p class="section-sub">Prosty proces od pomysłu do gotowej części w Twoich rękach.</p>
     <div class="section-underline"></div>
   </div>
-  <section class="tiles gallery">
-    <a class="tile g-item" href="assets/portfolio/p1@2x.jpg">
-      <img src="assets/portfolio/p1.jpg" alt="Obudowa PETG" class="team-photo" loading="lazy"/>
-      <h3>Obudowa PETG</h3><p>warstwa 0.2 mm</p>
-    </a>
-    <a class="tile g-item" href="assets/portfolio/p2@2x.jpg">
-      <img src="assets/portfolio/p2.jpg" alt="Element ABS/ASA" class="team-photo" loading="lazy"/>
-      <h3>Element ABS/ASA</h3><p>wytrzymałość i obróbka</p>
-    </a>
-    <a class="tile g-item" href="assets/portfolio/p3@2x.jpg">
-      <img src="assets/portfolio/p3.jpg" alt="Model z żywicy" class="team-photo" loading="lazy"/>
-      <h3>Model z żywicy</h3><p>gładkie powierzchnie</p>
-    </a>
-    <a class="tile g-item" href="assets/portfolio/p4@2x.jpg">
-      <img src="assets/portfolio/p4.jpg" alt="Prototyp CF" class="team-photo" loading="lazy"/>
-      <h3>Prototyp CF</h3><p>kompozyt z włóknem</p>
-    </a>
-    <a class="tile g-item" href="assets/portfolio/p5@2x.jpg">
-      <img src="assets/portfolio/p5.jpg" alt="Makieta architektoniczna" class="team-photo" loading="lazy"/>
-      <h3>Makieta architektoniczna</h3><p>szczegółowe odwzorowanie budynków</p>
-    </a>
-    <a class="tile g-item" href="assets/portfolio/p6@2x.jpg">
-      <img src="assets/portfolio/p6.jpg" alt="Gadżet reklamowy" class="team-photo" loading="lazy"/>
-      <h3>Gadżet reklamowy</h3><p>spersonalizowany brelok/figurki</p>
-    </a>
+  
+  <section class="process fade-in">
+    <div class="step" data-step="1">
+      <h3>📤 Wyślij plik lub opis</h3>
+      <p>STL, STEP, OBJ lub opis – pomożemy z przygotowaniem modelu.</p>
+    </div>
+    <div class="step" data-step="2">
+      <h3>🔍 Analiza i wycena</h3>
+      <p>Sprawdzamy model i wysyłamy wycenę w 4h.</p>
+    </div>
+    <div class="step" data-step="3">
+      <h3>💳 Potwierdzenie i płatność</h3>
+      <p>Akceptujesz wycenę i otrzymujesz harmonogram realizacji.</p>
+    </div>
+    <div class="step" data-step="4">
+      <h3>🖨️ Druk i obróbka</h3>
+      <p>Kontrola jakości, zdjęcia progress na życzenie.</p>
+    </div>
+    <div class="step" data-step="5">
+      <h3>📦 Pakowanie i wysyłka</h3>
+      <p>Bezpieczne pakowanie, wysyłka kurierem lub odbiór w Krakowie.</p>
+    </div>
   </section>
   
 
-  <!-- Lightbox container -->
-  <div id="lb" class="lightbox" aria-hidden="true">
-    <button class="lb-close" aria-label="Zamknij">×</button>
-    <img id="lb-img" alt="">
+  <!-- GALERIA -->
+  <div class="section-header fade-in" id="galeria">
+    <h2 class="section-title">Portfolio realizacji</h2>
+    <p class="section-sub">Wybrane projekty z różnych branż – od prostych prototypów po skomplikowane elementy techniczne.</p>
+    <div class="section-underline"></div>
+  </div>
+  <section class="gallery-grid fade-in">
+    <div class="gallery-item">
+      <img src="assets/portfolio/p1.jpg" alt="Obudowa prototypu urządzenia IoT z PETG" onclick="openLightbox(this)">
+      <p><strong>Obudowa IoT</strong><br>PETG • 0.2 mm • Finish: powierzchnia techniczna</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/portfolio/p2.jpg" alt="Model techniczny o wysokiej precyzji" onclick="openLightbox(this)">
+      <p><strong>Model techniczny</strong><br>PLA 2.0 Plus • 0.2 mm • Wytrzymały, precyzyjny</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/portfolio/p4.jpg" alt="Wydruk domieszkowany włóknem węglowym" onclick="openLightbox(this)">
+      <p><strong>Wydruk domieszkowany włóknem węglowym</strong><br>PA-CF12 • Bardzo wytrzymały</p>
+    </div>
+    <div class="gallery-item">
+      <img src="assets/portfolio/p6.jpg" alt="Materiały promocyjne" onclick="openLightbox(this)">
+      <p><strong>Materiały promocyjne</strong><br>PLA Silk • 0.16 mm • Wysoki połysk</p>
+    </div>
+
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-content">
+      <span class="close-btn" onclick="event.stopPropagation(); closeLightbox();">✖</span>
+      <img id="lightbox-img" src="" alt="Podgląd zdjęcia" />
+      <p id="lightbox-caption"></p>
+    </div>
   </div>
 
   <!-- FAQ -->
-  <div class="section-header">
-    <h2 class="section-title">FAQ</h2>
-    <p class="section-sub">Najczęstsze pytania o pliki, tolerancje i terminy.</p>
+  <div class="section-header fade-in">
+    <h2 class="section-title">Najczęstsze pytania</h2>
+    <p class="section-sub">Odpowiedzi na typowe wątpliwości klientów.</p>
     <div class="section-underline"></div>
   </div>
-  <section class="tiles" itemscope itemtype="https://schema.org/FAQPage">
-    <div class="tile" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <h3 itemprop="name">Jak przygotować plik?</h3>
-      <p itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-        <span itemprop="text">Najlepiej <strong>STL</strong> (mm), model zamknięty (watertight), bez błędów siatki. Dla żywic dopuszczamy OBJ.</span>
-      </p>
+  <section class="tiles fade-in">
+    <div class="tile fade-in">
+      <h3>Jakie formaty plików przyjmujecie?</h3>
+      <p>STL, OBJ, 3MF (preferowane), STEP, IGES. Jeśli masz inny format lub nie masz modelu 3D – skontaktuj się, pomożemy.</p>
     </div>
-    <div class="tile" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <h3 itemprop="name">Czy zaprojektujecie model od zera?</h3>
-      <p itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-        <span itemprop="text">Tak. Mamy usługę CAD – na podstawie szkicu/zdjęć tworzymy model i prototyp.</span>
-      </p>
+    <div class="tile fade-in">
+      <h3>Czy można zobaczyć wydruk przed odbiorem?</h3>
+      <p>Tak! Wysyłamy zdjęcia gotowego wydruku przed pakowniem. Dla zamówień >500 zł zdjęcia postępu na życzenie.</p>
     </div>
-    <div class="tile" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-      <h3 itemprop="name">Jakie są terminy?</h3>
-      <p itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-        <span itemprop="text">Standard: 2–4 dni robocze. Ekspres: do 24h (zależnie od wielkości i obłożenia).</span>
-      </p>
+    <div class="tile fade-in">
+      <h3>Co jeśli wydruk nie spełnia oczekiwań?</h3>
+      <p>Gwarantujemy zgodność z tolerancjami. Jeśli część nie spełnia specyfikacji – drukujemy ponownie bezpłatnie.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>Czy oferujecie obróbkę wykończeniową?</h3>
+      <p>Tak: Zakres prac wykończeniowych naley uzgodnić indywidualnie.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>Jaki jest minimalny koszt zamówienia?</h3>
+      <p>30 zł to najnisza opłata.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>Czy drukujecie z materiałów klienta?</h3>
+      <p>Tak, jeśli materiał jest kompatybilny z naszymi drukarkami. Testowanie nowego materiału: 100 zł jednorazowo.</p>
     </div>
   </section>
 
   <!-- CTA KOŃCOWE -->
-  <section class="cta-full">
+  <section class="cta-full fade-in">
     <div class="cta-content">
-      <h2>Masz plik STL? Zróbmy szybki prototyp.</h2>
-      <p>Podpowiemy materiał i ustawienia pod Twoje zastosowanie.</p>
-      <a href="kontakt.html" class="cta big" data-analytics="cta_final_3d">Wyślij zapytanie</a>
+      <h2>Masz projekt do zrealizowania?</h2>
+      <p>Wyślij plik lub opisz co potrzebujesz. Bezpłatna konsultacja i wycena w ciągu 4 godzin.</p>
+      <div class="cta-row">
+        <a href="kontakt.html" class="cta big">Wyślij plik do wyceny</a>
+
+      </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 NewPrompt sp. z o.o.</p>
+    <p>&copy; 2025 NewPrompt sp. z o.o. | Druk 3D • Prototypowanie • Małe serie</p>
   </footer>
 
-  <!-- JSON-LD FAQ -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {"@type":"Question","name":"Jak przygotować plik?","acceptedAnswer":{"@type":"Answer","text":"Najlepiej STL (mm), model zamknięty (watertight), bez błędów siatki. Dla żywic dopuszczamy OBJ."}},
-      {"@type":"Question","name":"Czy zaprojektujecie model od zera?","acceptedAnswer":{"@type":"Answer","text":"Tak. Mamy usługę CAD – na podstawie szkicu/zdjęć tworzymy model i prototyp."}},
-      {"@type":"Question","name":"Jakie są terminy?","acceptedAnswer":{"@type":"Answer","text":"Standard 2–4 dni robocze, ekspres do 24h (zależnie od wielkości i obłożenia)."}}
-    ]
-  }
-  </script>
-
-  <script src="js/theme-toggle.js"></script>
-
-  <!-- Kalkulator -->
-  <script>
-    const dens = { "1.5":1.24, "2.5":1.07, "4.0":1.10 };
-    const infMul = { "20%":0.35, "40%":0.55, "60%":0.75, "100%":1.0 };
-    const $ = id => document.getElementById(id);
-
-    function setEstimate(cost, mass){
-      const box = document.getElementById('est');
-      box.querySelector('.est-value').textContent = cost ? `${cost.toFixed(2)} zł` : '—';
-      box.querySelector('.est-sub').textContent = mass ? `Masa: ${mass.toFixed(0)} g` : 'Masa: — g';
+<!-- Scripts -->
+<script src="js/theme-toggle.js"></script>
+<script src="js/menu.js"></script>
+<!-- Kalkulator wyceny -->
+<script>
+  function calculatePrice() {
+    const volume = parseFloat(document.getElementById('volume').value) || 50;
+    const technology = document.getElementById('technology').value;
+    const layer = parseFloat(document.getElementById('layer').value);
+    const urgency = document.getElementById('urgency').value;
+    
+    let basePrice = 0;
+    let density = 1.25; // średnia gęstość materiałów w g/cm³
+    
+    // Przeliczniki cenowe za gram
+    switch(technology) {
+      case 'fdm-standard':
+        basePrice = 2.50;
+        break;
+      case 'fdm-premium':
+        basePrice = 4.00;
+        break;
+      case 'sla':
+        basePrice = 8.00;
+        density = 1.10; // żywice lżejsze
+        break;
     }
-
-    document.getElementById('calc').addEventListener('click', ()=>{
-      const pricePerGram = parseFloat($('mat').value);
-      const density = dens[$('mat').value] ?? 1.2;
-      const mul = infMul[$('inf').value] ?? 0.55;
-
-      let vol = parseFloat(($('vol').value||"0")); // cm3
-      if(!vol){
-        const x=+($('x').value||0), y=+($('y').value||0), z=+($('z').value||0);
-        if(x && y && z){ vol = (x*y*z)/1000; } // mm^3 -> cm^3
-      }
-      if(!vol){ setEstimate(null, null); return; }
-
-      const effVol = vol * mul;
-      const mass = effVol * density;
-      const cost = Math.max(30, mass * pricePerGram); // min fee 30 zł
-      setEstimate(cost, mass);
-    });
-  </script>
-
-  <!-- Lightbox -->
-  <script>
-    const lb = document.getElementById('lb');
-    const lbImg = document.getElementById('lb-img');
-    document.querySelectorAll('.g-item').forEach(a=>{
-      a.addEventListener('click', e=>{
-        e.preventDefault();
-        lbImg.src = a.getAttribute('href');
-        lb.classList.add('open');
-        lb.setAttribute('aria-hidden','false');
-      });
-    });
-    document.querySelector('.lb-close').addEventListener('click', ()=>{
-      lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src='';
-    });
-    lb.addEventListener('click', e=>{
-      if(e.target === lb){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src=''; }
-    });
-    document.addEventListener('keydown', e=>{
-      if(e.key==='Escape' && lb.classList.contains('open')){
-        lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src='';
-      }
-    });
-  </script>
-  <script src="js/menu.js"></script>
-  <div id="cookie-banner" class="cookie-banner">
-    <p>
-      🍪 Używamy plików cookies w celach funkcjonalnych i statystycznych.
-      Korzystając z naszej strony, zgadzasz się na ich użycie.
-    </p>
-    <button id="accept-cookies" class="cookie-btn">Akceptuję</button>
-  </div>
+    
+    // Bonus za wysoką jakość
+    if (layer <= 0.1) basePrice *= 1.3;
+    else if (layer <= 0.15) basePrice *= 1.15;
+    
+    // Urgency multiplier
+    if (urgency === 'express') basePrice *= 1.5;
+    
+    const weight = volume * density;
+    let totalPrice = weight * basePrice;
+    
+    // Minimum zamówienia
+    const minimum = technology === 'sla' ? 80 : 125;
+    if (totalPrice < minimum) totalPrice = minimum;
+    
+    document.getElementById('estimated-price').textContent = 
+      Math.round(totalPrice) + ' zł';
+  }
   
+  // Lightbox funkcje
+  function openLightbox(img) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-caption');
+    
+    lightbox.classList.add('open');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    caption.textContent = img.alt;
+    
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  
+  // Escape key zamyka lightbox
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+  
+  // Animacje scroll
+  document.addEventListener("DOMContentLoaded", () => {
+    calculatePrice(); // inicjalizacja kalkulatora
+    
+    const faders = document.querySelectorAll(".fade-in, .tile, .offer-item, .step, .gallery-item, .cta-full, .section-header");
+    if (!("IntersectionObserver" in window)) {
+      faders.forEach(el => el.classList.add("show"));
+      return;
+    }
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // kaskadowe wejście
+          const idx = [...entry.target.parentElement?.children || []].indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add("show");
+          }, (idx >= 0 ? idx : 0) * 110);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+    
+    faders.forEach(el => observer.observe(el));
+  });
+</script>
+<!-- Cookies -->
+<div id="cookie-banner" class="cookie-banner">
+  <p>
+    🍪 Używamy plików cookies w celach funkcjonalnych i statystycznych.
+    Korzystając z naszej strony, zgadzasz się na ich użycie.
+  </p>
+  <button id="accept-cookies" class="cookie-btn">Akceptuję</button>
+</div>
+<script src="js/cookie.js"></script>
 </body>
 </html>

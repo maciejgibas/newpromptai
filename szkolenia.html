@@ -6,296 +6,473 @@
   <title>Szkolenia | NewPrompt</title>
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Animacje wejściowe (spójne z resztą) ===== */
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+    .fade-in.show{opacity:1;transform:translateY(0)}
+
+    /* Kaskada dla kafelków (6 szt. w siatce) */
+    .tiles .tile.fade-in:nth-child(1){transition-delay:.1s}
+    .tiles .tile.fade-in:nth-child(2){transition-delay:.2s}
+    .tiles .tile.fade-in:nth-child(3){transition-delay:.3s}
+    .tiles .tile.fade-in:nth-child(4){transition-delay:.4s}
+    .tiles .tile.fade-in:nth-child(5){transition-delay:.5s}
+    .tiles .tile.fade-in:nth-child(6){transition-delay:.6s}
+
+    /* Subtelny lifting kafelków (nie koliduje ze style.css) */
+    .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:1100px;margin:24px auto;padding:0 16px}
+    .tiles .tile{
+      background:var(--card-bg);
+      border-radius:16px;
+      box-shadow:var(--shadow-soft);
+      padding:20px;
+      transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+    .tiles .tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-strong)}
+    .tiles .tile h3{margin:0 0 .5rem 0}
+    .section-header{max-width:900px;margin:48px auto 8px;padding:0 16px;text-align:center}
+    .section-title{margin:0}
+    .section-sub{opacity:.85}
+
+    /* Hero logo bounce (spójnie z Druk 3D) */
+    @keyframes bounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .hero-logo.bounce{animation:bounceY 3s ease-in-out infinite}
+
+    /* CTA – dopracowany outline + pulse dla .big */
+    @keyframes pulse{0%{box-shadow:0 4px 12px rgba(0,0,0,.15)}50%{box-shadow:0 8px 24px rgba(127,90,240,.35)}100%{box-shadow:0 4px 12px rgba(0,0,0,.15)}}
+    .cta.big{animation:pulse 3s ease-in-out infinite}
+    .cta-outline{
+      position:relative;display:inline-block;border:2px solid var(--accent-1);border-radius:999px;
+      padding:.8rem 1.6rem;font-weight:600;color:var(--accent-1);text-decoration:none;
+      transition:color .25s ease, background .25s ease, transform .2s ease;
+      background:transparent;overflow:hidden
+    }
+    .cta-outline::before{
+      content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(127,90,240,.25),transparent);
+      transition:left .5s ease
+    }
+    .cta-outline:hover{background:var(--accent-1);color:#fff;transform:translateY(-1px)}
+    .cta-outline:hover::before{left:100%}
+
+    /* FAQ – wejście „z boku” */
+    .faq{max-width:900px;margin:12px auto 32px;padding:0 16px}
+    .faq-item{background:var(--card-bg);border-radius:12px;box-shadow:var(--shadow-soft);margin:10px 0;padding:0 16px;opacity:0;transform:translateX(-30px);transition:all .6s ease-out}
+    .faq-item:nth-child(even){transform:translateX(30px)}
+    .faq-item.visible{opacity:1;transform:translateX(0)}
+    .faq-q{width:100%;text-align:left;background:transparent;border:0;padding:16px 0;font-weight:700;cursor:pointer}
+    .faq-a{display:none;padding:0 0 16px 0;opacity:.9}
+
+    /* Kroki – „spring scale” */
+    .step-slide{opacity:0;transform:scale(.9);transition:all .6s cubic-bezier(.34,1.56,.64,1)}
+    .step-slide.visible{opacity:1;transform:scale(1)}
+
+    /* CTA sekcji centralnej */
+    .cta-center{text-align:center;margin:24px 0}
+    .cta-full{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:#fff;padding:48px 16px}
+    .cta-full .cta-content{max-width:900px;margin:0 auto;text-align:center}
+    .cta-full .cta{margin-top:10px}
+
+    /* Drobne responsywne poprawki */
+    @media (max-width:768px){
+      .tiles{gap:14px}
+      .faq-item{padding:0 12px}
+    }
+  </style>
 </head>
 <body class="light-theme">
 
   <!-- NAV -->
-<header class="navbar" role="navigation" aria-label="Główne">
-  <div class="logo">
-    <a href="index.html">
-      <img src="assets/logos/logo.png" alt="NewPrompt logo" class="logo-img" />
-      <span class="logo-text">NewPrompt</span>
-    </a>
-  </div>
+  <header class="navbar" role="navigation" aria-label="Główne">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logos/logo.png" alt="NewPrompt logo" class="logo-img" />
+        <span class="logo-text">NewPrompt</span>
+      </a>
+    </div>
 
-  <!-- Klasyczna nawigacja (desktop) -->
-  <nav class="nav-links">
-    <ul>
-      <li><a href="index.html">Strona główna</a></li>
-      <li><a href="prompt-engineering.html">Prompt Engineering</a></li>
-      <li><a href="druk-3d.html">Druk 3D</a></li>
-      <li><a href="produkty.html">Produkty</a></li>
-      <li><a href="szkolenia.html">Szkolenia</a></li>
-      <li><a href="o-nas.html">O nas</a></li>
-      <li><a href="kontakt.html">Kontakt</a></li>
-    </ul>
-  </nav>
+    <nav class="nav-links">
+      <ul>
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="prompt-engineering.html">Prompt Engineering</a></li>
+        <li><a href="druk-3d.html">Druk 3D</a></li>
+        <li><a href="produkty.html">Produkty</a></li>
+        <li><a href="szkolenia.html">Szkolenia</a></li>
+        <li><a href="o-nas.html">O nas</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
 
-  <!-- Theme toggle (zawsze widoczny) -->
-  <div class="theme-toggle">
-    <input type="checkbox" id="theme-toggle" />
-    <label for="theme-toggle" class="toggle-label">
-      <span class="icon sun">☀️</span>
-      <span class="icon moon">🌙</span>
-    </label>
-  </div>
+    <div class="theme-toggle">
+      <input type="checkbox" id="theme-toggle" />
+      <label for="theme-toggle" class="toggle-label">
+        <span class="icon sun">☀️</span>
+        <span class="icon moon">🌙</span>
+      </label>
+    </div>
 
-  <!-- Hamburger (tylko mobile) -->
-  <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
-</header>
-
+    <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+  </header>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero fade-in">
     <h1>Szkolenia NewPrompt</h1>
     <p>Praktyczna wiedza o AI, druku 3D i cyberbezpieczeństwie – od podstaw do zaawansowanych wdrożeń.</p>
     <p><strong>Szkolenia ogólne odbywają się w każdy drugi wtorek miesiąca o godz. 20:00.</strong></p>
     <a href="kontakt.html" class="cta big">📩 Zapisz się teraz</a>
-            <img src="assets/logos/logo.png" alt="NewPrompt" class="hero-logo bounce glow" />
+    <img src="assets/logos/logo.png" alt="NewPrompt" class="hero-logo bounce glow" />
   </section>
 
   <!-- USP -->
-  <div class="section-header">
+  <div class="section-header fade-in">
     <h2 class="section-title">Dlaczego nasze szkolenia</h2>
     <div class="section-underline"></div>
   </div>
-  <section class="tiles">
-    <div class="tile"><h3>🎯 Od teorii do praktyki</h3><p>Pokazujemy gotowe przykłady i ćwiczenia.</p></div>
-    <div class="tile"><h3>📜 Certyfikat uczestnictwa</h3><p>Sygnowany przez <strong>Politechnikę Krakowską</strong> – autorytet akademicki.</p></div>
-    <div class="tile"><h3>👨‍🏫 Prowadzone przez praktyków</h3><p>Realne case study, nie tylko teoria.</p></div>
-    <div class="tile"><h3>🌍 Online, stacjonarnie i Learn Cloud</h3><p>Trzy formy nauki – zawsze dopasowane do Ciebie.</p></div>
-    <div class="tile"><h3>🚀 Aktualne trendy AI</h3><p>Na bieżąco z najnowszymi modelami i narzędziami.</p></div>
-    <div class="tile"><h3>💡 Społeczność i networking</h3><p>Poznajesz ludzi wdrażających AI i 3D w praktyce.</p></div>
+  <section class="tiles fade-in">
+    <div class="tile fade-in">
+      <h3>🎯 Od teorii do praktyki</h3>
+      <p>Pokazujemy gotowe przykłady i ćwiczenia.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>📜 Certyfikat uczestnictwa</h3>
+      <p>Sygnowany przez <strong>Politechnikę Krakowską</strong> – autorytet akademicki.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>👨‍🏫 Prowadzone przez praktyków</h3>
+      <p>Realne case study, nie tylko teoria.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🌍 Online, stacjonarnie i Learn Cloud</h3>
+      <p>Trzy formy nauki – zawsze dopasowane do Ciebie.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🚀 Aktualne trendy AI</h3>
+      <p>Na bieżąco z najnowszymi modelami i narzędziami.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>💡 Społeczność i networking</h3>
+      <p>Poznajesz ludzi wdrażających AI i 3D w praktyce.</p>
+    </div>
   </section>
 
   <!-- OFERTA -->
-<div class="section-header">
-  <h2 class="section-title">Oferta szkoleń</h2>
-  <div class="section-underline"></div>
-</div>
-<section class="tiles">
-  <div class="tile">
-    <h3>👩‍🏫 AI dla nauczycieli</h3>
-    <p>Gotowe scenariusze lekcji, narzędzia edukacyjne i sposoby oceny.</p>
+  <div class="section-header fade-in">
+    <h2 class="section-title">Oferta szkoleń</h2>
+    <div class="section-underline"></div>
   </div>
-
-  <div class="tile">
-    <h3>⚡ Prompt Engineering (PRISMA-NP™)</h3>
-    <p>Autorski framework do skutecznego wdrażania AI w edukacji i biznesie.</p>
-  </div>
-
-  <div class="tile">
-    <h3>🔐 Cyberbezpieczeństwo w erze AI</h3>
-    <p>Darknet, phishing, deepfake – jak się chronić i edukować zespół.</p>
-  </div>
-
-  <div class="tile">
-    <h3>🖌️ Projektowanie 3D</h3>
-    <p>Nauka modelowania w programach CAD i 3D, przygotowanie plików pod druk.</p>
-  </div>
-
-  <div class="tile">
-    <h3>🖨️ Druk 3D – od projektu do prototypu</h3>
-    <p>Materiały, optymalizacja modeli, praktyczne warsztaty w laboratorium.</p>
-  </div>
-
-  <div class="tile">
-    <h3>🛠️ Warsztaty praktyczne</h3>
-    <p>Ćwiczenia „hands-on” – od podstaw AI po prototypowanie 3D i wdrożenia biznesowe.</p>
-  </div>
-</section>
+  <section class="tiles fade-in">
+    <div class="tile fade-in">
+      <h3>👩‍🏫 AI dla nauczycieli</h3>
+      <p>Gotowe scenariusze lekcji, narzędzia edukacyjne i sposoby oceny.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>⚡ Prompt Engineering (PRISMA-NP™)</h3>
+      <p>Autorski framework do skutecznego wdrażania AI w edukacji i biznesie.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🔐 Cyberbezpieczeństwo w erze AI</h3>
+      <p>Darknet, phishing, deepfake – jak się chronić i edukować zespół.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🖌️ Projektowanie 3D</h3>
+      <p>Nauka modelowania w programach CAD i 3D, przygotowanie plików pod druk.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🖨️ Druk 3D – od projektu do prototypu</h3>
+      <p>Materiały, optymalizacja modeli, praktyczne warsztaty w laboratorium.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🛠️ Warsztaty praktyczne</h3>
+      <p>Ćwiczenia „hands-on” – od podstaw AI po prototypowanie 3D i wdrożenia biznesowe.</p>
+    </div>
+  </section>
 
   <!-- SZKOLENIA NA ZAMÓWIENIE -->
-<div class="section-header">
-  <h2 class="section-title">Szkolenia na zamówienie</h2>
-  <p class="section-sub">Twoja droga do praktycznej wiedzy i przewagi w branży</p>
-  <div class="section-underline"></div>
-</div>
-
-<section class="trainings-grid">
-
-  <div class="training-card">
-    <div class="training-icon">🎓</div>
-    <h3>Dedykowane programy</h3>
-    <p>Dla instytucji edukacyjnych, firm i kół naukowych. Treści szyte na miarę, dokładnie pod Twoje potrzeby.</p>
+  <div class="section-header fade-in">
+    <h2 class="section-title">Szkolenia na zamówienie</h2>
+    <p class="section-sub">Twoja droga do praktycznej wiedzy i przewagi w branży</p>
+    <div class="section-underline"></div>
   </div>
+  <section class="tiles fade-in">
+    <div class="tile fade-in">
+      <h3>🎓 Dedykowane programy</h3>
+      <p>Dla instytucji edukacyjnych, firm i kół naukowych. Treści szyte na miarę, dokładnie pod Twoje potrzeby.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🧭 Elastyczność formy</h3>
+      <p>Szkolenia zdalne, stacjonarne lub samokształcenie przez <em>NewPrompt Learn Cloud</em>. Ty wybierasz.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>💸 Program zniżkowy</h3>
+      <p>Im większa grupa, tym korzystniejsza cena. Oferta indywidualna dla Twojej organizacji.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>📜 Certyfikat sygnowany PK</h3>
+      <p>Każdy uczestnik otrzymuje prestiżowy certyfikat <strong>Politechniki Krakowskiej</strong>.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🚀 Dopasowanie do branży</h3>
+      <p>Edukacja, HR, biznes, IT czy badania naukowe – pokazujemy praktyczne case'y.</p>
+    </div>
+    <div class="tile fade-in">
+      <h3>🤝 Wsparcie po szkoleniu</h3>
+      <p>Po szkoleniu masz dostęp do konsultacji i wsparcia we wdrożeniu rozwiązań.</p>
+    </div>
+  </section>
 
-  <div class="training-card">
-    <div class="training-icon">🧭</div>
-    <h3>Elastyczność formy</h3>
-    <p>Szkolenia zdalne, stacjonarne lub samokształcenie przez <em>NewPrompt Learn Cloud</em>. Ty wybierasz.</p>
+  <div class="cta-center fade-in">
+    <a href="kontakt.html" class="cta-outline">📩 Chcę szkolenie dla mojej organizacji</a>
   </div>
-
-  <div class="training-card">
-    <div class="training-icon">💸</div>
-    <h3>Program zniżkowy</h3>
-    <p>Im większa grupa, tym korzystniejsza cena. Oferta indywidualna dla Twojej organizacji.</p>
-  </div>
-
-  <div class="training-card">
-    <div class="training-icon">📜</div>
-    <h3>Certyfikat sygnowany PK</h3>
-    <p>Każdy uczestnik otrzymuje prestiżowy certyfikat <strong>Politechniki Krakowskiej</strong>.</p>
-  </div>
-
-  <div class="training-card">
-    <div class="training-icon">🚀</div>
-    <h3>Dopasowanie do branży</h3>
-    <p>Edukacja, HR, biznes, IT czy badania naukowe – pokazujemy praktyczne case’y.</p>
-  </div>
-
-  <div class="training-card">
-    <div class="training-icon">🤝</div>
-    <h3>Wsparcie po szkoleniu</h3>
-    <p>Po szkoleniu masz dostęp do konsultacji i wsparcia we wdrożeniu rozwiązań.</p>
-  </div>
-
-</section>
-
-<div class="cta-center">
-  <a href="kontakt.html" class="cta-outline">📩 Chcę szkolenie dla mojej organizacji</a>
-</div>
-
 
   <!-- NAJCZĘSTSZE OBAWY -->
-  <div class="section-header">
+  <!-- NAJCZĘSTSZE OBAWY (FAQ) -->
+<div class="section-header fade-in">
   <h2 class="section-title">Najczęstsze obawy</h2>
   <p class="section-sub">Kliknij, a pokażemy Ci prawdę</p>
   <div class="section-underline"></div>
 </div>
 
-<section class="faq">
-  <div class="faq-item">
-    <button class="faq-q">❓ Nie znam angielskiego</button>
-    <div class="faq-a">✅ Prompty możesz pisać po polsku – AI rozumie i działa świetnie.</div>
+<section class="faq-wrap fade-in" aria-label="Najczęstsze obawy i odpowiedzi">
+  <div class="faq-card fade-in">
+    <button class="faq-toggle" aria-expanded="false" aria-controls="faq1">
+      <span class="faq-icon">?</span>
+      <span class="faq-qtxt">Nie znam angielskiego</span>
+      <span class="faq-chevron" aria-hidden="true">▾</span>
+    </button>
+    <div id="faq1" class="faq-panel" role="region">
+      <p>Prompty możesz pisać po polsku — modele rozumieją i działają świetnie. Dajemy polskie szablony.</p>
+    </div>
   </div>
 
-  <div class="faq-item">
-    <button class="faq-q">❓ Nie mam wiedzy technicznej</button>
-    <div class="faq-a">✅ Zaczynamy od podstaw – wszystko pokazujemy krok po kroku.</div>
+  <div class="faq-card fade-in">
+    <button class="faq-toggle" aria-expanded="false" aria-controls="faq2">
+      <span class="faq-icon">?</span>
+      <span class="faq-qtxt">Nie mam wiedzy technicznej</span>
+      <span class="faq-chevron" aria-hidden="true">▾</span>
+    </button>
+    <div id="faq2" class="faq-panel" role="region">
+      <p>Zaczynamy od podstaw, krok po kroku. Zero żargonu, dużo ćwiczeń.</p>
+    </div>
   </div>
 
-  <div class="faq-item">
-    <button class="faq-q">❓ Nie mam czasu</button>
-    <div class="faq-a">✅ Spotkania są raz w miesiącu, a materiały dostępne 24/7 na Learn Cloud.</div>
+  <div class="faq-card fade-in">
+    <button class="faq-toggle" aria-expanded="false" aria-controls="faq3">
+      <span class="faq-icon">⏱</span>
+      <span class="faq-qtxt">Nie mam czasu</span>
+      <span class="faq-chevron" aria-hidden="true">▾</span>
+    </button>
+    <div id="faq3" class="faq-panel" role="region">
+      <p>Spotkania są raz w miesiącu, a materiały 24/7 w Learn Cloud. Przerabiasz w swoim tempie.</p>
+    </div>
   </div>
 
-  <div class="faq-item">
-    <button class="faq-q">❓ To pewnie drogie</button>
-    <div class="faq-a">✅ Cena jest niższa niż godzina korepetycji – a zyskujesz certyfikat i praktykę.</div>
+  <div class="faq-card fade-in">
+    <button class="faq-toggle" aria-expanded="false" aria-controls="faq4">
+      <span class="faq-icon">💸</span>
+      <span class="faq-qtxt">To pewnie drogie</span>
+      <span class="faq-chevron" aria-hidden="true">▾</span>
+    </button>
+    <div id="faq4" class="faq-panel" role="region">
+      <p>Cena jest niższa niż godzina korepetycji — w pakiecie certyfikat i gotowe szablony.</p>
+    </div>
   </div>
 
-  <div class="faq-item">
-    <button class="faq-q">❓ To chyba tylko teoria</button>
-    <div class="faq-a">✅ Pokazujemy praktykę – realne wdrożenia i gotowe narzędzia.</div>
+  <div class="faq-card fade-in">
+    <button class="faq-toggle" aria-expanded="false" aria-controls="faq5">
+      <span class="faq-icon">🔍</span>
+      <span class="faq-qtxt">To chyba tylko teoria</span>
+      <span class="faq-chevron" aria-hidden="true">▾</span>
+    </button>
+    <div id="faq5" class="faq-panel" role="region">
+      <p>Same praktyczne case’y i zadania. Pokazujemy, potem ćwiczysz na swoich przykładach.</p>
+    </div>
   </div>
 
-  <div class="faq-item">
-    <button class="faq-q">❓ Nie wiem, czy to dla mnie</button>
-    <div class="faq-a">✅ Szkolenia są dla nauczycieli, studentów, HR, firm i pasjonatów – każdy znajdzie coś dla siebie.</div>
+  <div class="faq-card fade-in">
+    <button class="faq-toggle" aria-expanded="false" aria-controls="faq6">
+      <span class="faq-icon">🤔</span>
+      <span class="faq-qtxt">Nie wiem, czy to dla mnie</span>
+      <span class="faq-chevron" aria-hidden="true">▾</span>
+    </button>
+    <div id="faq6" class="faq-panel" role="region">
+      <p>Dla nauczycieli, studentów, HR, firm i pasjonatów. Dobierzemy poziom do Ciebie.</p>
+    </div>
   </div>
 </section>
 
-  <!-- PROCES -->
-  <div class="section-header">
-    <h2 class="section-title">Jak to działa</h2>
-    <div class="section-underline"></div>
-  </div>
-<section class="steps-slider">
-  <div class="tile step-slide"><h3>1. Wybierz szkolenie</h3></div>
-  <div class="tile step-slide"><h3>2. Zapisz się przez formularz</h3></div>
-  <div class="tile step-slide"><h3>3. Dołącz online, stacjonarnie lub na Learn Cloud</h3></div>
-  <div class="tile step-slide"><h3>4. Otrzymaj certyfikat sygnowany PK</h3></div>
+
+ <!-- PROCES – pionowa oś czasu -->
+<div class="section-header fade-in">
+  <h2 class="section-title">Jak to działa</h2>
+  <div class="section-underline"></div>
+</div>
+
+<section class="process-vertical fade-in" aria-label="Proces zapisu na szkolenie">
+  <ol class="vlist">
+    <li class="vstep fade-in">
+      <span class="step-badge" aria-hidden="true">1</span>
+      <div class="vcard">
+        <h3>Wybierz szkolenie</h3>
+        <p>Znajdź temat, który pasuje do Twoich potrzeb.</p>
+      </div>
+    </li>
+
+    <li class="vstep fade-in">
+      <span class="step-badge" aria-hidden="true">2</span>
+      <div class="vcard">
+        <h3>Zapis przez formularz</h3>
+        <p>Wypełnij krótki formularz kontaktowy.</p>
+      </div>
+    </li>
+
+    <li class="vstep fade-in">
+      <span class="step-badge" aria-hidden="true">3</span>
+      <div class="vcard">
+        <h3>Dołącz do zajęć</h3>
+        <p>Online, stacjonarnie lub na Learn Cloud.</p>
+      </div>
+    </li>
+
+    <li class="vstep fade-in">
+      <span class="step-badge" aria-hidden="true">4</span>
+      <div class="vcard">
+        <h3>Odbierz certyfikat PK</h3>
+        <p>Prestiżowy certyfikat i dostęp do materiałów.</p>
+      </div>
+    </li>
+  </ol>
 </section>
 
 
-  <!-- CTA -->
-<section class="cta-full">
-  <div class="cta-content">
-    <h2>Wykorzystaj AI i 3D pewnie i bez chaosu</h2>
-    <p>
-      Przejdziesz od ciekawości do konkretnych efektów w pracy i edukacji.
-      Bez żargonu, za to z ćwiczeniami, szablonami i wsparciem.
-      Na koniec otrzymasz certyfikat <strong>Politechniki Krakowskiej</strong>.
-    </p>
 
-
-
-    <a href="kontakt.html" class="cta big">Zapytaj o pierwszy wolny termin</a>
-
-    <p class="microcopy" style="margin-top:.75rem; opacity:.85">
-      Spokojny start: najpierw pokazujemy, potem ćwiczysz na własnych przykładach.
-    </p>
-  </div>
-</section>
-
-
+  <!-- CTA KOŃCOWE -->
+  <section class="cta-full fade-in">
+    <div class="cta-content">
+      <h2>Wykorzystaj AI i 3D pewnie i bez chaosu</h2>
+      <p>
+        Przejdziesz od ciekawości do konkretnych efektów w pracy i edukacji.
+        Bez żargonu, za to z ćwiczeniami, szablonami i wsparciem.
+        Na koniec otrzymasz certyfikat <strong>Politechniki Krakowskiej</strong>.
+      </p>
+      <a href="kontakt.html" class="cta big">Zapytaj o pierwszy wolny termin</a>
+      <p class="microcopy" style="margin-top:.75rem;opacity:.85">
+        Spokojny start: najpierw pokazujemy, potem ćwiczysz na własnych przykładach.
+      </p>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer>
     <p>&copy; 2025 NewPrompt sp. z o.o.</p>
   </footer>
 
-  <!-- JS -->
+  <!-- IntersectionObserver do animacji -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // celowo łapiemy zarówno .fade-in jak i .step-slide (kroki)
+      const animated = document.querySelectorAll(".fade-in, .step-slide");
+
+      if (!("IntersectionObserver" in window)) {
+        animated.forEach(el => el.classList.add("show","visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show","visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -100px 0px" });
+
+      animated.forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <!-- FAQ toggle (akordeon + animacja wejścia) -->
+  <script>
+    // Akordeon
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('.faq-q').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const parent = btn.parentElement;
+          const answer = parent.querySelector('.faq-a');
+
+          if (btn.classList.contains('active')) {
+            btn.classList.remove('active');
+            answer.style.display = "none";
+          } else {
+            document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('active'));
+            document.querySelectorAll('.faq-a').forEach(a => a.style.display = "none");
+            btn.classList.add('active');
+            answer.style.display = "block";
+          }
+        });
+      });
+
+      // Wejście FAQ przy scrollu (kaskadowo)
+      const faqItems = document.querySelectorAll('.faq-item');
+      function checkFAQVisibility() {
+        const triggerBottom = window.innerHeight * 0.9;
+        faqItems.forEach((item, index) => {
+          const boxTop = item.getBoundingClientRect().top;
+          if (boxTop < triggerBottom) {
+            setTimeout(() => item.classList.add('visible'), index * 100);
+          }
+        });
+      }
+      window.addEventListener('scroll', checkFAQVisibility);
+      window.addEventListener('load', checkFAQVisibility);
+    });
+  </script>
+
   <script src="js/theme-toggle.js"></script>
   <script src="js/menu.js"></script>
+
+  <!-- Cookies -->
   <div id="cookie-banner" class="cookie-banner">
-    <p>
-      🍪 Używamy plików cookies w celach funkcjonalnych i statystycznych.
-      Korzystając z naszej strony, zgadzasz się na ich użycie.
-    </p>
+    <p>🍪 Używamy plików cookies w celach funkcjonalnych i statystycznych. Korzystając z naszej strony, zgadzasz się na ich użycie.</p>
     <button id="accept-cookies" class="cookie-btn">Akceptuję</button>
   </div>
+  <script>
+    // Ulepszony akordeon FAQ (jedno otwarte naraz + płynna wysokość)
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.faq-card');
+  
+      cards.forEach(card => {
+        const btn   = card.querySelector('.faq-toggle');
+        const panel = card.querySelector('.faq-panel');
+  
+        btn.addEventListener('click', () => {
+          const isOpen = card.classList.contains('open');
+  
+          // zamknij wszystkie
+          document.querySelectorAll('.faq-card.open').forEach(openCard => {
+            const b = openCard.querySelector('.faq-toggle');
+            const p = openCard.querySelector('.faq-panel');
+            openCard.classList.remove('open');
+            b.setAttribute('aria-expanded', 'false');
+            p.style.maxHeight = null;
+          });
+  
+          // otwórz kliknięty (jeśli był zamknięty)
+          if (!isOpen) {
+            card.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+  
+        // wsparcie dla resize (gdy treść się zmieni / breakpointy)
+        window.addEventListener('resize', () => {
+          if (card.classList.contains('open')) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+      });
+    });
+  </script>
   
 </body>
 </html>
-<script>
-// FAQ toggle (akordeon)
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const parent = btn.parentElement;
-    const answer = parent.querySelector('.faq-a');
-
-    if (btn.classList.contains('active')) {
-      btn.classList.remove('active');
-      answer.style.display = "none";
-    } else {
-      document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('active'));
-      document.querySelectorAll('.faq-a').forEach(a => a.style.display = "none");
-      btn.classList.add('active');
-      answer.style.display = "block";
-    }
-  });
-});
-
-// Animacja przy scrollu
-const faqItems = document.querySelectorAll('.faq-item');
-
-function checkVisibility() {
-  const triggerBottom = window.innerHeight * 0.9;
-  faqItems.forEach(item => {
-    const boxTop = item.getBoundingClientRect().top;
-    if (boxTop < triggerBottom) {
-      item.classList.add('visible');
-    }
-  });
-}
-
-window.addEventListener('scroll', checkVisibility);
-window.addEventListener('load', checkVisibility);
-</script>
-<script>
-const slides = document.querySelectorAll('.step-slide');
-
-function checkSteps() {
-  const triggerBottom = window.innerHeight * 0.9;
-  slides.forEach(slide => {
-    const boxTop = slide.getBoundingClientRect().top;
-    if (boxTop < triggerBottom) {
-      slide.classList.add('visible');
-    }
-  });
-}
-window.addEventListener('scroll', checkSteps);
-window.addEventListener('load', checkSteps);
-</script>

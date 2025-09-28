@@ -2,238 +2,549 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kontakt | NewPrompt</title>
-  <meta name="description" content="Skontaktuj się z NewPrompt – spin-offem Politechniki Krakowskiej. Zapytaj o szkolenia AI, druk 3D, wdrożenia i współpracę B+R.">
+  <meta name="description" content="Skontaktuj się z NewPrompt — spin-offem Politechniki Krakowskiej. Zapytaj o szkolenia AI, druk 3D, wdrożenia i współpracę B+R." />
+
+  <!-- Global -->
   <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
-  <!-- DROBNE STYLE LOKALNE (TYLKO DLA TEJ STRONY) -->
+  <!-- OG -->
+  <meta property="og:title" content="Kontakt | NewPrompt"/>
+  <meta property="og:description" content="Skontaktuj się z NewPrompt — spin-offem Politechniki Krakowskiej."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://newpromptai.pl/kontakt.html"/>
+
+  <link rel="icon" href="assets/logos/logo.png"/>
+
   <style>
-    .contact-page .hero { padding: 5rem 2rem 3rem; text-align: center; color:#fff;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); }
-    .contact-page .hero p { max-width: 720px; margin: 0 auto; opacity:.95; }
+    /* ========== HERO ========== */
+    .contact-hero {
+      position: relative;
+      background: var(--gradient-tech);
+      color: #fff;
+      text-align: center;
+      padding: clamp(4rem, 8vw, 8rem) 2rem clamp(3rem, 6vw, 6rem);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .contact-hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(60rem 60rem at 20% -10%, rgba(255,255,255,.15), transparent 60%),
+        radial-gradient(40rem 40rem at 110% 20%, rgba(255,255,255,.12), transparent 55%);
+      z-index:0;
+      pointer-events:none;
+    }
+    .contact-hero::after{
+      /* cieniutka siatka tech */
+      content:"";
+      position:absolute; inset:0; z-index:0; opacity:.08;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M16 0H0v16" fill="none" stroke="white" stroke-width=".6"/></svg>');
+      mix-blend-mode: screen;
+    }
+    .contact-hero .container{
+      position: relative; z-index:1;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .contact-hero h1{
+      font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      text-wrap: balance;
+    }
+    .contact-hero p{
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      max-width: 760px;
+      margin: 0 auto;
+      opacity: .95;
+    }
 
-    .contact-wrap { max-width: 1100px; margin: 2rem auto 3rem; padding: 0 1rem; }
-    .contact-grid { display:grid; grid-template-columns: 1.3fr .9fr; gap: 1.5rem; }
-    @media (max-width: 900px){ .contact-grid{ grid-template-columns: 1fr; } }
+    /* ========== MAIN LAYOUT ========== */
+    .contact-main{
+      max-width: 1200px;
+      margin: -3rem auto 4rem; /* lekki overlap z hero */
+      padding: 0 clamp(1rem, 3vw, 2rem);
+      position: relative;
+      z-index: 5;
+    }
+    .contact-grid{
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: clamp(1.5rem, 3.5vw, 3rem);
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
 
-    .card { background: var(--card-bg); color: var(--card-fg); border-radius: 16px; 
-      box-shadow: var(--shadow-soft); padding: 1.5rem; }
+    /* ========== CARDS ========== */
+    .contact-card{
+      background: var(--surface);
+      border: 1px solid var(--glass-border, var(--border));
+      border-radius: 20px;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      box-shadow: var(--shadow-soft);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .contact-card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-strong); }
+    .card-topline{
+      height: 4px; border-radius: 999px;
+      background: var(--gradient-secondary);
+      margin: -4px -4px 1rem;
+    }
 
-    .contact-form .row { display:grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
-    .contact-form .row + .row { margin-top: .8rem; }
-    .contact-form .row-1 { grid-template-columns: 1fr; }
-    @media (max-width:700px){ .contact-form .row{ grid-template-columns:1fr; } }
+    /* ========== TYPOGRAPHY UTILS ========== */
+    .h2{
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      font-weight: 800;
+      color: var(--fg, var(--text));
+      margin: .25rem 0 1rem;
+      letter-spacing: -0.01em;
+    }
+    .sub{
+      color: var(--text-muted, var(--text-light));
+      margin: 0 0 1.25rem;
+      font-size: clamp(1rem, 1.2vw, 1.1rem);
+    }
 
-    .contact-form label { font-weight: 600; font-size:.95rem; margin-bottom:.25rem; display:block; }
-    .contact-form input, .contact-form textarea, .contact-form select {
-      width:100%; padding:.9rem 1rem; border-radius:12px; border:1px solid rgba(0,0,0,.08);
-      background: var(--tile-bg); color:inherit; transition: box-shadow .2s, background .2s; }
-    body.dark-theme .contact-form input, body.dark-theme .contact-form textarea, body.dark-theme .contact-form select {
-      border-color: rgba(255,255,255,.12); }
-    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
-      outline:none; background: var(--tile-hover); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent-1) 35%, transparent); }
-    .contact-form textarea{ min-height: 160px; resize: vertical; }
-    .contact-form .submitbar { display:flex; gap:.75rem; align-items:center; justify-content:flex-start; margin-top:1rem; }
-    .contact-form .cta { border:none; cursor:pointer; }
-    .micro { font-size:.85rem; opacity:.7; }
+    /* ========== FORM ========== */
+    .form-row{
+      display: grid; gap: 1rem; margin-bottom: 1rem;
+      grid-template-columns: 1fr 1fr;
+    }
+    .form-row.full{ grid-template-columns: 1fr; }
+    .form-group label{
+      display:block; font-weight:600; margin: 0 0 .45rem; color: var(--fg, var(--text));
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
+      width: 100%;
+      padding: .9rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-weak);
+      color: var(--fg, var(--text));
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+      font: inherit;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus{
+      outline: none;
+      border-color: var(--accent-1);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-1) 18%, transparent);
+      background: var(--surface);
+    }
+    .form-group textarea{ min-height: 120px; resize: vertical; }
+    .submit-btn{
+      background: var(--gradient-secondary);
+      color: #fff; border: 0; cursor: pointer;
+      border-radius: 14px; padding: .95rem 1.25rem; font-weight: 800;
+      transition: transform .2s ease, box-shadow .25s ease, filter .2s ease;
+    }
+    .submit-btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+    .submit-btn:active{ transform: translateY(0); filter: brightness(.98); }
+    .form-note{ font-size: .9rem; color: var(--text-muted); margin-top: .75rem; }
 
-    .contact-info h3 { margin: 0 0 .5rem; font-weight:800; }
-    .contact-list { list-style:none; padding:0; margin:0; display:grid; gap:.5rem; }
-    .contact-list li a { text-decoration:none; color:inherit; font-weight:600; }
-    .legal { font-size:.95rem; opacity:.9; }
-    .legal b { font-weight:800; }
+    /* ========== INFO / LEGAL ========== */
+    .info-title{ font-size: 1.25rem; font-weight: 800; margin: .25rem 0 1rem; color: var(--fg); }
+    .contact-item{
+      display: flex; gap: .9rem; padding: .9rem; border-radius: 12px;
+      background: var(--surface-weak); margin-bottom: .75rem;
+      border: 1px solid var(--glass-border);
+    }
+    .contact-icon{ font-size: 1.15rem; margin-top: .15rem; }
+    .contact-details h4{ margin: 0 0 .15rem; font-weight: 700; color: var(--fg); }
+    .contact-details p{ margin: 0; color: var(--text-muted); }
+    .contact-details a{ color: var(--accent-1); font-weight: 600; text-decoration: none; }
+    .contact-details a:hover{ text-decoration: underline; }
 
-    .mini-faq { margin-top: 1rem; }
-    .mini-faq details { border:1px solid rgba(0,0,0,.08); border-radius:12px; padding:.8rem 1rem; background: var(--surface-weak); }
-    body.dark-theme .mini-faq details { border-color: rgba(255,255,255,.12); background: #1c1c1c; }
-    .mini-faq details + details { margin-top:.6rem; }
-    .mini-faq summary { cursor:pointer; font-weight:700; }
+    .legal-section{
+      margin-top: 1.25rem; padding: 1rem; border-radius: 14px;
+      background: var(--surface-weak); border: 1px solid var(--glass-border);
+    }
+    .legal-grid{
+      display: grid; gap: .75rem; margin-top: .75rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .legal-item{
+      background: var(--surface); border: 1px solid var(--glass-border);
+      border-radius: 10px; padding: .75rem; text-align: center;
+    }
+    .legal-label{ font-size: .75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+    .legal-value{ font-weight: 800; color: var(--fg); }
+    .legal-note{ margin-top: .75rem; text-align: center; color: var(--text-muted); font-style: italic; font-size: .9rem; }
+
+    /* ========== FAQ (accordion) ========== */
+    .faq-section{ margin-top: 1.25rem; }
+    .faq-list{ display: grid; gap: .6rem; }
+    .faq-item{
+      border: 1px solid var(--glass-border); border-radius: 12px; background: var(--surface-weak); overflow: hidden;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .faq-btn{
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .75rem;
+      width:100%; text-align:left; background: transparent; border: 0; padding: .9rem 1rem; cursor: pointer;
+      font-weight: 700; color: var(--fg);
+    }
+    .faq-btn:hover{ background: var(--surface-hover); }
+    .faq-icon{ transition: transform .25s ease; }
+    .faq-panel{
+      max-height: 0; overflow: hidden; transition: max-height .3s ease;
+      padding: 0 1rem;
+    }
+    .faq-panel p{ color: var(--text-muted); margin: 0 0 1rem; padding-right: .25rem; }
+    .faq-item[aria-expanded="true"] .faq-icon{ transform: rotate(180deg); }
+    .faq-item[aria-expanded="true"] .faq-panel{ padding-top: .25rem; }
+
+    /* ========== MAPA ========== */
+    .map-section h3{ font-size: 1.25rem; font-weight: 800; margin: .25rem 0 1rem; color: var(--fg); }
+    .map-container{
+      border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-soft);
+      border: 1px solid var(--glass-border);
+      aspect-ratio: 16/9;
+    }
+    .map-container iframe{ width: 100%; height: 100%; border: 0; }
+
+    /* ========== CTA ========== */
+    .cta-full{ margin: 3rem 0 2rem; }
+    .cta-content{
+      max-width: 1100px; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2rem);
+      background: var(--card-bg, var(--surface)); border: 1px solid var(--glass-border);
+      border-radius: 20px; text-align: center; box-shadow: var(--shadow-soft);
+    }
+    .cta-content h2{ font-size: clamp(1.4rem, 2.4vw, 2rem); font-weight: 800; margin: 0 0 .75rem; }
+    .cta-content p{ color: var(--text-muted); margin: 0 0 1rem; }
+    .cta{
+      display: inline-block; font-weight: 800; text-decoration: none;
+      background: var(--gradient-secondary); color: #fff; padding: .9rem 1.15rem; border-radius: 12px;
+      transition: transform .2s ease, box-shadow .25s ease, filter .2s ease;
+    }
+    .cta:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+    .cta:active{ transform: translateY(0); filter: brightness(.98); }
+
+    /* ========== ANIMACJA WEJŚCIA ========== */
+    .fade-in{ opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+    .fade-in.show{ opacity: 1; transform: translateY(0); }
+
+    /* RESP */
+    @media (max-width: 900px){
+      .contact-grid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px){
+      .form-row{ grid-template-columns: 1fr; }
+      .legal-grid{ grid-template-columns: 1fr; }
+    }
   </style>
 </head>
-<body class="light-theme contact-page">
-<!-- NAV -->
-<header class="navbar" role="navigation" aria-label="Główne">
-  <div class="logo">
-    <a href="index.html">
-      <img src="assets/logos/logo.png" alt="NewPrompt logo" class="logo-img" />
-      <span class="logo-text">NewPrompt</span>
-    </a>
-  </div>
 
-  <!-- Klasyczna nawigacja (desktop) -->
-  <nav class="nav-links">
-    <ul>
-      <li><a href="index.html">Strona główna</a></li>
-      <li><a href="prompt-engineering.html">Prompt Engineering</a></li>
-      <li><a href="druk-3d.html">Druk 3D</a></li>
-      <li><a href="produkty.html">Produkty</a></li>
-      <li><a href="szkolenia.html">Szkolenia</a></li>
-      <li><a href="o-nas.html">O nas</a></li>
-      <li><a href="kontakt.html">Kontakt</a></li>
-    </ul>
-  </nav>
+<body class="light-theme" data-theme="light">
+  <!-- NAVBAR -->
+  <header class="navbar" role="navigation" aria-label="Główne">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logos/logo.png" alt="NewPrompt logo" class="logo-img" width="40" height="40" />
+        <span class="logo-text">NewPrompt</span>
+      </a>
+    </div>
 
-  <!-- Theme toggle (zawsze widoczny) -->
-  <div class="theme-toggle">
-    <input type="checkbox" id="theme-toggle" />
-    <label for="theme-toggle" class="toggle-label">
-      <span class="icon sun">☀️</span>
-      <span class="icon moon">🌙</span>
-    </label>
-  </div>
+    <nav class="nav-links">
+      <ul>
+        <li><a href="index.html">Strona główna</a></li>
+        <li><a href="prompt-engineering.html">Prompt Engineering</a></li>
+        <li><a href="druk-3d.html">Druk 3D</a></li>
+        <li><a href="produkty.html">Produkty</a></li>
+        <li><a href="szkolenia.html">Szkolenia</a></li>
+        <li><a href="o-nas.html">O nas</a></li>
+        <li><a href="kontakt.html" aria-current="page">Kontakt</a></li>
+      </ul>
+    </nav>
 
-  <!-- Hamburger (tylko mobile) -->
-  <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
-</header>
+    <div class="theme-toggle">
+      <input type="checkbox" id="theme-toggle" aria-label="Przełącz motyw" />
+      <label for="theme-toggle" class="toggle-label">
+        <span class="icon sun" aria-hidden="true">☀️</span>
+        <span class="icon moon" aria-hidden="true">🌙</span>
+      </label>
+    </div>
 
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+  </header>
 
   <!-- HERO -->
-  <section class="hero">
-    <h1>Kontakt</h1>
-    <p>Masz pytania o szkolenia, wdrożenia AI lub druk 3D? Napisz – zwykle odpowiadamy tego samego dnia.</p>
-    <img src="assets/logos/logo.png" alt="NewPrompt" class="hero-logo bounce glow" />
+  <section class="contact-hero fade-in">
+    <div class="container">
+      <h1>Kontakt</h1>
+      <p>Masz pytania o szkolenia, wdrożenia AI lub druk 3D? Napisz — zwykle odpowiadamy tego samego dnia roboczego.</p>
+    </div>
   </section>
 
-  <!-- FORM + DANE -->
-  <main class="contact-wrap">
+  <!-- MAIN -->
+  <main class="contact-main">
     <div class="contact-grid">
       <!-- FORM -->
-      <section class="card contact-form" aria-labelledby="form-tytul">
-        <h2 id="form-tytul" class="section-title" style="background:none;color:inherit;">Napisz do nas</h2>
-        <p class="section-sub" style="margin-bottom:.75rem;">Wypełnij krótki formularz – odezwiemy się z propozycją terminu i zakresem.</p>
+      <section class="contact-card fade-in" id="form">
+        <div class="card-topline"></div>
+        <h2 class="h2">Napisz do nas</h2>
+        <p class="sub">Wypełnij krótki formularz — odezwiemy się z propozycją terminu i zakresem współpracy.</p>
 
-        <!-- FormSubmit: wysyła na kontakt@newpromptai.pl -->
-        <form action="https://formsubmit.co/kontakt@newpromptai.pl" method="POST">
-          <!-- zabezpieczenia i ustawienia FormSubmit -->
-          <input type="hidden" name="_subject" value="Wiadomość z formularza NewPrompt">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" value="https://newpromptai.pl/dziekujemy.html">
+        <form action="https://formsubmit.co/kontakt@newpromptai.pl" method="POST" id="contactForm" novalidate>
+          <input type="hidden" name="_subject" value="Wiadomość z formularza NewPrompt" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://newpromptai.pl/dziekujemy.html" />
 
-          <div class="row">
-            <div>
-              <label for="imie">Imię</label>
-              <input id="imie" name="Imię" type="text" required />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">Imię *</label>
+              <input id="firstName" name="Imię" type="text" required />
             </div>
-            <div>
-              <label for="nazwisko">Nazwisko</label>
-              <input id="nazwisko" name="Nazwisko" type="text" />
+            <div class="form-group">
+              <label for="lastName">Nazwisko</label>
+              <input id="lastName" name="Nazwisko" type="text" />
             </div>
           </div>
 
-          <div class="row">
-            <div>
-              <label for="email">E-mail</label>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">E-mail *</label>
               <input id="email" name="Email" type="email" required />
             </div>
-            <div>
-              <label for="temat">Temat</label>
-              <select id="temat" name="Temat">
-                <option>Szkolenia – AI/PRISMA-NP</option>
-                <option>Szkolenia – Druk 3D / CAD</option>
+            <div class="form-group">
+              <label for="subject">Temat</label>
+              <select id="subject" name="Temat">
+                <option>Szkolenia — AI/Prompt Engineering</option>
+                <option>Szkolenia — Druk 3D / CAD</option>
                 <option>Wdrożenia AI w organizacji</option>
                 <option>Współpraca B+R / Uczelnia</option>
+                <option>Produkty i narzędzia</option>
                 <option>Inne</option>
               </select>
             </div>
           </div>
 
-          <div class="row row-1">
-            <div>
-              <label for="wiadomosc">Wiadomość</label>
-              <textarea id="wiadomosc" name="Wiadomość" placeholder="Napisz kilka zdań o potrzebie…"></textarea>
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="message">Wiadomość</label>
+              <textarea id="message" name="Wiadomość" placeholder="Opisz krótko swoją potrzebę, branżę i oczekiwania..."></textarea>
             </div>
           </div>
 
-          <div class="submitbar">
-            <button type="submit" class="cta btn-grad">📩 Wyślij wiadomość</button>
-            <span class="micro">Formularz obsługuje FormSubmit. Nie przechowujemy kopii na serwerze.</span>
-          </div>
+          <button type="submit" class="submit-btn">📩 Wyślij wiadomość</button>
+          <p class="form-note">Formularz obsługuje FormSubmit. Nie przechowujemy kopii wiadomości na naszym serwerze.</p>
         </form>
       </section>
 
-      <!-- DANE FIRMY -->
-      <aside class="card contact-info" itemscope itemtype="https://schema.org/Organization">
-        <h3>NewPrompt sp. z o.o.</h3>
-        <ul class="contact-list">
-          <li><b>Adres:</b> <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-            <span itemprop="streetAddress">ul. Juliusza Lea 114, lok. 416A, 416B</span>,
-            <span itemprop="postalCode">30-133</span> <span itemprop="addressLocality">Kraków</span>
-          </span></li>
-          <li><b>E-mail:</b> <a itemprop="email" href="mailto:kontakt@newpromptai.pl">kontakt@newpromptai.pl</a></li>
-        </ul>
+      <!-- INFO + FAQ -->
+      <aside class="contact-card fade-in">
+        <div class="card-topline"></div>
+        <h3 class="info-title">NewPrompt sp. z o.o.</h3>
 
-        <div class="legal" style="margin-top:1rem;">
-          <p><b>KRS:</b> <span itemprop="taxID">0001171407</span><br>
-             <b>NIP:</b> 6772525131<br>
-             <b>REGON:</b> 541704038</p>
-          <p style="margin-top:.5rem;">Działamy jako spin-off Politechniki Krakowskiej.</p>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-details">
+            <h4>Adres</h4>
+            <p>ul. Juliusza Lea 114, lok. 416A, 416B<br/>30-133 Kraków</p>
+          </div>
         </div>
 
-        <div class="mini-faq">
-          <details>
-            <summary>Faktury i dane do umowy</summary>
-            <div class="micro">W odpowiedzi na wiadomość prześlemy komplet danych formalnych oraz wzór umowy / zamówienia.</div>
-          </details>
-          <details>
-            <summary>Spotkania i terminy</summary>
-            <div class="micro">Szkolenia ogólne: <b>drugi wtorek miesiąca, 20:00</b>. Dla organizacji – terminy indywidualne.</div>
-          </details>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-details">
+            <h4>E-mail</h4>
+            <p><a href="mailto:kontakt@newpromptai.pl">kontakt@newpromptai.pl</a></p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">⏰</div>
+          <div class="contact-details">
+            <h4>Czas odpowiedzi</h4>
+            <p>W dni robocze: do 24h • Weekend: do 48h</p>
+          </div>
+        </div>
+
+        <div class="legal-section">
+          <h4 class="info-title" style="font-size:1rem;">Dane rejestrowe</h4>
+          <div class="legal-grid">
+            <div class="legal-item">
+              <div class="legal-label">KRS</div>
+              <div class="legal-value">0001171407</div>
+            </div>
+            <div class="legal-item">
+              <div class="legal-label">NIP</div>
+              <div class="legal-value">6772525131</div>
+            </div>
+            <div class="legal-item">
+              <div class="legal-label">REGON</div>
+              <div class="legal-value">541704038</div>
+            </div>
+          </div>
+          <p class="legal-note">Działamy jako spin-off Politechniki Krakowskiej.</p>
+        </div>
+
+        <div class="faq-section">
+          <h4 class="info-title" style="font-size:1rem;">Najczęściej pytane</h4>
+          <div class="faq-list">
+            <div class="faq-item" aria-expanded="false">
+              <button class="faq-btn" aria-controls="faq1" aria-expanded="false">
+                <span>Faktury i dane do umowy</span>
+                <span class="faq-icon">▼</span>
+              </button>
+              <div id="faq1" class="faq-panel" role="region" aria-label="Faktury i dane do umowy">
+                <p>W odpowiedzi na wiadomość prześlemy komplet danych formalnych oraz wzór umowy lub zamówienia.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" aria-expanded="false">
+              <button class="faq-btn" aria-controls="faq2" aria-expanded="false">
+                <span>Terminy szkoleń</span>
+                <span class="faq-icon">▼</span>
+              </button>
+              <div id="faq2" class="faq-panel" role="region" aria-label="Terminy szkoleń">
+                <p>Szkolenia otwarte: drugi wtorek miesiąca o 20:00. Dla organizacji — terminy indywidualne.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" aria-expanded="false">
+              <button class="faq-btn" aria-controls="faq3" aria-expanded="false">
+                <span>Bezpłatna konsultacja</span>
+                <span class="faq-icon">▼</span>
+              </button>
+              <div id="faq3" class="faq-panel" role="region" aria-label="Bezpłatna konsultacja">
+                <p>Pierwsza 45–60 minutowa konsultacja jest bezpłatna — diagnozujemy potrzeby i proponujemy najlepsze rozwiązanie.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
     </div>
 
-    <!-- MAPA (opcjonalnie, bez JS) -->
-    <section class="card" style="margin-top:1rem;">
-      <h3 style="margin:0 0 .5rem;font-weight:800;">Jak nas znaleźć</h3>
-      <iframe
-        title="Mapa dojazdu – NewPrompt"
-        src="https://www.google.com/maps?q=Juliusza%20Lea%20114%2C%20Krak%C3%B3w&output=embed"
-        width="100%" height="300" style="border:0;border-radius:12px;" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <!-- MAPA -->
+    <section class="contact-card map-section fade-in">
+      <div class="card-topline"></div>
+      <h3>Jak nas znaleźć</h3>
+      <div class="map-container">
+        <iframe
+          title="Mapa dojazdu — NewPrompt"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.8391!2d19.9167785!3d50.0755512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b0e7c1b5b3b%3A0x8e1f8e1e1e1e1e1e!2sJuliusza%20Lea%20114%2C%2030-133%20Kraków!5e0!3m2!1spl!2spl!4v1234567890123"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
     </section>
   </main>
 
-  <!-- CTA KOŃCOWE -->
-  <section class="cta-section">
-    <h2>Porozmawiajmy o Twoim projekcie</h2>
-    <p>Opisz krótko cel i ograniczenia – wrócimy do Ciebie z planem działań i wyceną.</p>
-    <a href="#form-tytul" class="cta-btn">📩 Wyślij zapytanie</a>
-  </section>
+<!-- CTA -->
+<section class="cta-full cta-upgrade fade-in" id="kontakt-cta">
+  <div class="cta-slab">
+    <span class="cta-kicker">Gotowi, gdy Ty jesteś</span>
+    <h2 class="cta-title">Porozmawiajmy o Twoim projekcie</h2>
+    <p class="cta-sub">
+      Krótka rozmowa → jasny plan i wycena dopasowana do Twoich potrzeb. Bez salesowego gadania.
+    </p>
+
+    <div class="cta-actions">
+      <a href="#form" class="cta-btn">📩 Wyślij zapytanie</a>
+      <a href="mailto:kontakt@newpromptai.pl" class="cta-btn cta-btn--ghost">✉️ kontakt@newpromptai.pl</a>
+    </div>
+
+    <ul class="cta-bullets" aria-label="Co zyskasz">
+      <li>• odpowiedź do 24h</li>
+      <li>• bezpłatna konsultacja 45–60 min</li>
+      <li>• certyfikat <strong>PK</strong> po szkoleniu</li>
+    </ul>
+
+    <span class="cta-badge" aria-hidden="true">Spin-off PK</span>
+  </div>
+</section>
+
 
   <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 NewPrompt sp. z o.o.</p>
+    <p>&copy; 2025 NewPrompt sp. z o.o. | Współpraca z Politechniką Krakowską</p>
   </footer>
 
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"NewPrompt sp. z o.o.",
-    "email":"kontakt@newpromptai.pl",
-    "address":{
-      "@type":"PostalAddress",
-      "streetAddress":"ul. Juliusza Lea 114, lok. 416A, 416B",
-      "addressLocality":"Kraków",
-      "postalCode":"30-133",
-      "addressCountry":"PL"
-    }
-  }
-  </script>
-
-  <script src="js/theme-toggle.js"></script>
-  <script src="js/menu.js"></script>
+  <!-- COOKIES -->
   <div id="cookie-banner" class="cookie-banner">
-    <p>
-      🍪 Używamy plików cookies w celach funkcjonalnych i statystycznych.
-      Korzystając z naszej strony, zgadzasz się na ich użycie.
-    </p>
+    <p>🍪 Używamy plików cookies w celach funkcjonalnych i statystycznych. Korzystając z naszej strony, zgadzasz się na ich użycie.</p>
     <button id="accept-cookies" class="cookie-btn">Akceptuję</button>
   </div>
-  
+
+  <!-- Global scripts -->
+  <script src="js/theme-toggle.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/cookie.js"></script>
+
+  <script>
+    // Fade-in on scroll (spójne z resztą serwisu)
+    document.addEventListener("DOMContentLoaded", () => {
+      const els = document.querySelectorAll(".fade-in");
+      if (!("IntersectionObserver" in window)) { els.forEach(el => el.classList.add("show")); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("show"); io.unobserve(e.target); }});
+      }, { threshold: .12, rootMargin: "0px 0px -60px 0px" });
+      els.forEach(el => io.observe(el));
+    });
+
+    // FAQ accordion (ARIA + animowany max-height)
+    function setupFAQ(){
+      const items = document.querySelectorAll(".faq-item");
+      items.forEach(item => {
+        const btn = item.querySelector(".faq-btn");
+        const panel = document.getElementById(btn.getAttribute("aria-controls"));
+        btn.addEventListener("click", () => {
+          const open = item.getAttribute("aria-expanded") === "true";
+          // zamknij inne
+          document.querySelectorAll(".faq-item[aria-expanded='true']").forEach(x => {
+            if (x !== item) {
+              x.setAttribute("aria-expanded","false");
+              const b = x.querySelector(".faq-btn");
+              const p = document.getElementById(b.getAttribute("aria-controls"));
+              b.setAttribute("aria-expanded","false");
+              p.style.maxHeight = "0px";
+            }
+          });
+          // toggle bieżącego
+          item.setAttribute("aria-expanded", String(!open));
+          btn.setAttribute("aria-expanded", String(!open));
+          if (!open) {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+          } else {
+            panel.style.maxHeight = "0px";
+          }
+        });
+        // start collapsed
+        panel.style.maxHeight = "0px";
+      });
+    }
+    document.addEventListener("DOMContentLoaded", setupFAQ);
+
+    // Prosta walidacja formularza
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("contactForm");
+      if (!form) return;
+      form.addEventListener("submit", (e) => {
+        const req = form.querySelectorAll("[required]");
+        let ok = true;
+        req.forEach(f => {
+          if (!f.value.trim()) {
+            f.style.borderColor = "#ef4444";
+            ok = false;
+          } else {
+            f.style.borderColor = "";
+          }
+        });
+        if (!ok) {
+          e.preventDefault();
+          alert("Proszę wypełnić wszystkie wymagane pola.");
+        }
+      });
+    });
+  </script>
 </body>
 </html>

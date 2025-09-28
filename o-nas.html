@@ -5,51 +5,509 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>O nas | NewPrompt</title>
 
-  <meta name="description" content="NewPrompt – spin-off Politechniki Krakowskiej. Łączymy AI, druk 3D i edukację. Zespół inżynierów i dydaktyków, którzy przekuwają wiedzę akademicką w praktyczne rozwiązania." />
+  <meta name="description" content="NewPrompt — spin-off Politechniki Krakowskiej. Łączymy AI, druk 3D i edukację. Zespół inżynierów i dydaktyków z doświadczeniem akademickim i wdrożeniowym." />
 
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/logos/logo.png" />
 
   <style>
-    /* Drobne dopasowania tylko dla tej strony */
-    .about-lead { max-width: 860px; margin: 0 auto; opacity: .95; }
-    .about-photo {
-      width: 100%; max-width: 980px; margin: 1.5rem auto 0;
-      border-radius: 16px; display:block; box-shadow: var(--shadow-soft);
+    /* Animacje wejściowe zgodne z resztą strony */
+    .fade-in { 
+      opacity: 0; 
+      transform: translateY(20px); 
+      transition: opacity .6s ease, transform .6s ease; 
     }
-    .team-card {
-      background: var(--card-bg);
-      color: var(--card-fg);
+    .fade-in.show { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+    
+    /* Opóźnienia dla kafelków */
+    .tiles .tile.fade-in:nth-child(1) { transition-delay: .05s; }
+    .tiles .tile.fade-in:nth-child(2) { transition-delay: .15s; }
+    .tiles .tile.fade-in:nth-child(3) { transition-delay: .25s; }
+    .tiles .tile.fade-in:nth-child(4) { transition-delay: .35s; }
+    .tiles .tile.fade-in:nth-child(5) { transition-delay: .45s; }
+    .tiles .tile.fade-in:nth-child(6) { transition-delay: .55s; }
+    
+    /* Animacje dla logo */
+    @keyframes bounceY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .hero-logo.bounce { animation: bounceY 3s ease-in-out infinite; }
+    
+    /* Team animacje */
+    .team-member {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s ease-out;
+    }
+    .team-member.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .team-member:nth-child(even) {
+      transform: translateX(50px);
+    }
+    .team-member:nth-child(even).visible {
+      transform: translateX(0);
+    }
+    
+    /* Team styling */
+    .team-member {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      padding: 2rem;
+      border-radius: 20px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur-light);
+      -webkit-backdrop-filter: var(--blur-light);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 2rem;
+      transition: all 0.8s ease-out, box-shadow 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: var(--shadow-strong);
+    }
+    
+    .team-member:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    
+    .team-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    
+    .team-text h3 {
+      margin: 0 0 0.5rem;
+      font-weight: 800;
+      color: var(--fg);
+    }
+    
+    .team-role {
+      font-weight: 600;
+      color: var(--accent-1);
+      margin-bottom: 1rem;
+    }
+    
+    .team-text p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .team-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: var(--gradient-primary);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    /* Values styling */
+    .value-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+    
+    .value-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .value-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 2rem;
+      border-radius: 16px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur-light);
+      -webkit-backdrop-filter: var(--blur-light);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-soft);
+      transition: all 0.6s ease-out, transform 0.3s ease;
+    }
+    
+    .value-item:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: var(--shadow-strong);
+    }
+    
+    .value-icon {
+      font-size: 2.5rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .value-text h3 {
+      margin: 0 0 0.5rem;
+      font-weight: 800;
+      color: var(--fg);
+    }
+    
+    .value-text p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    /* Process timeline styling */
+    .process-timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 3rem auto 0;
+      padding: 2rem;
+    }
+    
+    .timeline-line {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: calc(100% - 160px);
+      background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+      border-radius: 2px;
+      z-index: 1;
+    }
+    
+    .timeline-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .timeline-step:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    
+    .timeline-step:nth-child(even) .step-content {
+      text-align: right;
+    }
+    
+    .step-circle {
+      position: relative;
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(123, 97, 255, 0.3);
+      z-index: 3;
+    }
+    
+    .step-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+    }
+    
+    .step-content {
+      flex: 1;
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur-light);
+      -webkit-backdrop-filter: var(--blur-light);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+    }
+    
+    .step-content:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-strong);
+    }
+    
+    .step-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .step-content h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--fg);
+    }
+    
+    .step-content p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    
+    .step-details {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .detail-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(123, 97, 255, 0.1);
+      color: var(--accent-1);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(123, 97, 255, 0.2);
+    }
+
+    /* Nowe style dla ulepszonej sekcji procesu */
+    .step-subsection {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: rgba(123, 97, 255, 0.05);
+      border-radius: 12px;
+      border-left: 4px solid var(--accent-1);
+    }
+
+    .step-subsection h4 {
+      margin: 0 0 0.75rem 0;
+      color: var(--accent-1);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .step-subsection ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      list-style: none;
+    }
+
+    .step-subsection li {
+      position: relative;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .step-subsection li::before {
+      content: "▸";
+      position: absolute;
+      left: -1.2rem;
+      color: var(--accent-1);
+      font-weight: bold;
+    }
+
+    .process-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 3rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .info-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur-light);
+      -webkit-backdrop-filter: var(--blur-light);
+      border: 1px solid var(--glass-border);
       border-radius: 16px;
       padding: 1.5rem;
-      box-shadow: var(--shadow-soft);
       text-align: center;
+      transition: all 0.3s ease;
     }
-    .team-card img {
-      width: 120px; height: 120px; border-radius: 50%;
-      object-fit: cover; margin-bottom: .9rem;
-      box-shadow: 0 6px 16px rgba(0,0,0,.12);
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-strong);
     }
-    .team-name { font-weight: 800; margin-bottom: .25rem; }
-    .team-role { opacity: .85; font-weight: 600; margin-bottom: .5rem; }
-    .values-grid {
-      display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-      gap: 1rem; max-width: 1100px; margin: 0 auto; padding: 0 1rem;
+
+    .info-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
     }
-    .value {
-      padding: 1.25rem; border-radius: 14px; background: var(--tile-bg);
+
+    .info-card h4 {
+      margin: 0 0 0.75rem 0;
+      color: var(--fg);
+      font-weight: 700;
+    }
+
+    .info-card p {
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .process-timeline {
+        padding: 1rem;
+      }
+      
+      .timeline-line {
+        left: 40px;
+        transform: none;
+      }
+      
+      .timeline-step,
+      .timeline-step:nth-child(even) {
+        flex-direction: row;
+        text-align: left;
+        margin-left: 0;
+      }
+      
+      .timeline-step:nth-child(even) .step-content {
+        text-align: left;
+      }
+      
+      .step-circle {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .step-number {
+        font-size: 1.2rem;
+      }
+      
+      .step-content {
+        margin-left: 1rem;
+      }
+
+      .step-subsection {
+        margin: 1rem 0;
+        padding: 0.75rem;
+      }
+      
+      .process-info-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+        gap: 1rem;
+      }
+      
+      .info-card {
+        padding: 1.25rem;
+      }
+    }
+    
+    /* Badges animation */
+    .badge {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+    
+    .badge.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      background: var(--gradient-primary);
+      color: white;
+      margin: 0.25rem;
       box-shadow: var(--shadow-soft);
     }
-    .partner-band {
-      max-width: 1000px; margin: 0 auto; padding: 0 1rem 2rem;
+    
+    /* Container styling */
+    .team-alt {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
-    .about-cta .cta.big { background:#fff; color:#000; }
-    .section-sub.center { text-align:center; }
+    
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .badges-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      max-width: 800px;
+      margin: 2rem auto 0;
+      padding: 0 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .team-member,
+      .team-member:nth-child(even) {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+      
+      .team-photo {
+        width: 180px;
+        height: 180px;
+      }
+      
+      .value-item {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+      
+      .values-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+      }
+      
+      .team-alt {
+        padding: 0 1rem;
+      }
+    }
   </style>
 </head>
 <body class="light-theme">
- <!-- NAV -->
+
+<!-- NAV -->
 <header class="navbar" role="navigation" aria-label="Główne">
   <div class="logo">
     <a href="index.html">
@@ -57,8 +515,7 @@
       <span class="logo-text">NewPrompt</span>
     </a>
   </div>
-
-  <!-- Klasyczna nawigacja (desktop) -->
+  
   <nav class="nav-links">
     <ul>
       <li><a href="index.html">Strona główna</a></li>
@@ -70,8 +527,7 @@
       <li><a href="kontakt.html">Kontakt</a></li>
     </ul>
   </nav>
-
-  <!-- Theme toggle (zawsze widoczny) -->
+  
   <div class="theme-toggle">
     <input type="checkbox" id="theme-toggle" />
     <label for="theme-toggle" class="toggle-label">
@@ -79,235 +535,472 @@
       <span class="icon moon">🌙</span>
     </label>
   </div>
-
-  <!-- Hamburger (tylko mobile) -->
+  
   <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
 </header>
 
-  <!-- HERO -->
-  <section class="hero" style="padding-bottom: 3.5rem;">
-    <h1>Zespół, który łączy naukę z praktyką</h1>
-    <p class="about-lead">
-      Jesteśmy spin-offem Politechniki Krakowskiej. Wykorzystujemy AI i druk 3D,
-      żeby tworzyć realne rozwiązania dla szkół, uczelni i biznesu. Uczymy, budujemy,
-      wdrażamy – po partnersku i bez żargonu.
-    </p>
-    <img src="assets/logos/logo.png" alt="NewPrompt" class="hero-logo bounce glow" loading="eager" />
-  </section>
+<!-- HERO -->
+<section class="hero fade-in">
+  <h1>Zespół, który łączy naukę z praktyką</h1>
+  <p style="max-width: 800px; margin: 0 auto;">
+    Jesteśmy spin-offem Politechniki Krakowskiej. Łączymy doświadczenie akademickie z wdrożeniami dla szkół, uczelni, NGO i firm. 
+    Uczymy prosto, budujemy narzędzia „do ręki", wdrażamy odpowiedzialnie — bez żargonu i zbędnej teorii.
+  </p>
+  <img src="assets/logos/logo.png" alt="NewPrompt" class="hero-logo bounce glow" loading="eager" />
+</section>
 
 <!-- KIM JESTEŚMY -->
-<div class="section-header">
+<div class="section-header fade-in">
   <h2 class="section-title">Kim jesteśmy</h2>
   <p class="section-sub">Przekuwamy wiedzę akademicką w realne rozwiązania</p>
   <div class="section-underline"></div>
 </div>
 
-<section class="about-gradient">
-  <div class="about-box fade-in">
+<section class="tiles fade-in">
+  <div class="tile fade-in">
     <h3>🎓 Spin-off Politechniki Krakowskiej</h3>
-    <p>Działamy jako spółka celowa PK. Przekuwamy akademicką wiedzę w szkolenia, konsulting i projekty wdrożeniowe z AI, prompt engineeringu i druku 3D.</p>
+    <p>Działamy w ścisłej współpracy z PK i INTECH PK. Łączymy standardy uczelni z tempem i pragmatyzmem biznesu.</p>
   </div>
-
-  <div class="about-box fade-in">
+  
+  <div class="tile fade-in">
     <h3>⚙️ Od laboratoriów do wdrożeń</h3>
-    <p>Nasze korzenie to Wydział Inżynierii Elektrycznej i Komputerowej PK. Tworzymy scenariusze zajęć, prototypy i środowiska pracy oparte o LLM.</p>
+    <p>Doświadczenia z Wydziału Inżynierii Elektrycznej i Komputerowej PK przekładamy na szkolenia, prototypy i automatyzacje procesów.</p>
   </div>
-
-  <div class="about-box fade-in">
-    <h3>📚 Edukacja, która zostaje w rękach</h3>
-    <p>Ćwiczenia, checklisty i gotowe narzędzia. Po szkoleniu uczestnicy mają dostęp do Learn Cloud i certyfikat sygnowany Politechniką Krakowską.</p>
+  
+  <div class="tile fade-in">
+    <h3>📚 Materiały, które zostają</h3>
+    <p>Ćwiczenia, checklisty, prompty i szablony. Uczestnicy dostają dostęp do materiałów w Learn Cloud oraz certyfikaty.</p>
+  </div>
+  
+  <div class="tile fade-in">
+    <h3>🔒 Odpowiedzialność</h3>
+    <p>Polityka AI, anonimizacja danych, cyberhigiena i bezpieczne środowiska pracy. Uczymy dobrych praktyk i kontroli jakości.</p>
+  </div>
+  
+  <div class="tile fade-in">
+    <h3>🏭 Dla biznesu i edukacji</h3>
+    <p>Współpracujemy ze szkołami, uczelniami, NGO i firmami. Dostosowujemy tempo i przykłady do potrzeb każdej grupy.</p>
+  </div>
+  
+  <div class="tile fade-in">
+    <h3>🎯 Konkretne rezultaty</h3>
+    <p>Nie tylko uczmy, ale również mierzymy efekty. KPI, checklisty wdrożeniowe i wsparcie po szkoleniu.</p>
   </div>
 </section>
 
-
-
-  <!-- ZESPÓŁ -->
-  <div class="section-header">
+<!-- ZESPÓŁ -->
+<div class="section-header fade-in">
   <h2 class="section-title">Nasz zespół</h2>
   <p class="section-sub">Interdyscyplinarna ekipa inżynierów, dydaktyków i pasjonatów technologii.</p>
   <div class="section-underline"></div>
 </div>
 
 <section class="team-alt">
-  <div class="team-member fade-left">
-    <img src="assets/team/maciej.jpg" alt="Maciej Gibas">
+  <!-- 1. Maciej -->
+  <div class="team-member">
+    <img class="team-photo" src="assets/team/maciej.jpg" alt="Maciej Gibas">
     <div class="team-text">
       <h3>mgr inż. Maciej Gibas</h3>
-      <p><strong>CEO • AI, prompt engineering</strong></p>
-      <p>Praktyk wdrożeń AI i optymalizacji. Prowadzi zajęcia m.in. na Politechnice Krakowskiej.</p>
+      <div class="team-role">CEO • AI & Prompt Engineering</div>
+      <p>Prezes NewPrompt. Ekspert w obszarze AI, inżynierii elektrycznej i technologii cyfrowych. Absolwent kierunku Infotronika na Politechnice Krakowskiej, posiadacz certyfikacji PRINCE2®. Ukończył kurs AI na Harvard University.</p>
+      <p>Jako Pełnomocnik Dziekana WIiEK PK w latach 2021—2024 współorganizował międzynarodowe szkoły letnie poświęcone sztucznej inteligencji. Łączy środowisko akademickie z przemysłem jako skaut technologiczny.</p>
+      <div class="team-meta">
+        <span class="tag">PRINCE2®</span>
+        <span class="tag">Harvard Online (AI)</span>
+        <span class="tag">Wdrożenia AI</span>
+        <span class="tag">Szkolenia dla szkół i firm</span>
+      </div>
     </div>
   </div>
 
-  <div class="team-member fade-right">
-    <img src="assets/team/zbigniew.png" alt="Zbigniew Pilch">
+  <!-- 2. Zbigniew -->
+  <div class="team-member">
+    <img class="team-photo" src="assets/team/zbigniew.png" alt="Zbigniew Pilch">
     <div class="team-text">
       <h3>dr inż. Zbigniew Pilch</h3>
-      <p><strong>Współzałożyciel • 3D, cyberbezpieczeństwo</strong></p>
-      <p>Badacz i dydaktyk. Projekty z zakresu druku 3D, bezpieczeństwa cyfrowego i AI.</p>
+      <div class="team-role">Współzałożyciel • Mechatronika, druk 3D, bezpieczeństwo</div>
+      <p>Adiunkt w Katedrze Inżynierii Elektrycznej na PK. Specjalizuje się w mechatronice, układach wykorzystujących ciecze magnetoreologiczne oraz w komputerowych metodach wspomagania w mechatronice.</p>
+      <p>Opiekun Koła Naukowego el-RAPPRO, współautor publikacji naukowych i patentów. Certyfikaty: AutoCAD (Basic/Advanced), Inventor (Basic/Advanced). Absolwent szkolenia „Umiejętności Jutra AI" (Google & SGH).</p>
+      <div class="team-meta">
+        <span class="tag">AutoCAD / Inventor</span>
+        <span class="tag">Publikacje i patenty</span>
+        <span class="tag">Opiekun el-RAPPRO</span>
+      </div>
     </div>
   </div>
 
-  <div class="team-member fade-left">
-    <img src="assets/team/kamila.png" alt="Kamila Stańczyk">
+  <!-- 3. Kamila -->
+  <div class="team-member">
+    <img class="team-photo" src="assets/team/kamila.png" alt="Kamila Stańczyk">
     <div class="team-text">
       <h3>inż. Kamila Stańczyk</h3>
-      <p><strong>Wizualizacja i VR/BIM</strong></p>
-      <p>Materiały 3D, kursy VR oraz współpraca z klientami edukacyjnymi.</p>
+      <div class="team-role">Wizualizacja 3D • VR/BIM • Relacje z klientami</div>
+      <p>Doświadczenie zdobywała w projektach z druku 3D i wizualizacji technicznej. Zajmuje się projektowaniem symboli elektrycznych i materiałów 3D. Przewodnicząca Koła Naukowego el-RAPPRO.</p>
+      <p>W NewPrompt odpowiada za materiały VR/BIM, współpracę z klientami edukacyjnymi oraz dopasowanie oferty do potrzeb grup.</p>
+      <div class="team-meta">
+        <span class="tag">VR / BIM</span>
+        <span class="tag">Wizualizacja 3D</span>
+        <span class="tag">Obsługa klienta</span>
+      </div>
     </div>
   </div>
 
-  <div class="team-member fade-right">
-    <img src="assets/team/mateusz.png" alt="Mateusz Pyznar">
+  <!-- 4. Mateusz -->
+  <div class="team-member">
+    <img class="team-photo" src="assets/team/mateusz.png" alt="Mateusz Pyznar">
     <div class="team-text">
       <h3>inż. Mateusz Pyznar</h3>
-      <p><strong>Automatyka, R&amp;D hardware</strong></p>
-      <p>Konstruktor drukarek i nawijarek, rozwój rozwiązań technicznych i materiałów szkoleniowych.</p>
+      <div class="team-role">Automatyka • R&D hardware • Druk 3D</div>
+      <p>Odpowiada za aspekty techniczne i realizację zamówień druku 3D. Łączy elektronikę z szybkim prototypowaniem, dba o gotowość sprzętu oraz parametry jakościowe wydruków.</p>
+      <p>Współtwórca rozwiązań warsztatowych (drukarki, nawijarki) i materiałów szkoleniowych. Wykonuje modele 3D i przygotowanie do druku.</p>
+      <div class="team-meta">
+        <span class="tag">FDM + trudne filamenty</span>
+        <span class="tag">AMS / serie kolorów</span>
+        <span class="tag">Prototypowanie</span>
+      </div>
     </div>
   </div>
 
-  <div class="team-member fade-left">
-    <img src="assets/team/lukasz.png" alt="Łukasz Bolanowski">
+  <!-- 5. Łukasz -->
+  <div class="team-member">
+    <img class="team-photo" src="assets/team/lukasz.png" alt="Łukasz Bolanowski">
     <div class="team-text">
       <h3>inż. Łukasz Bolanowski</h3>
-      <p><strong>Grafika, media i AI</strong></p>
-      <p>Tworzy materiały wizualne, wideo i wspiera wdrożenia AI w edukacji.</p>
+      <div class="team-role">Grafika, media i AI</div>
+      <p>Student II stopnia kierunku Infotronika na PK. Łączy obowiązki studenckie z aktywnością w kołach i samorządzie, co przekłada na dobrą organizację pracy zespołowej.</p>
+      <p>W NewPrompt zajmuje się komunikacją wizualną, materiałami wideo i wsparciem wdrożeń AI w edukacji; hobbystycznie rozwija umiejętności w modelowaniu 3D.</p>
+      <div class="team-meta">
+        <span class="tag">Grafika & wideo</span>
+        <span class="tag">Modele 3D</span>
+        <span class="tag">Promocja projektów</span>
+      </div>
     </div>
   </div>
 </section>
 
-  <!-- WARTOŚCI -->
- <div class="section-header">
-  <h2 class="section-title">Wartości, którymi się kierujemy</h2>
-  <p class="section-sub">To one nadają kształt naszym szkoleniom i projektom.</p>
+<!-- JAK PRACUJEMY -->
+<div class="section-header fade-in">
+  <h2 class="section-title">Jak pracujemy</h2>
+  <p class="section-sub">Od pierwszej rozmowy do wdrożenia — przejrzysty proces w 4 etapach</p>
   <div class="section-underline"></div>
 </div>
 
-<section class="values-alt">
-  <div class="value-item fade-left">
+<section class="process-timeline fade-in">
+  <div class="timeline-line"></div>
+  
+  <!-- ETAP 1: ROZPOZNANIE -->
+  <div class="timeline-step process-step">
+    <div class="step-circle">
+      <div class="step-number">1</div>
+    </div>
+    <div class="step-content">
+      <div class="step-icon">🔍</div>
+      <h3>Rozpoznanie potrzeb</h3>
+      <p><strong>Bezpłatna konsultacja</strong> - poznajemy Waszą specyfikę, cele i ograniczenia. Analizujemy obecny stan wiedzy zespołu oraz dostępne zasoby techniczne.</p>
+      
+      <div class="step-subsection">
+        <h4>Co ustalamy:</h4>
+        <ul>
+          <li>Cele szkolenia i oczekiwane rezultaty</li>
+          <li>Poziom zaawansowania uczestników</li>
+          <li>Budżet i ramy czasowe projektu</li>
+          <li>Dostępne narzędzia i infrastruktura IT</li>
+          <li>Specyficzne wymagania branżowe</li>
+        </ul>
+      </div>
+      
+      <div class="step-details">
+        <span class="detail-tag">⏱️ 45-90 min</span>
+        <span class="detail-tag">💰 Bezpłatnie</span>
+        <span class="detail-tag">📋 Analiza potrzeb</span>
+        <span class="detail-tag">🎯 Mapowanie celów</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ETAP 2: PLANOWANIE -->
+  <div class="timeline-step process-step">
+    <div class="step-circle">
+      <div class="step-number">2</div>
+    </div>
+    <div class="step-content">
+      <div class="step-icon">📋</div>
+      <h3>Przygotowanie programu</h3>
+      <p><strong>Indywidualny plan szkolenia</strong> - tworzymy szczegółowy program dostosowany do Waszych potrzeb. Przygotowujemy materiały i scenariusze warsztatów.</p>
+      
+      <div class="step-subsection">
+        <h4>Elementy programu:</h4>
+        <ul>
+          <li>Harmonogram z precyzyjnymi terminami</li>
+          <li>Agenda szczegółowa każdego modułu</li>
+          <li>Spersonalizowane materiały szkoleniowe</li>
+          <li>Praktyczne ćwiczenia na Waszych przykładach</li>
+          <li>Kryteria oceny postępów (KPI)</li>
+        </ul>
+      </div>
+      
+      <div class="step-details">
+        <span class="detail-tag">📅 Program szczegółowy</span>
+        <span class="detail-tag">🎯 Cele SMART</span>
+        <span class="detail-tag">📖 Materiały custom</span>
+        <span class="detail-tag">⚖️ Kryteria sukcesu</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ETAP 3: REALIZACJA -->
+  <div class="timeline-step process-step">
+    <div class="step-circle">
+      <div class="step-number">3</div>
+    </div>
+    <div class="step-content">
+      <div class="step-icon">⚡</div>
+      <h3>Warsztat praktyczny</h3>
+      <p><strong>Hands-on learning</strong> - intensywna praca warsztatowa z naciskiem na praktyczne zastosowania. Używamy realnych przykładów z Waszej branży.</p>
+      
+      <div class="step-subsection">
+        <h4>Format realizacji:</h4>
+        <ul>
+          <li>70% praktyki, 30% teorii</li>
+          <li>Praca na rzeczywistych przypadkach biznesowych</li>
+          <li>Sesje Q&A i rozwiązywanie problemów</li>
+          <li>Utworzenie pierwszych prompts/projektów 3D</li>
+          <li>Testowanie narzędzi w bezpiecznym środowisku</li>
+        </ul>
+      </div>
+      
+      <div class="step-details">
+        <span class="detail-tag">🛠️ Warsztat praktyczny</span>
+        <span class="detail-tag">💼 Wasze przypadki</span>
+        <span class="detail-tag">🔒 Bezpieczne środowisko</span>
+        <span class="detail-tag">👥 Praca zespołowa</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ETAP 4: WDROŻENIE -->
+  <div class="timeline-step process-step">
+    <div class="step-circle">
+      <div class="step-number">4</div>
+    </div>
+    <div class="step-content">
+      <div class="step-icon">🚀</div>
+      <h3>Wdrożenie i wsparcie</h3>
+      <p><strong>Długoterminowy sukces</strong> - zapewniamy pełne wsparcie po szkoleniu. Dostęp do materiałów, konsultacje i pomoc w implementacji rozwiązań.</p>
+      
+      <div class="step-subsection">
+        <h4>Pakiet po szkoleniu:</h4>
+        <ul>
+          <li>Komplet materiałów w Learn Cloud (dostęp 12 miesięcy)</li>
+          <li>Checklisty wdrożeniowe "krok po kroku"</li>
+          <li>Szablony i gotowe prompty do użycia</li>
+          <li>Certyfikat uczestnictwa</li>
+          <li>30 dni wsparcia technicznego (email/telefon)</li>
+          <li>Opcjonalne konsultacje follow-up</li>
+        </ul>
+      </div>
+      
+      <div class="step-details">
+        <span class="detail-tag">📚 Learn Cloud (12 mies.)</span>
+        <span class="detail-tag">🏆 Certyfikat</span>
+        <span class="detail-tag">🤝 Wsparcie 30 dni</span>
+        <span class="detail-tag">📞 Konsultacje follow-up</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DODATKOWE INFORMACJE O PROCESIE -->
+<div class="process-info-grid fade-in">
+  <div class="info-card">
+    <div class="info-icon">⏰</div>
+    <h4>Elastyczność czasowa</h4>
+    <p>Dostosowujemy tempo do Waszych możliwości - od intensywnych warsztatów 2-dniowych po rozłożone w czasie moduły.</p>
+  </div>
+  
+  <div class="info-card">
+    <div class="info-icon">👥</div>
+    <h4>Różne grupy docelowe</h4>
+    <p>Osobne programy dla kadry zarządzającej, specjalistów IT, nauczycieli i studentów.</p>
+  </div>
+  
+  <div class="info-card">
+    <div class="info-icon">📊</div>
+    <h4>Mierzalne rezultaty</h4>
+    <p>Każde szkolenie ma jasno określone KPI i metody pomiaru efektywności wdrożenia.</p>
+  </div>
+  
+  <div class="info-card">
+    <div class="info-icon">🔄</div>
+    <h4>Ciągły rozwój</h4>
+    <p>Aktualizujemy materiały zgodnie z najnowszymi trendami w AI i technologiach 3D.</p>
+  </div>
+  
+  <div class="info-card">
+    <div class="info-icon">🎯</div>
+    <h4>Praktyczne podejście</h4>
+    <p>Skupiamy się na rozwiązywaniu rzeczywistych problemów biznesowych - nie tylko na teorii.</p>
+  </div>
+  
+  <div class="info-card">
+    <div class="info-icon">🏆</div>
+    <h4>Jakość gwarantowana</h4>
+    <p>Standardy akademickie Politechniki Krakowskiej połączone z efektywnością biznesową.</p>
+  </div>
+</div>
+
+<!-- WARTOŚCI -->
+<div class="section-header fade-in">
+  <h2 class="section-title">Wartości, którymi się kierujemy</h2>
+  <p class="section-sub">One nadają kształt naszym szkoleniom i projektom.</p>
+  <div class="section-underline"></div>
+</div>
+
+<section class="values-grid fade-in">
+  <div class="value-item">
     <div class="value-icon">🎓</div>
     <div class="value-text">
       <h3>Edukacja, nie żargon</h3>
-      <p>Uczymy prosto i praktycznie. Każdy materiał ma cel i zastosowanie.</p>
+      <p>Uczymy prosto i praktycznie. Minimum teorii, maksimum zastosowań.</p>
     </div>
   </div>
-
-  <div class="value-item fade-right">
+  
+  <div class="value-item">
     <div class="value-icon">🚀</div>
     <div class="value-text">
       <h3>Innowacja</h3>
-      <p>Testujemy nowe modele LLM i narzędzia – przekładamy je na procesy i warsztat.</p>
+      <p>Sprawdzamy nowe narzędzia, ale wdrażamy tylko to, co działa i da się utrzymać.</p>
     </div>
   </div>
-
-  <div class="value-item fade-left">
+  
+  <div class="value-item">
     <div class="value-icon">🤝</div>
     <div class="value-text">
       <h3>Współpraca</h3>
-      <p>Łączymy naukę z rynkiem. Pracujemy zespołowo z nauczycielami, studentami i firmami.</p>
+      <p>Partnerstwo z zespołem klienta: wspólne cele, otwarta komunikacja, jasne kryteria.</p>
     </div>
   </div>
-
-  <div class="value-item fade-right">
+  
+  <div class="value-item">
     <div class="value-icon">🔒</div>
     <div class="value-text">
       <h3>Odpowiedzialność</h3>
-      <p>Cyberhigiena, bezpieczeństwo danych, świadome korzystanie z AI.</p>
+      <p>Bezpieczeństwo danych i transparentność procesów są u nas obowiązkowe.</p>
     </div>
   </div>
-
-  <div class="value-item fade-left">
+  
+  <div class="value-item">
     <div class="value-icon">🧰</div>
     <div class="value-text">
-      <h3>Narzędzia „do ręki”</h3>
-      <p>Check-listy, prompty, szablony – gotowe do użycia zaraz po szkoleniu.</p>
+      <h3>Narzędzia „do ręki"</h3>
+      <p>Po szkoleniu można działać od razu — bez dodatkowych zakupów i długich wdrożeń.</p>
     </div>
   </div>
-
-  <div class="value-item fade-right">
+  
+  <div class="value-item">
     <div class="value-icon">🌱</div>
     <div class="value-text">
       <h3>Rozwój</h3>
-      <p>Materiały w Learn Cloud i wsparcie po szkoleniu, by efekt został na dłużej.</p>
+      <p>Materiały aktualizujemy, a wiedzę uzupełniamy o praktyczne przykłady.</p>
     </div>
   </div>
 </section>
 
+<!-- CERTYFIKATY -->
+<div class="section-header fade-in">
+  <h2 class="section-title">Nasze certyfikacje</h2>
+  <p class="section-sub">Standardy, które gwarantują jakość naszej pracy.</p>
+  <div class="section-underline"></div>
+</div>
 
-  <!-- PARTNERZY / WSPARCIE -->
-  <div class="section-header">
-    <h2 class="section-title">W partnerstwie z</h2>
-    <p class="section-sub center">Działamy jako spin-off PK oraz we współpracy z INTECH PK.</p>
-    <div class="section-underline"></div>
+<div class="badges-container fade-in">
+  <span class="badge">Spin-off Politechniki Krakowskiej</span>
+  <span class="badge">Współpraca z INTECH PK</span>
+  <span class="badge">PRINCE2®</span>
+  <span class="badge">AutoCAD/Inventor</span>
+  <span class="badge">Harvard AI Course</span>
+</div>
+
+
+
+<!-- CTA -->
+<section class="cta-full fade-in">
+  <div class="cta-content">
+    <h2>Sprawdź, jak możemy pomóc Twojej organizacji</h2>
+    <p>Zaproponujemy konkretny plan działania i materiały „do ręki" — dostosowane do Waszych potrzeb i możliwości.</p>
+    <a href="kontakt.html" class="cta big">📩 Skontaktuj się z nami</a>
   </div>
-
-  <section class="partner-band">
-    <div class="trusted-logos">
-      <img src="assets/partners/pk.png" alt="Politechnika Krakowska" />
-      <img src="assets/partners/wieik.png" alt="Politechnika Krakowska" />
-      <img src="assets/partners/intech-pk.png" alt="INTECH PK" />
-    </div>
-  </section>
-
-  <!-- CTA KOŃCOWE -->
- <section class="cta-section">
-
-  <p>Pokażemy, jak wykorzystać AI i druk 3D w Twojej szkole lub firmie – od planu, przez materiały, aż po wdrożenie.</p>
-  <a href="kontakt.html" class="cta-btn">📩 Skontaktuj się z nami</a>
 </section>
 
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 NewPrompt sp. z o.o.</p>
+</footer>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 NewPrompt sp. z o.o.</p>
-  </footer>
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"NewPrompt sp. z o.o.",
+  "url":"https://maciejgibas.github.io/newpromptai/o-nas.html",
+  "logo":"https://maciejgibas.github.io/newpromptai/assets/logos/logo.png",
+  "foundingDate":"2025",
+  "description":"Spin-off Politechniki Krakowskiej. Szkolenia i wdrożenia AI oraz druku 3D.",
+  "parentOrganization": { "@type":"CollegeOrUniversity", "name":"Politechnika Krakowska" }
+}
+</script>
 
-  <!-- JSON-LD (Organization) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"NewPrompt sp. z o.o.",
-    "url":"https://maciejgibas.github.io/newpromptai/o-nas.html",
-    "logo":"https://maciejgibas.github.io/newpromptai/assets/logos/logo.png",
-    "foundingDate":"2025",
-    "description":"Spin-off Politechniki Krakowskiej. Szkolenia i wdrożenia AI oraz druku 3D.",
-    "parentOrganization": { "@type":"CollegeOrUniversity", "name":"Politechnika Krakowska" }
-  }
-  </script>
+<!-- IntersectionObserver do animacji -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const faders = document.querySelectorAll(".fade-in, .team-member, .value-item, .process-step, .badge");
+    
+    if (!("IntersectionObserver" in window)) {
+      faders.forEach(el => {
+        el.classList.add("show");
+        el.classList.add("visible");
+      });
+      return;
+    }
+    
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { 
+      threshold: 0.15, 
+      rootMargin: "0px 0px -50px 0px" 
+    });
+    
+    faders.forEach((el, index) => {
+      // Dodaj opóźnienie dla elementów zespołu
+      if (el.classList.contains('team-member')) {
+        setTimeout(() => observer.observe(el), index * 100);
+      } else if (el.classList.contains('value-item')) {
+        setTimeout(() => observer.observe(el), index * 50);
+      } else if (el.classList.contains('process-step')) {
+        setTimeout(() => observer.observe(el), index * 100);
+      } else if (el.classList.contains('badge')) {
+        setTimeout(() => observer.observe(el), index * 50);
+      } else {
+        observer.observe(el);
+      }
+    });
+  });
+</script>
 
-  <script src="js/theme-toggle.js"></script>
-  <script src="js/menu.js"></script>
-  <div id="cookie-banner" class="cookie-banner">
-    <p>
-      🍪 Używamy plików cookies w celach funkcjonalnych i statystycznych.
-      Korzystając z naszej strony, zgadzasz się na ich użycie.
-    </p>
-    <button id="accept-cookies" class="cookie-btn">Akceptuję</button>
-  </div>
-  
+<script src="js/theme-toggle.js"></script>
+<script src="js/menu.js"></script>
+
+<div id="cookie-banner" class="cookie-banner">
+  <p>🍪 Używamy plików cookies w celach funkcjonalnych i statystycznych. Korzystając z naszej strony, zgadzasz się na ich użycie.</p>
+  <button id="accept-cookies" class="cookie-btn">Akceptuję</button>
+</div>
+
 </body>
 </html>
-<script>
-const teamMembers = document.querySelectorAll('.team-member');
-function revealTeam() {
-  const trigger = window.innerHeight * 0.85;
-  teamMembers.forEach(member => {
-    const top = member.getBoundingClientRect().top;
-    if (top < trigger) member.classList.add('visible');
-  });
-}
-window.addEventListener('scroll', revealTeam);
-window.addEventListener('load', revealTeam);
-</script>
-<script>
-const valueItems = document.querySelectorAll('.value-item');
-function revealValues() {
-  const trigger = window.innerHeight * 0.85;
-  valueItems.forEach(item => {
-    const top = item.getBoundingClientRect().top;
-    if (top < trigger) item.classList.add('visible');
-  });
-}
-window.addEventListener('scroll', revealValues);
-window.addEventListener('load', revealValues);
-</script>
