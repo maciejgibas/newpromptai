@@ -2022,3 +2022,143 @@ body.dark-theme .cta-btn{ color:#0f0f10; }
 @media (max-width: 560px){
   .cta-slab{ border-radius: 18px; } /* delikatnie mniejsze zaokrąglenie na mobile */
 }
+/* === NADPISANIE NAWIGACJI - FIX dla iPada 768-1023px === */
+
+/* Ukryj desktop nav na wszystkich urządzeniach poniżej 1024px */
+@media (max-width: 1023px) {
+  .nav-links {
+    display: none !important;
+  }
+  
+  .nav-links.open {
+    display: flex !important;
+    position: fixed !important;
+    top: 80px !important;
+    left: 0 !important;
+    right: 0 !important;
+    flex-direction: column !important;
+    background: var(--nav-bg) !important;
+    backdrop-filter: var(--blur-strong) !important;
+    -webkit-backdrop-filter: var(--blur-strong) !important;
+    padding: 2rem !important;
+    box-shadow: var(--shadow-strong) !important;
+    border-bottom: 1px solid var(--nav-border) !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+    z-index: 999 !important;
+  }
+  
+  .nav-links.open ul {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+  
+  .nav-links.open li {
+    width: 100% !important;
+  }
+  
+  .nav-links.open a {
+    display: block !important;
+    width: 100% !important;
+    padding: 1rem !important;
+    text-align: center !important;
+  }
+  
+  /* Pokaż hamburger */
+  .hamburger {
+    display: block !important;
+  }
+}
+
+/* Desktop - pokaż normalne menu, ukryj hamburger */
+@media (min-width: 1024px) {
+  .nav-links {
+    display: flex !important;
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+  
+  .hamburger {
+    display: none !important;
+  }
+}
+/* Tło sekcji CTA (pozostaje gradient) */
+.cta-full {
+  background: var(--gradient-tech);
+  color: #fff;
+  padding: 3rem 2rem;
+  border-radius: 30px;
+  text-align: center;
+}
+.cta-full .cta-content {
+  max-width: 900px;
+  margin: 0 auto;
+  /* lekka „tafla” dla lepszej czytelności całego bloku */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+}
+
+/* Baza przycisku */
+a.cta.big {
+  display: inline-block;
+  font-weight: 800;
+  padding: 1.15rem 2.2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+/* Wariant 1: kontrastowy (biały) na gradiencie */
+a.cta.big.on-gradient {
+  background: #ffffff;
+  color: #0f172a; /* ciemny tekst */
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 12px 28px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.1);
+}
+a.cta.big.on-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.3), 0 3px 8px rgba(0,0,0,.14);
+}
+a.cta.big.on-gradient:focus-visible {
+  outline: 3px solid rgba(255,255,255,.9);
+  outline-offset: 2px;
+}
+
+/* Dark theme – żeby dalej był kontrastowy */
+[data-theme="dark"] .cta-full a.cta.big.on-gradient {
+  background: #0b1220;
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.18);
+}
+
+/* Wariant 2: obrys/outline na gradiencie (opcjonalny) */
+a.cta.big.outline-on-gradient {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,.9);
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+a.cta.big.outline-on-gradient:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.12);
+}
+a.cta.big.outline-on-gradient:focus-visible {
+  outline: 3px solid rgba(255,255,255,.9);
+  outline-offset: 2px;
+}
+.cta-full .cta-contrast {
+  background: transparent !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(255,255,255,.9);
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+.cta-full .cta-contrast:hover { background: rgba(255,255,255,.12); }
+[data-theme="dark"] .cta-full .cta-contrast { color:#fff; border-color:rgba(255,255,255,.9); }

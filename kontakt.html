@@ -4,245 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kontakt | NewPrompt</title>
-  <meta name="description" content="Skontaktuj się z NewPrompt — spin-offem Politechniki Krakowskiej. Zapytaj o szkolenia AI, druk 3D, wdrożenia i współpracę B+R." />
+  <meta name="description" content="Skontaktuj się z NewPrompt – spin-offem Politechniki Krakowskiej. Zapytaj o szkolenia AI, druk 3D, wdrożenia i współpracę B+R." />
 
-  <!-- Global -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
-  <!-- OG -->
   <meta property="og:title" content="Kontakt | NewPrompt"/>
-  <meta property="og:description" content="Skontaktuj się z NewPrompt — spin-offem Politechniki Krakowskiej."/>
+  <meta property="og:description" content="Skontaktuj się z NewPrompt – spin-offem Politechniki Krakowskiej."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://newpromptai.pl/kontakt.html"/>
 
   <link rel="icon" href="assets/logos/logo.png"/>
-
-  <style>
-    /* ========== HERO ========== */
-    .contact-hero {
-      position: relative;
-      background: var(--gradient-tech);
-      color: #fff;
-      text-align: center;
-      padding: clamp(4rem, 8vw, 8rem) 2rem clamp(3rem, 6vw, 6rem);
-      overflow: hidden;
-      isolation: isolate;
-    }
-    .contact-hero::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(60rem 60rem at 20% -10%, rgba(255,255,255,.15), transparent 60%),
-        radial-gradient(40rem 40rem at 110% 20%, rgba(255,255,255,.12), transparent 55%);
-      z-index:0;
-      pointer-events:none;
-    }
-    .contact-hero::after{
-      /* cieniutka siatka tech */
-      content:"";
-      position:absolute; inset:0; z-index:0; opacity:.08;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M16 0H0v16" fill="none" stroke="white" stroke-width=".6"/></svg>');
-      mix-blend-mode: screen;
-    }
-    .contact-hero .container{
-      position: relative; z-index:1;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .contact-hero h1{
-      font-size: clamp(2.25rem, 4.5vw, 3.75rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin: 0 0 1rem;
-      text-wrap: balance;
-    }
-    .contact-hero p{
-      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-      max-width: 760px;
-      margin: 0 auto;
-      opacity: .95;
-    }
-
-    /* ========== MAIN LAYOUT ========== */
-    .contact-main{
-      max-width: 1200px;
-      margin: -3rem auto 4rem; /* lekki overlap z hero */
-      padding: 0 clamp(1rem, 3vw, 2rem);
-      position: relative;
-      z-index: 5;
-    }
-    .contact-grid{
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: clamp(1.5rem, 3.5vw, 3rem);
-      margin-bottom: clamp(2.5rem, 5vw, 4rem);
-    }
-
-    /* ========== CARDS ========== */
-    .contact-card{
-      background: var(--surface);
-      border: 1px solid var(--glass-border, var(--border));
-      border-radius: 20px;
-      padding: clamp(1.5rem, 3vw, 2.5rem);
-      box-shadow: var(--shadow-soft);
-      transition: transform .35s ease, box-shadow .35s ease;
-    }
-    .contact-card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-strong); }
-    .card-topline{
-      height: 4px; border-radius: 999px;
-      background: var(--gradient-secondary);
-      margin: -4px -4px 1rem;
-    }
-
-    /* ========== TYPOGRAPHY UTILS ========== */
-    .h2{
-      font-size: clamp(1.4rem, 2.4vw, 2rem);
-      font-weight: 800;
-      color: var(--fg, var(--text));
-      margin: .25rem 0 1rem;
-      letter-spacing: -0.01em;
-    }
-    .sub{
-      color: var(--text-muted, var(--text-light));
-      margin: 0 0 1.25rem;
-      font-size: clamp(1rem, 1.2vw, 1.1rem);
-    }
-
-    /* ========== FORM ========== */
-    .form-row{
-      display: grid; gap: 1rem; margin-bottom: 1rem;
-      grid-template-columns: 1fr 1fr;
-    }
-    .form-row.full{ grid-template-columns: 1fr; }
-    .form-group label{
-      display:block; font-weight:600; margin: 0 0 .45rem; color: var(--fg, var(--text));
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea{
-      width: 100%;
-      padding: .9rem 1rem;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface-weak);
-      color: var(--fg, var(--text));
-      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
-      font: inherit;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus{
-      outline: none;
-      border-color: var(--accent-1);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-1) 18%, transparent);
-      background: var(--surface);
-    }
-    .form-group textarea{ min-height: 120px; resize: vertical; }
-    .submit-btn{
-      background: var(--gradient-secondary);
-      color: #fff; border: 0; cursor: pointer;
-      border-radius: 14px; padding: .95rem 1.25rem; font-weight: 800;
-      transition: transform .2s ease, box-shadow .25s ease, filter .2s ease;
-    }
-    .submit-btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
-    .submit-btn:active{ transform: translateY(0); filter: brightness(.98); }
-    .form-note{ font-size: .9rem; color: var(--text-muted); margin-top: .75rem; }
-
-    /* ========== INFO / LEGAL ========== */
-    .info-title{ font-size: 1.25rem; font-weight: 800; margin: .25rem 0 1rem; color: var(--fg); }
-    .contact-item{
-      display: flex; gap: .9rem; padding: .9rem; border-radius: 12px;
-      background: var(--surface-weak); margin-bottom: .75rem;
-      border: 1px solid var(--glass-border);
-    }
-    .contact-icon{ font-size: 1.15rem; margin-top: .15rem; }
-    .contact-details h4{ margin: 0 0 .15rem; font-weight: 700; color: var(--fg); }
-    .contact-details p{ margin: 0; color: var(--text-muted); }
-    .contact-details a{ color: var(--accent-1); font-weight: 600; text-decoration: none; }
-    .contact-details a:hover{ text-decoration: underline; }
-
-    .legal-section{
-      margin-top: 1.25rem; padding: 1rem; border-radius: 14px;
-      background: var(--surface-weak); border: 1px solid var(--glass-border);
-    }
-    .legal-grid{
-      display: grid; gap: .75rem; margin-top: .75rem;
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .legal-item{
-      background: var(--surface); border: 1px solid var(--glass-border);
-      border-radius: 10px; padding: .75rem; text-align: center;
-    }
-    .legal-label{ font-size: .75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
-    .legal-value{ font-weight: 800; color: var(--fg); }
-    .legal-note{ margin-top: .75rem; text-align: center; color: var(--text-muted); font-style: italic; font-size: .9rem; }
-
-    /* ========== FAQ (accordion) ========== */
-    .faq-section{ margin-top: 1.25rem; }
-    .faq-list{ display: grid; gap: .6rem; }
-    .faq-item{
-      border: 1px solid var(--glass-border); border-radius: 12px; background: var(--surface-weak); overflow: hidden;
-      transition: background .2s ease, border-color .2s ease;
-    }
-    .faq-btn{
-      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .75rem;
-      width:100%; text-align:left; background: transparent; border: 0; padding: .9rem 1rem; cursor: pointer;
-      font-weight: 700; color: var(--fg);
-    }
-    .faq-btn:hover{ background: var(--surface-hover); }
-    .faq-icon{ transition: transform .25s ease; }
-    .faq-panel{
-      max-height: 0; overflow: hidden; transition: max-height .3s ease;
-      padding: 0 1rem;
-    }
-    .faq-panel p{ color: var(--text-muted); margin: 0 0 1rem; padding-right: .25rem; }
-    .faq-item[aria-expanded="true"] .faq-icon{ transform: rotate(180deg); }
-    .faq-item[aria-expanded="true"] .faq-panel{ padding-top: .25rem; }
-
-    /* ========== MAPA ========== */
-    .map-section h3{ font-size: 1.25rem; font-weight: 800; margin: .25rem 0 1rem; color: var(--fg); }
-    .map-container{
-      border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-soft);
-      border: 1px solid var(--glass-border);
-      aspect-ratio: 16/9;
-    }
-    .map-container iframe{ width: 100%; height: 100%; border: 0; }
-
-    /* ========== CTA ========== */
-    .cta-full{ margin: 3rem 0 2rem; }
-    .cta-content{
-      max-width: 1100px; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2rem);
-      background: var(--card-bg, var(--surface)); border: 1px solid var(--glass-border);
-      border-radius: 20px; text-align: center; box-shadow: var(--shadow-soft);
-    }
-    .cta-content h2{ font-size: clamp(1.4rem, 2.4vw, 2rem); font-weight: 800; margin: 0 0 .75rem; }
-    .cta-content p{ color: var(--text-muted); margin: 0 0 1rem; }
-    .cta{
-      display: inline-block; font-weight: 800; text-decoration: none;
-      background: var(--gradient-secondary); color: #fff; padding: .9rem 1.15rem; border-radius: 12px;
-      transition: transform .2s ease, box-shadow .25s ease, filter .2s ease;
-    }
-    .cta:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
-    .cta:active{ transform: translateY(0); filter: brightness(.98); }
-
-    /* ========== ANIMACJA WEJŚCIA ========== */
-    .fade-in{ opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
-    .fade-in.show{ opacity: 1; transform: translateY(0); }
-
-    /* RESP */
-    @media (max-width: 900px){
-      .contact-grid{ grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px){
-      .form-row{ grid-template-columns: 1fr; }
-      .legal-grid{ grid-template-columns: 1fr; }
-    }
-  </style>
 </head>
 
-<body class="light-theme" data-theme="light">
+<body data-theme="light">
   <!-- NAVBAR -->
   <header class="navbar" role="navigation" aria-label="Główne">
     <div class="logo">
@@ -276,193 +53,175 @@
   </header>
 
   <!-- HERO -->
-  <section class="contact-hero fade-in">
-    <div class="container">
-      <h1>Kontakt</h1>
-      <p>Masz pytania o szkolenia, wdrożenia AI lub druk 3D? Napisz — zwykle odpowiadamy tego samego dnia roboczego.</p>
+  <section class="hero fade-in" style="padding-bottom: 3rem;">
+    <h1>Kontakt</h1>
+    <p>Masz pytania o szkolenia, wdrożenia AI lub druk 3D? Napisz – zwykle odpowiadamy tego samego dnia roboczego.</p>
+    <img src="assets/logos/logo.png" alt="NewPrompt logo" class="hero-logo bounce glow" width="100" height="100" loading="eager" />
+  </section>
+
+  <!-- FORMULARZ (zbite odstępy) -->
+  <section class="contact-form-section" style="max-width:900px; margin:-0.5rem auto 0; padding:0 2rem; position:relative; z-index:10;">
+    <div class="tile fade-in" style="text-align:left; padding:2.25rem; background:var(--surface); box-shadow:0 20px 60px rgba(0,0,0,0.15); margin-bottom:0;">
+      <h2 style="font-size:1.8rem; font-weight:800; margin:0 0 .5rem 0; color:var(--fg);">Napisz do nas</h2>
+      <p style="color:var(--text-muted); margin:0 0 1.25rem 0;">Wypełnij formularz – odezwiemy się tego samego dnia roboczego.</p>
+      
+      <form action="https://formsubmit.co/kontakt@newpromptai.pl" method="POST" id="contactForm" style="margin:0;">
+        <!-- FormSubmit Config -->
+        <input type="hidden" name="_subject" value="Nowa wiadomość z formularza kontaktowego NewPrompt" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="box" />
+        <input type="text" name="_honey" style="display:none">
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1rem;">
+          <div>
+            <label for="firstName" style="display:block; font-weight:600; margin-bottom:.5rem; color:var(--fg);">Imię *</label>
+            <input id="firstName" name="Imię" type="text" required style="width:100%;" />
+          </div>
+          <div>
+            <label for="lastName" style="display:block; font-weight:600; margin-bottom:.5rem; color:var(--fg);">Nazwisko</label>
+            <input id="lastName" name="Nazwisko" type="text" style="width:100%;" />
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1rem;">
+          <div>
+            <label for="email" style="display:block; font-weight:600; margin-bottom:.5rem; color:var(--fg);">E-mail *</label>
+            <input id="email" name="Email" type="email" required style="width:100%;" />
+          </div>
+          <div>
+            <label for="subject" style="display:block; font-weight:600; margin-bottom:.5rem; color:var(--fg);">Temat</label>
+            <select id="subject" name="Temat" style="width:100%;">
+              <option>Szkolenia – AI/Prompt Engineering</option>
+              <option>Szkolenia – Druk 3D / CAD</option>
+              <option>Wdrożenia AI w organizacji</option>
+              <option>Współpraca B+R / Uczelnia</option>
+              <option>Produkty i narzędzia</option>
+              <option>Inne</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:.9rem;">
+          <label for="message" style="display:block; font-weight:600; margin-bottom:.5rem; color:var(--fg);">Wiadomość</label>
+          <textarea id="message" name="Wiadomość" placeholder="Opisz krótko swoją potrzebę, branżę i oczekiwania..." style="width:100%; min-height:150px;"></textarea>
+        </div>
+
+        <button type="submit" class="cta" style="width:100%; padding:1rem; margin:0;">📩 Wyślij wiadomość</button>
+        
+        <p style="font-size:.85rem; color:var(--text-muted); margin:.5rem 0 0 0; text-align:center;">
+          Używamy FormSubmit.co do obsługi formularza. Twoje dane są bezpieczne.
+        </p>
+      </form>
     </div>
   </section>
 
-  <!-- MAIN -->
-  <main class="contact-main">
-    <div class="contact-grid">
-      <!-- FORM -->
-      <section class="contact-card fade-in" id="form">
-        <div class="card-topline"></div>
-        <h2 class="h2">Napisz do nas</h2>
-        <p class="sub">Wypełnij krótki formularz — odezwiemy się z propozycją terminu i zakresem współpracy.</p>
-
-        <form action="https://formsubmit.co/kontakt@newpromptai.pl" method="POST" id="contactForm" novalidate>
-          <input type="hidden" name="_subject" value="Wiadomość z formularza NewPrompt" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://newpromptai.pl/dziekujemy.html" />
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="firstName">Imię *</label>
-              <input id="firstName" name="Imię" type="text" required />
-            </div>
-            <div class="form-group">
-              <label for="lastName">Nazwisko</label>
-              <input id="lastName" name="Nazwisko" type="text" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">E-mail *</label>
-              <input id="email" name="Email" type="email" required />
-            </div>
-            <div class="form-group">
-              <label for="subject">Temat</label>
-              <select id="subject" name="Temat">
-                <option>Szkolenia — AI/Prompt Engineering</option>
-                <option>Szkolenia — Druk 3D / CAD</option>
-                <option>Wdrożenia AI w organizacji</option>
-                <option>Współpraca B+R / Uczelnia</option>
-                <option>Produkty i narzędzia</option>
-                <option>Inne</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row full">
-            <div class="form-group">
-              <label for="message">Wiadomość</label>
-              <textarea id="message" name="Wiadomość" placeholder="Opisz krótko swoją potrzebę, branżę i oczekiwania..."></textarea>
-            </div>
-          </div>
-
-          <button type="submit" class="submit-btn">📩 Wyślij wiadomość</button>
-          <p class="form-note">Formularz obsługuje FormSubmit. Nie przechowujemy kopii wiadomości na naszym serwerze.</p>
-        </form>
-      </section>
-
-      <!-- INFO + FAQ -->
-      <aside class="contact-card fade-in">
-        <div class="card-topline"></div>
-        <h3 class="info-title">NewPrompt sp. z o.o.</h3>
-
-        <div class="contact-item">
-          <div class="contact-icon">📍</div>
-          <div class="contact-details">
-            <h4>Adres</h4>
-            <p>ul. Juliusza Lea 114, lok. 416A, 416B<br/>30-133 Kraków</p>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <div class="contact-icon">📧</div>
-          <div class="contact-details">
-            <h4>E-mail</h4>
-            <p><a href="mailto:kontakt@newpromptai.pl">kontakt@newpromptai.pl</a></p>
-          </div>
-        </div>
-
-        <div class="contact-item">
-          <div class="contact-icon">⏰</div>
-          <div class="contact-details">
-            <h4>Czas odpowiedzi</h4>
-            <p>W dni robocze: do 24h • Weekend: do 48h</p>
-          </div>
-        </div>
-
-        <div class="legal-section">
-          <h4 class="info-title" style="font-size:1rem;">Dane rejestrowe</h4>
-          <div class="legal-grid">
-            <div class="legal-item">
-              <div class="legal-label">KRS</div>
-              <div class="legal-value">0001171407</div>
-            </div>
-            <div class="legal-item">
-              <div class="legal-label">NIP</div>
-              <div class="legal-value">6772525131</div>
-            </div>
-            <div class="legal-item">
-              <div class="legal-label">REGON</div>
-              <div class="legal-value">541704038</div>
-            </div>
-          </div>
-          <p class="legal-note">Działamy jako spin-off Politechniki Krakowskiej.</p>
-        </div>
-
-        <div class="faq-section">
-          <h4 class="info-title" style="font-size:1rem;">Najczęściej pytane</h4>
-          <div class="faq-list">
-            <div class="faq-item" aria-expanded="false">
-              <button class="faq-btn" aria-controls="faq1" aria-expanded="false">
-                <span>Faktury i dane do umowy</span>
-                <span class="faq-icon">▼</span>
-              </button>
-              <div id="faq1" class="faq-panel" role="region" aria-label="Faktury i dane do umowy">
-                <p>W odpowiedzi na wiadomość prześlemy komplet danych formalnych oraz wzór umowy lub zamówienia.</p>
-              </div>
-            </div>
-
-            <div class="faq-item" aria-expanded="false">
-              <button class="faq-btn" aria-controls="faq2" aria-expanded="false">
-                <span>Terminy szkoleń</span>
-                <span class="faq-icon">▼</span>
-              </button>
-              <div id="faq2" class="faq-panel" role="region" aria-label="Terminy szkoleń">
-                <p>Szkolenia otwarte: drugi wtorek miesiąca o 20:00. Dla organizacji — terminy indywidualne.</p>
-              </div>
-            </div>
-
-            <div class="faq-item" aria-expanded="false">
-              <button class="faq-btn" aria-controls="faq3" aria-expanded="false">
-                <span>Bezpłatna konsultacja</span>
-                <span class="faq-icon">▼</span>
-              </button>
-              <div id="faq3" class="faq-panel" role="region" aria-label="Bezpłatna konsultacja">
-                <p>Pierwsza 45–60 minutowa konsultacja jest bezpłatna — diagnozujemy potrzeby i proponujemy najlepsze rozwiązanie.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
+  <!-- (opcjonalnie) DANE KONTAKTOWE — jeśli masz tę sekcję, zostawiamy ściśle -->
+  <section class="tiles fade-in" style="padding-top:0; margin:.25rem auto 0;">
+    <div class="tile">
+      <h2>📍 Adres</h2>
+      <p>ul. Juliusza Lea 114<br/>lok. 416A, 416B<br/>30-133 Kraków</p>
     </div>
-
-    <!-- MAPA -->
-    <section class="contact-card map-section fade-in">
-      <div class="card-topline"></div>
-      <h3>Jak nas znaleźć</h3>
-      <div class="map-container">
-        <iframe
-          title="Mapa dojazdu — NewPrompt"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.8391!2d19.9167785!3d50.0755512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b0e7c1b5b3b%3A0x8e1f8e1e1e1e1e1e!2sJuliusza%20Lea%20114%2C%2030-133%20Kraków!5e0!3m2!1spl!2spl!4v1234567890123"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-    </section>
-  </main>
-
-<!-- CTA -->
-<section class="cta-full cta-upgrade fade-in" id="kontakt-cta">
-  <div class="cta-slab">
-    <span class="cta-kicker">Gotowi, gdy Ty jesteś</span>
-    <h2 class="cta-title">Porozmawiajmy o Twoim projekcie</h2>
-    <p class="cta-sub">
-      Krótka rozmowa → jasny plan i wycena dopasowana do Twoich potrzeb. Bez salesowego gadania.
-    </p>
-
-    <div class="cta-actions">
-      <a href="#form" class="cta-btn">📩 Wyślij zapytanie</a>
-      <a href="mailto:kontakt@newpromptai.pl" class="cta-btn cta-btn--ghost">✉️ kontakt@newpromptai.pl</a>
+    <div class="tile">
+      <h2>📧 E-mail</h2>
+      <p><a href="mailto:kontakt@newpromptai.pl" style="color:var(--accent-1); font-weight:700; text-decoration:none;">kontakt@newpromptai.pl</a></p>
+      <p style="font-size:.9rem; margin-top:.5rem;">Odpowiadamy: do 24h</p>
     </div>
+    <div class="tile">
+      <h2>💬 Bezpłatna konsultacja</h2>
+      <p>Pierwsza 45-60 min<br/>konsultacja gratis</p>
+    </div>
+  </section>
 
-    <ul class="cta-bullets" aria-label="Co zyskasz">
-      <li>• odpowiedź do 24h</li>
-      <li>• bezpłatna konsultacja 45–60 min</li>
-      <li>• certyfikat <strong>PK</strong> po szkoleniu</li>
-    </ul>
-
-    <span class="cta-badge" aria-hidden="true">Spin-off PK</span>
+  <!-- FAQ -->
+  <div class="section-header fade-in" style="margin:.25rem auto .5rem;">
+    <h2 class="section-title">Najczęściej pytane</h2>
+    <div class="section-underline"></div>
   </div>
-</section>
 
+  <section class="faq-wrap fade-in" style="margin-bottom:1.25rem;">
+    <div class="faq-card">
+      <button class="faq-toggle" aria-expanded="false" aria-controls="faq1">
+        <span class="faq-icon">📄</span>
+        <span class="faq-qtxt">Faktury i dane do umowy</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div id="faq1" class="faq-panel">
+        <p>W odpowiedzi na wiadomość prześlemy komplet danych formalnych oraz wzór umowy lub zamówienia.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <button class="faq-toggle" aria-expanded="false" aria-controls="faq2">
+        <span class="faq-icon">📅</span>
+        <span class="faq-qtxt">Terminy szkoleń</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div id="faq2" class="faq-panel">
+        <p>Szkolenia otwarte: drugi wtorek miesiąca o 20:00. Dla organizacji – terminy indywidualne.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <button class="faq-toggle" aria-expanded="false" aria-controls="faq3">
+        <span class="faq-icon">🎓</span>
+        <span class="faq-qtxt">Certyfikaty po szkoleniu</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div id="faq3" class="faq-panel">
+        <p>Każdy uczestnik otrzymuje certyfikat sygnowany przez Politechnikę Krakowską po ukończeniu szkolenia.</p>
+      </div>
+    </div>
+
+    <div class="faq-card">
+      <button class="faq-toggle" aria-expanded="false" aria-controls="faq4">
+        <span class="faq-icon">🏢</span>
+        <span class="faq-qtxt">Szkolenia firmowe</span>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div id="faq4" class="faq-panel">
+        <p>Oferujemy szkolenia zamknięte dla zespołów od 5 do 20 osób. Program dopasowujemy do potrzeb organizacji.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPA -->
+  <div class="section-header fade-in" style="margin:.25rem auto .5rem;">
+    <h2 class="section-title">Jak nas znaleźć</h2>
+    <div class="section-underline"></div>
+  </div>
+
+  <section class="fade-in" style="max-width:1100px; margin:.25rem auto 1.5rem; padding:0 2rem;">
+    <div style="border-radius:20px; overflow:hidden; box-shadow:var(--shadow-soft); aspect-ratio:16/9; border:1px solid var(--glass-border);">
+      <iframe
+        title="Mapa dojazdu – NewPrompt"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.839!2d19.9167785!3d50.0755512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b49d94fae89%3A0x5e5a3e8f7b3c8d9f!2sJuliusza%20Lea%20114%2C%2030-133%20Kraków!5e0!3m2!1spl!2spl!4v1234567890"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        style="width:100%; height:100%; border:0;">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-full cta-upgrade fade-in" style="margin-top:.5rem;">
+    <div class="cta-slab">
+      <span class="cta-kicker">Gotowi, gdy Ty jesteś</span>
+      <h2 class="cta-title">Masz pytania? Zadzwoń lub napisz</h2>
+      <p class="cta-sub">Krótka rozmowa → jasny plan i wycena. Bez zobowiązań.</p>
+
+      <div class="cta-actions">
+        <a href="mailto:kontakt@newpromptai.pl" class="cta-btn">📧 kontakt@newpromptai.pl</a>
+      </div>
+
+      <ul class="cta-bullets">
+        <li>• odpowiedź do 24h</li>
+        <li>• bezpłatna konsultacja 45-60 min</li>
+        <li>• certyfikat PK po szkoleniu</li>
+      </ul>
+
+      <span class="cta-badge">Spin-off PK</span>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer>
@@ -475,76 +234,87 @@
     <button id="accept-cookies" class="cookie-btn">Akceptuję</button>
   </div>
 
-  <!-- Global scripts -->
+  <!-- Scripts -->
   <script src="js/theme-toggle.js"></script>
   <script src="js/menu.js"></script>
   <script src="js/cookie.js"></script>
 
   <script>
-    // Fade-in on scroll (spójne z resztą serwisu)
+    // Animacje (fade-in)
     document.addEventListener("DOMContentLoaded", () => {
-      const els = document.querySelectorAll(".fade-in");
-      if (!("IntersectionObserver" in window)) { els.forEach(el => el.classList.add("show")); return; }
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("show"); io.unobserve(e.target); }});
-      }, { threshold: .12, rootMargin: "0px 0px -60px 0px" });
-      els.forEach(el => io.observe(el));
+      const elements = document.querySelectorAll(".fade-in");
+      if (!("IntersectionObserver" in window)) {
+        elements.forEach(el => el.classList.add("show"));
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+      elements.forEach(el => observer.observe(el));
+      // Awaryjnie pokaż po 1.5s
+      setTimeout(() => elements.forEach(el => el.classList.add("show")), 1500);
     });
 
-    // FAQ accordion (ARIA + animowany max-height)
-    function setupFAQ(){
-      const items = document.querySelectorAll(".faq-item");
-      items.forEach(item => {
-        const btn = item.querySelector(".faq-btn");
-        const panel = document.getElementById(btn.getAttribute("aria-controls"));
-        btn.addEventListener("click", () => {
-          const open = item.getAttribute("aria-expanded") === "true";
-          // zamknij inne
-          document.querySelectorAll(".faq-item[aria-expanded='true']").forEach(x => {
-            if (x !== item) {
-              x.setAttribute("aria-expanded","false");
-              const b = x.querySelector(".faq-btn");
-              const p = document.getElementById(b.getAttribute("aria-controls"));
-              b.setAttribute("aria-expanded","false");
-              p.style.maxHeight = "0px";
+    // FAQ
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.faq-card').forEach(card => {
+        const button = card.querySelector('.faq-toggle');
+        const panel = card.querySelector('.faq-panel');
+        button.addEventListener('click', () => {
+          const isOpen = card.classList.contains('open');
+          document.querySelectorAll('.faq-card.open').forEach(c => {
+            if (c !== card) {
+              c.classList.remove('open');
+              c.querySelector('.faq-toggle').setAttribute('aria-expanded', 'false');
+              c.querySelector('.faq-panel').style.maxHeight = null;
             }
           });
-          // toggle bieżącego
-          item.setAttribute("aria-expanded", String(!open));
-          btn.setAttribute("aria-expanded", String(!open));
-          if (!open) {
-            panel.style.maxHeight = panel.scrollHeight + "px";
+          if (!isOpen) {
+            card.classList.add('open');
+            button.setAttribute('aria-expanded', 'true');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
           } else {
-            panel.style.maxHeight = "0px";
+            card.classList.remove('open');
+            button.setAttribute('aria-expanded', 'false');
+            panel.style.maxHeight = null;
           }
         });
-        // start collapsed
-        panel.style.maxHeight = "0px";
-      });
-    }
-    document.addEventListener("DOMContentLoaded", setupFAQ);
-
-    // Prosta walidacja formularza
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("contactForm");
-      if (!form) return;
-      form.addEventListener("submit", (e) => {
-        const req = form.querySelectorAll("[required]");
-        let ok = true;
-        req.forEach(f => {
-          if (!f.value.trim()) {
-            f.style.borderColor = "#ef4444";
-            ok = false;
-          } else {
-            f.style.borderColor = "";
-          }
-        });
-        if (!ok) {
-          e.preventDefault();
-          alert("Proszę wypełnić wszystkie wymagane pola.");
-        }
       });
     });
+
+    // Walidacja formularza
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      const required = this.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(field => {
+        if (!field.value.trim()) {
+          field.style.borderColor = '#ef4444';
+          valid = false;
+        } else {
+          field.style.borderColor = '';
+        }
+      });
+      if (!valid) {
+        e.preventDefault();
+        alert('Proszę wypełnić wszystkie wymagane pola.');
+      }
+    });
   </script>
+
+  <!-- Nadpisania odstępów (kasują „biały kanion”) -->
+  <style>
+    .contact-form-section { margin-bottom: 0 !important; }
+    .contact-form-section .tile { margin-bottom: 0 !important; }
+    .tiles { margin: .25rem auto 0 !important; padding-top: 0 !important; }
+    .faq-wrap { margin-top: .25rem !important; }
+    .section-header { margin: .25rem auto .5rem !important; }
+    /* Gdy kafelki usuniesz, nagłówek po formularzu wciąż będzie przyklejony */
+    .contact-form-section + .section-header { margin-top: .25rem !important; }
+  </style>
 </body>
 </html>
