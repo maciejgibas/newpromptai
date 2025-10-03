@@ -2162,3 +2162,41 @@ a.cta.big.outline-on-gradient:focus-visible {
 }
 .cta-full .cta-contrast:hover { background: rgba(255,255,255,.12); }
 [data-theme="dark"] .cta-full .cta-contrast { color:#fff; border-color:rgba(255,255,255,.9); }
+
+/* === FIX: Dark mode contrast === */
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select {
+  color: var(--fg) !important;
+  background: var(--surface-weak) !important;
+  border-color: var(--glass-border) !important;
+}
+
+body.dark-theme .tile p,
+body.dark-theme .offer-item p,
+body.dark-theme .card p {
+  color: var(--text-muted) !important;
+}
+
+body.dark-theme .section-sub {
+  color: var(--text-muted) !important;
+}
+
+/* STARA WERSJA - usuń */
+@media (min-width: 768px) {
+  .nav-links { display: block; }
+  .hamburger { display: none; }
+}
+
+/* NOWA WERSJA - wklej */
+@media (min-width: 1300px) {  /* ← zmiana z 768px na 1300px */
+  .nav-links { display: block; }
+  .hamburger { display: none; }
+  .hero { padding: 12rem 2rem 8rem; }
+}
+
+/* Dodaj nowy breakpoint dla średnich ekranów */
+@media (min-width: 768px) and (max-width: 1299px) {
+  .hamburger { display: block !important; }
+  .nav-links { display: none !important; }
+}
